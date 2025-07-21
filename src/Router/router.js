@@ -22,10 +22,13 @@ export const router = async (elemento) => {
   const [ruta, parametros] = resultadoRuta;
 
   // Verificar acceso privado
-//   if (ruta.private) {
-//     redirigirARuta("Login");
-//     return;
-//   }
+  if (ruta.private) {
+    const token=localStorage.getItem('token');
+    if(!token){
+      redirigirARuta("Login");
+      return;
+    }
+  }
 
   // Cargar la vista HTML y ejecutar el controlador JS
   await cargarVista(ruta.path, elemento);
@@ -38,7 +41,7 @@ const redirigirARuta = (ruta) => {
 };
 
 
-const encontrarRuta = (routes, segmentos) => {  
+export const encontrarRuta = (routes, segmentos) => {  
 
   let rutaActual = routes;
   let rutaEncontrada = false;

@@ -9,12 +9,60 @@
 
 /*-------------------------------INICIO DE SESION----------------------------------*/
 
-#app{
-    width: 100%;
-    height: 100vh;
-    background-image: url(/public/img_fondo_login_1.png);
-    background-size: cover;
+.grid-container{
+  display: grid;
+  grid-template-areas:
+    "app";
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  height: 100vh;
+  background-image: url(/public/img_fondo_login_1.png);
 }
+
+.layout {
+  display: grid;
+  grid-template-areas:
+    "encabezado encabezado"
+    "sidebar app";
+  grid-template-columns: 15% 85%;
+  grid-template-rows: 10% 90%;
+  height: 100vh;
+}
+
+.encabezado{
+  width: 100%;
+  height: 100%;
+  background-color: #212121;
+  grid-area: encabezado;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 3%;
+  align-items: center;
+  color: white;
+}
+
+.sidebar{
+  background-color: #212121;
+  width: 100%;
+  height: 100%;
+  grid-area: sidebar;
+  border-top: solid 1px white;
+  padding-top: 5%;
+}
+
+.app{
+  width: 100%;
+  height: 100%;
+  grid-area: app;
+}
+
+.contenido{
+  width: 100%;
+  height: 100%;
+  padding: 2%;
+}
+
+
 
 button{
   border: none;
@@ -233,4 +281,372 @@ span{
 .formulario__boton--cancelar:hover{
   box-shadow: 0px 0px 50px 2px red;
 
+}
+
+.contenido--flex{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoEncabezado{
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.logoEncabezado__imagen{
+  height: 50%;
+  width: auto;
+  margin: 0 1vw;
+}
+
+.encabezadoPerfil{
+  display: flex;
+  height: 100%;
+  align-items: center;
+  gap: 10px;
+}
+.encabezadoPerfil:hover{
+  cursor: pointer;
+}
+
+.encabezadoPerfil__icono{
+  background-color: white;
+  color: #4DD42E;
+  align-content: center;
+  width: 45px;
+  height: 45px;
+  font-size: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*---------------- SIDEBAR ------------------*/
+.sidebar__boton{
+  display: flex;
+  width: 100%;
+  /* background-color: red; */
+  height: 7%;
+  /* justify-content: space-evenly; */
+  align-items: center;
+  padding-left: 15%;
+}
+
+.botonSidebar__icono{
+  font-size: 1.2vw;
+  margin-right: 8%;
+  color: #4DD42E;
+}
+
+.botonSidebar__texto{
+  font-family: "Exo 2", sans-serif;
+  text-decoration: none;
+  color: white;
+  font-size: 1.2vw;
+  font-weight: 700;
+}
+
+/*------------------------------ RESERVAS --------------------------*/
+
+.botonesSuperiores{
+  display: flex;
+  height: 7%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.botonesSuperiores__buscar{
+  display: flex;
+  height: 100%;
+  width: 40%;
+  align-items: center;
+  justify-content: center;
+}
+
+.buscar__input{
+  width: 80%;
+  height: 35px;
+  border: none;
+  background-color: rgba(33, 33, 33, 0.9);
+  border-bottom: solid 1px #4DD42E;
+  border-top: solid 1px #4DD42E;
+  border-right: solid 1px #4DD42E;
+  border-radius: 0 15px 15px 0;
+  outline: none;
+  color: white;
+}
+
+.w-full{
+  width: 100%;
+}
+
+.h-full{
+  height: 100%;
+}
+
+.d-flex{
+  display: flex;
+}
+
+.jusCont-center{
+  justify-content: center;
+}
+
+.buscar__input::placeholder{
+  color: rgba(255, 255, 255, 0.589);
+  
+}
+
+.buscar__icono{
+  display: flex;
+  background-color: rgba(33, 33, 33, 0.9);
+  color: white;
+  font-family: 15px;
+  height: 35px;
+  width: 40px;
+  justify-content: center;
+  align-items: center;
+  border-bottom: solid 1px #4DD42E;
+  border-top: solid 1px #4DD42E;
+  border-left: solid 1px #4DD42E;
+  border-radius: 15px 0 0 15px;
+}
+
+.infoEstadoReserva{
+  display: flex;
+  width: 30%;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.infoEstado{
+  display: flex;
+  background-color: white;
+  height: 3vw;
+  color: black;
+  justify-content: center;
+  align-items: center;
+  width: 7.5vw;
+  border-radius: 15px;
+  font-size: 1.042vw;
+}
+
+.infoEstado--enProceso{
+  background-color: #4DD42E;
+}
+
+.infoEstado--terminado{
+  background-color: red;
+}
+
+.contenido__Boton{
+  display: flex;
+  border: none;
+  background-color: #4DD42E;
+  width: 11vw;
+  height:3vw;
+  justify-content: space-evenly;
+  align-items: center;
+  color: white;
+  font-family: "Exo 2", sans-serif;
+  text-decoration: none;
+  font-size: 1.042vw;
+  border-radius: 15px;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.contenido__Boton:hover{
+  font-size: 1.2vw;
+}
+
+.contenido__contenedor{
+  width: 100%;
+  height: 90%;
+  background-color: rgba(33, 33, 33, 0.9);
+  border-radius: 40px;
+  padding: 2%;
+  margin-top: 17px;
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar{
+  display: none;
+}
+
+/*----------------- TABLA ------------------------*/
+.tabla{
+  color: white;
+  width: 100%;
+  border-spacing: 0 10px;
+  /* border: solid 1px #4DD42E; */
+  padding: 2%;
+  border-radius: 20px;  
+}
+.tabla__cuerpo{
+  overflow-x: scroll;
+}
+.tabla__encabezado{
+  color: #4DD42E;
+}
+
+.tabla__fila{
+  transition: background-color 0.3s;
+}
+
+.tabla__fila--blanco{
+  background-color:#ffffff75;
+  transition: 0.3s;
+}
+
+.tabla__fila--verde{
+  background-color:#4cd42e75;
+  transition: 0.3s;
+
+}
+
+.tabla__fila--rojo{
+  background-color:#d42e2e75;
+  transition: 0.3s;
+}
+
+
+.tabla__campo{
+  text-align: center;
+  padding:2vh 0;
+}
+
+.tabla__campo--bordeVerde{
+  border: solid 1px #4DD42E;
+}
+
+/* .tabla__campo--bordeRed{
+  border: solid 1px red;
+}
+
+.tabla__campo--bordeBlanco{
+  border: solid 1px white;
+} */
+
+.tabla__campo:first-child{
+  border-radius: 15px 0 0 15px;
+}
+
+.tabla__campo:last-child{
+  border-radius: 0 15px 15px 0;
+}
+
+.registro__boton{
+  display: flex;
+  width: 2.5vw;
+  height:2.5vw;
+  background-color: #4DD42E;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.3vw;
+  font-weight: 1000;
+  margin: 0 auto;
+  border-radius: 15px;
+  transition:  0.2s;
+  cursor: pointer;
+}
+
+/*------------------------------------ CARDS ------------------------------------*/
+.cards{
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  display: grid;
+  grid-template-columns: repeat(auto-fill,285px);
+  gap: 15px;
+  justify-content: center;
+}
+
+.cards--consolas{
+  grid-template-columns: repeat(auto-fill,350px);
+}
+
+.card{
+  border: solid 2px #4DD42E;
+  background-color: #212121;
+  height: 370px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* padding: 13px; */
+  align-items: center;
+  text-align: center;
+  color: white;
+  gap: 10px;
+  border-radius: 15px;
+  justify-content: center;
+}
+
+.cardInfo{
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.card--horizontal{
+  flex-direction: row;
+  height: 190px;
+  padding: 10px;
+}
+
+.card__linea{
+  width: 100%;
+  border: solid 1px #4DD42E;
+}
+
+.card__imagen{
+  height: 102px;
+  width: auto;
+}
+
+.card__descripcion{
+  font-size: 12px;
+  margin: 0 13px;
+  font-weight: 600;
+  height: 56px;
+  overflow-y: scroll;
+  word-break: break-all;
+}
+
+.card__descripcion--consola{
+  height: 70px;
+  align-content: center;
+}
+
+.card__precio,
+.card__cantidades{
+  color: #4DD42E;
+}
+.card__botones{
+  display: flex;
+  gap: 10px;
+}
+
+.card__boton{
+  width: 35px;
+  height: 35px;
+  display: block;
+  background-color: #4DD42E;
+  text-decoration: none;
+  color: white;
+  align-content: center;
+  font-size: 20px;
+  border-radius: 9px;
+  transition: 0.3s;
+}
+
+.card__boton:hover{
+  cursor: pointer;
+  font-size: 27px;
 }

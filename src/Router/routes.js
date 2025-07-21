@@ -1,5 +1,7 @@
+import { consolasController } from "../Views/Consolas/consolasController";
 import { loginController } from "../Views/Login/loginController";
 import { registroController } from "../Views/Registro/registroController";
+import { reservasController } from "../Views/Reservas/reservasController";
 
 export const routes={
     Login:{
@@ -11,5 +13,15 @@ export const routes={
         path:'Registro/index.html',
         controlador:registroController,
         private:false
+    },
+    Reservas:{
+        path:'Reservas/index.html',
+        controlador:reservasController,
+        private:true
+    },
+    Consolas:{
+        path:'Consolas/index.html',
+        controlador:consolasController,
+        private:true
     }
 }
