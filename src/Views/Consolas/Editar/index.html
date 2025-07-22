@@ -1,0 +1,19 @@
+<main class="contenido contenido--flex">
+    <form action="#" class="formulario formulario--NuevaConsola" novalidate autocomplete="off">
+        <div class="contenedorCampo contenedorCampo--imagen">
+          <label class="formulario__insertarImagen" for="seleccionarImagen">
+            <i class="bi bi-card-image insertarImagen__icono" ></i>
+            <label for="seleccionarImagen">Haga click para insertar una imagen</label>
+          </label>
+        </div>
+        <div class="contenedorCampo"><input type="file" class="formulario__campo formulario__campo--oculto" id="seleccionarImagen" accept="image/png" name="archivo"></div>
+        <div class="contenedorCampo"><input type="text" class="formulario__campo" placeholder="Nombre de la consola" id="nombre" required  max="30" min="4"></div>
+        <div class="contenedorCampo"><textarea name="" class="formulario__campo formulario__campo--textArea" id="descripcion" placeholder="Ingrese una descripcion de la consola..." minlength="15" required></textarea></div>
+        <div class="contenedorCampo">
+          <select name="" id="id_tipo" class="formulario__campo" required>
+            <option value="0" >Seleccione el tipo</option>
+          </select>
+        </div>
+        <button class="formulario__boton">Actualizar</button>
+    </form>
+</main>

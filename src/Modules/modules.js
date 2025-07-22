@@ -23,8 +23,52 @@ export const crearTabla=(encabezados,contenedor)=>{
     contenedor.append(tabla)
 }
 
-export const crearFila=(info,id,contenedor)=>{
+export const crearFila=(info,id,contenedor,hash)=>{
     const fila=document.createElement('tr');
+    fila.classList.add('tabla__fila');
+
+    info.forEach(item => {
+        const campo=document.createElement('td');
+        campo.classList.add('tabla__campo','tabla__campo--bordeVerde');
+        campo.textContent=item;
+        fila.append(campo);
+    });
+
+    const campo=document.createElement('td');
+    campo.classList.add('tabla__campo','tabla__campo--bordeVerde');
+
+    const contenedorBotones=document.createElement('div');
+    contenedorBotones.classList.add('contenedorBotonesTabla');
+
+    const botonEliminar=document.createElement('button');
+    botonEliminar.classList.add('registro__boton','registro__boton--eliminar')
+
+    const iconoEliminar=document.createElement('i');
+    iconoEliminar.classList.add('bi','bi-trash-fill');
+
+    botonEliminar.append(iconoEliminar);
+    contenedorBotones.append(botonEliminar);
+
+    const botonEditar=document.createElement('a');
+    botonEditar.classList.add('registro__boton','registro__boton--editar')
+    botonEditar.setAttribute('id',id);
+    botonEditar.setAttribute('href',`#/${hash}/id=${id}`)
+
+    const iconoEditar=document.createElement('i');
+    iconoEditar.classList.add('bi', 'bi-pencil-square');
+    botonEliminar.setAttribute('id',id)
+
+    botonEditar.append(iconoEditar);
+    contenedorBotones.append(botonEditar);
+
+    campo.append(contenedorBotones);
+    fila.append(campo)
+
+    contenedor.append(fila);
+}
+
+export const crearFilaConsumos=(info,id,contenedor)=>{
+  const fila=document.createElement('tr');
     fila.classList.add('tabla__fila');
 
     info.forEach(item => {
@@ -54,8 +98,8 @@ export const crearFila=(info,id,contenedor)=>{
     botonEditar.setAttribute('id',id);
 
     const iconoEditar=document.createElement('i');
-  iconoEditar.classList.add('bi', 'bi-pencil-square');
-  botonEliminar.setAttribute('id',id)
+    iconoEditar.classList.add('bi', 'bi-pencil-square');
+    botonEliminar.setAttribute('id',id)
 
     botonEditar.append(iconoEditar);
     contenedorBotones.append(botonEditar);
@@ -102,7 +146,8 @@ export const crearFilaTablaReservas=async(info,id,contenedor)=>{
   HoraFin.textContent=quitarFOmatoIso(String(info.horaFinalizacion));
   Consola.textContent=info.nombreConsola;
 
-  const bot=document.createElement('button');
+  const bot=document.createElement('a');
+  bot.setAttribute('href',`#/Reservas/Consumos/id=${id}`)
   bot.classList.add('registro__boton','Info');
   bot.setAttribute('id',id)
   const iconBot=document.createElement('i');
@@ -289,8 +334,9 @@ export const crearCardsProductos=async (productos,contenedor)=>{
     const contenedorBotones=document.createElement('div');
     contenedorBotones.classList.add('card__botones');
 
-    const botonEditar=document.createElement('button');
+    const botonEditar=document.createElement('a');
     botonEditar.setAttribute('id',producto.id);
+    botonEditar.setAttribute('href',`#/Productos/Editar/id=${producto.id}`)
     botonEditar.classList.add('card__boton','editar');
 
     const iconoEditar=document.createElement('i');
@@ -348,8 +394,9 @@ export const cargarCardsConsolas = async (consolas, contenedor) => {
     const contenedorBotones=document.createElement('div');
     contenedorBotones.classList.add('card__botones');
 
-    const botonEditar=document.createElement('button');
+    const botonEditar=document.createElement('a');
     botonEditar.setAttribute('id',consola.id);
+    botonEditar.setAttribute('href',`#/Consolas/Editar/id=${consola.id}`)
     botonEditar.classList.add('card__boton','editar');
 
     const iconoEditar=document.createElement('i');

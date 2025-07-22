@@ -49,7 +49,7 @@ const render=()=> {
 
   const [ruta] = resultadoRuta;
 
-  if (ruta.private) {
+  if (ruta.private && localStorage.getItem('token')) {
     grid_container.classList.add('layout'); // sidebar + header
     cargarLayoutPrivado();
     app.classList.remove('app-full')

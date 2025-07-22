@@ -17,3 +17,11 @@ export const success = (mensaje) => {
     draggable: true
   });
 }
+
+export const error = (mensaje) => {
+  return Swal.fire({
+    title: mensaje,
+    icon: "error",
+    draggable: true
+  });
+}

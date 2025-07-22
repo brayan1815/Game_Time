@@ -1,0 +1,27 @@
+<main class="contenido">
+      
+    <div class="fondoOscuro"></div>
+      <div class="calendariOculto">
+        <button class="botonCerrarCalendario">Cerrar</button>
+        <div id="calendarioReserva"></div>
+      </div>
+
+      <div class="contenedorFormularioModal">
+        <form action="" novalidate autocomplete="off" class="formulario formulario--sinTransparencia">
+          <input type="text" class="formulario__campo--oculto" id="id_consola" required>
+          <div class="contenedorCampo"><input type="text" placeholder="Ingrese el numero de documento" class="formulario__campo" required min="5" max="10" id="documento"></div>
+          <label for="hora_inicio" class="formulario__label">Hora de inicio de la reserva:</label>
+          <div class="contenedorCampo"><input type="text" id="hora_inicio" class="formulario__campo" disabled required></div>
+          <label for="hora_finalizacion" class="formulario__label">Hora de finalizacion de la reserva</label>
+          <div class="contenedorCampo"><input type="text" id="hora_finalizacion" class="formulario__campo" disabled required></div>
+          <button class="formulario__boton">Reservar</button>
+          <button class="formulario__boton formulario__boton--cancelar" type="button">Cancelar</button>
+        </form>
+        
+      </div>
+
+      <div class="contenido__contenedor">
+        <div class="cards  cards--consolas">
+        </div>
+      </div>
+</main>

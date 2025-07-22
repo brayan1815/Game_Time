@@ -101,12 +101,12 @@ export const reservasController=async()=>{
     barraBusqueda.addEventListener('keydown', validarNumeros);
 
     window.addEventListener('click',(event)=>{
-    const clase=event.target.getAttribute('class');
-    const id=event.target.getAttribute('id');
+        const clase=event.target.getAttribute('class');
+        const id=event.target.getAttribute('id');
 
-    if(clase=='registro__boton Info'){
-        window.location.href=`info_reserva.html?id=${encodeURIComponent(id)}`
-    }
+        // if(clase=='registro__boton Info'){
+        //     window.location.href=`info_reserva.html?id=${encodeURIComponent(id)}`
+        // }
     
     })
     

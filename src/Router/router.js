@@ -64,8 +64,10 @@ export const encontrarRuta = (routes, segmentos) => {
       rutaEncontrada = false;
     }
 
+    
     // Si la ruta actual es un grupo de rutas (es decir, tiene más subniveles)
     if (esGrupoRutas(rutaActual)) {
+      
 
       // Verificamos si existe una ruta por defecto ("/") y si solo hay un segmento
       // Esto cubre el caso de rutas como "#/Categorias" donde se espera que "/Categorias/" sea válido

@@ -1,0 +1,103 @@
+<main class="contenido">
+    <div class="contenedorFormularioModal ">
+        <form action="" class="formulario formulario--AgregarProducto">
+            <label for="producto" class="formulario__label">Seleccione el producto que desea agregar:</label>
+            <select name="producto" id="id_producto" class="formulario__campo" required>
+              <option value="0">Seleccione</option>
+            </select>
+            <label for="Cantidad" class="formulario__label">Cantidades disponibles:</label>
+            <div id="cantDisponible" class="formulario__campo formulario__campo--verde"></div>
+            <label for="precio_unidad" class="formulario__label">Precio:</label>
+            <div id="precio_unidad" class="formulario__campo formulario__campo--verde"></div>
+            <label for="cantidad" class="formulario__label">Cantidades a comprar:</label>
+            <div>
+              <div class="contenedorCampo contenedorCampo--displayFlex">
+                <button type="button" class="btnSumarRestar restar" disabled id="restar">-</button>
+                <input type="text" class="formulario__Contador" id="cantidad" readonly value="0" required>
+                <button type="button" class="btnSumarRestar sumar" disabled id="sumar">+</button>
+              </div>
+            </div>
+            <!-- <input type="text" placeholder="Ingrese la cantidad que desea comprar" class="formulario__campo"> -->
+            <label for="subtotal" class="formulario__label">Subtotal:</label>
+            <input type="text" id="subtotal" class="formulario__campo formulario__campo--verde" readonly required>
+            <!-- <div id="subtotal" class="formulario__campo formulario__campo--verde"></div> -->
+            <button class="formulario__boton" type="submit">Agregar</button>      
+            <button class="formulario__boton formulario__boton--cancelar" type="button">Cancelar</button>      
+          </form>
+        </div>
+        <div class="contenedorFormularioModal editar">
+          <form action="" class="formulario Editar">
+            <input type="text" class="formulario__campo--oculto" id="id_consumo" required>
+            <label for="producto" class="formulario__label">producto:</label>
+            <div id="Producto" class="formulario__campo formulario__campo--verde">Papas</div>
+            <label for="Cantidad" class="formulario__label">Cantidades disponibles:</label>
+            <div id="cantidades_disponibles" class="formulario__campo formulario__campo--verde"></div>
+            <label for="precio_unidad" class="formulario__label">Precio:</label>
+            <div id="precio_unidad" class="formulario__campo formulario__campo--verde"></div>
+            <label for="cantidad" class="formulario__label">Cantidades a comprar:</label>
+            <div>
+              <div class="contenedorCampo contenedorCampo--displayFlex">
+                <button type="button" class="btnSumarRestar restar editar" id="restar">-</button>
+                <input type="text" class="formulario__Contador" id="cantidad" readonly value="0" required>
+                <button type="button" class="btnSumarRestar sumar editar" id="sumar">+</button>
+              </div>
+            </div>
+            <label for="subtotal_editar" class="formulario__label">Subtotal:</label>
+            <input type="text" id="subtotal" class="formulario__campo formulario__campo--verde" readonly required>
+            <button class="formulario__boton" type="submit">Actualizar</button>      
+            <button class="formulario__boton formulario__boton--cancelar editar" type="button">Cancelar</button>      
+          </form>
+        </div>
+
+        <div class="contenedorModal fac">
+          <div class="factura">
+            <h1>Informacion de Cobro</h1>
+            <div class="factura__info">
+              <table class="tabla">
+                <thead class="tabla__encabezado">
+                  <tr>
+                    <th>Cobro</th>
+                    <th>Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody class="tabla__cuerpofac">
+                  <tr class="tabla__fila">
+                    <td class="tabla__campo tabla__campo--bordeVerde">Consola</td>
+                    <td class="tabla__campo tabla__campo--bordeVerde" id="pago_consola"></td>
+                  </tr>
+                  <tr class="tabla__fila">
+                    <td class="tabla__campo tabla__campo--bordeVerde">Consumo</td>
+                    <td class="tabla__campo tabla__campo--bordeVerde" id="pago_consumo"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <h1 id="total"></h1>
+            <label for="metodo_pago">Seleccione el metodo de pago:</label>
+            <select name="" id="metodo_pago" class="formulario__campo">
+              <option value="0">Seleccione</option>
+            </select>
+            <button class="formulario__boton cob">Pagar</button>
+            <button class="formulario__boton formulario__boton--cancelar fac">Cancelar</button>
+          </div>
+        </div>
+        <div class="contenido__contenedor contenido__contenedor--grande">
+          <div class="infoReserva">
+            <p class="infoReserva__texto nombreUsuario"></p>
+            <p class="infoReserva__texto horaInicioFin"></p>
+            <p class="infoReserva__texto consola"></p>
+            <p class="infoReserva__texto precioHora"></p>         
+          </div>
+          <div class="productosReserva">
+            <div class="contenedorTabla">
+
+            </div>
+            <!-- <button class="boton__tabla">Agregar Producto</button> -->
+            <button class="boton__tabla">Agregar Producto</button>
+          </div>
+          <div class="botonRegresar">
+            <button class="contenido__Boton contenido__Boton--cobrar">Cobrar</button>
+          </div>
+
+        </div>
+</main>

@@ -106,6 +106,11 @@ button i {
   height: 100%;
 }
 
+ .formulario--nuevoUsuario{
+  width: 40%;
+  height: 100%;
+  margin: 0;
+ }
 .LogoFormulario{
     display: flex;
     flex-direction: column;
@@ -555,6 +560,23 @@ span{
   cursor: pointer;
 }
 
+ .contenedorBotonesTabla{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  gap: 5%;
+ }
+ .registro__boton--eliminar{
+  background-color: red;
+  margin: 0;
+ }
+
+ .registro__boton--editar{
+  margin: 0;
+ }
+
 /*------------------------------------ CARDS ------------------------------------*/
 .cards{
   width: 100%;
@@ -649,4 +671,261 @@ span{
 .card__boton:hover{
   cursor: pointer;
   font-size: 27px;
+}
+
+/*------------------------ NUEVA RESERVA -----------------*/
+
+.botonReservar{
+  height: 35px;
+  width: 100px;
+  background-color: #4DD42E;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.botonReservar:hover{
+  font-size: 15px;
+}
+
+.calendariOculto{
+  display: none;
+  position: fixed;
+  top: 5%;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  background-color: black;
+  color: white;
+  border: 2px solid #4DD42E;
+  border-radius: 15px;
+  padding: 20px;
+  overflow: auto;
+  z-index: 1000;
+}
+
+.fondoOscuro{
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.747);
+  top: 0;
+  left: 0;
+}
+
+.fc-direction-ltr .fc-button-group > .fc-button:not(:last-child) {
+    background-color: #4DD42E;
+    border: none;
+    color: white;
+}
+
+.fc .fc-timegrid-slot-minor{
+  border: none;
+}
+
+.fc-direction-ltr .fc-button-group > .fc-button:not(:first-child){
+  background-color: #348622;
+  border: none;
+  outline: none;
+}
+
+.fc-icon-chevron-right::before{
+  color: white;
+}
+
+.fc-icon-chevron-left::before{
+  color: white;
+}
+
+.botonCerrarCalendario{
+  background-color: red;
+  margin-bottom: 3px;
+  width: 88px;
+  height: 38px;
+  border-radius: 5px;
+  color: white;
+  font-weight: 800;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.botonCerrarCalendario:hover{
+  cursor: pointer;
+  font-size: 20px;
+}
+.contenedorFormularioModal,
+.contenedorModal{
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.747);
+  top: 0;
+  left: 0;
+}
+
+
+#hora_inicio,
+#hora_finalizacion{
+  cursor: not-allowed;
+}
+
+.displayBlock{
+  display: block;
+}
+
+.displayFlex{
+  display: flex;
+}
+
+/*---------------------- INFORMACION DE LA RESERVA---------------------------------*/
+.contenido__contenedor--grande{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  grid-template-rows: 80% 20%;
+  grid-template-areas: "info_reservas productos_reserva"
+                      "info_reservas boton_regresar";
+ }
+
+ .infoReserva{
+  width: 100%;
+  height: 40%;
+  border: solid 1px #4DD42E;
+  border-radius: 25px;
+  display: flex;
+  grid-area: info_reservas;
+  padding: 5%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2%;
+  color: white;
+  font-size: 1.7vw;
+  font-weight: 700;
+  align-self: center;
+ }
+
+ 
+ .infoReserva__texto{
+   color: #4DD42E;
+  }
+  
+  .horaInicioFin{
+  font-size: 1vw;
+   color: white;
+  }
+
+ .productosReserva{
+  grid-area: productos_reserva;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  /* background-color: rebeccapurple; */
+  padding: 5%;
+  overflow-y:scroll;
+ }
+ .contenedorTabla{
+  width: 100%;
+  height: 100%;
+  overflow-x: scroll;
+  border: solid 1px #4DD42E;
+  border-radius: 15px;
+ }
+
+ .boton__tabla{
+  background-color: #4DD42E;
+  width: 12vw;
+  border: none;
+  min-height: 4.5vh;
+  margin: 7px;
+  border-radius: 15px;
+  color: white;
+  font-size: 0.9vw;
+  font-weight: 600;
+  text-align: center;
+  align-content: center;
+  text-decoration: none;
+  cursor: pointer;
+ }
+
+ .botonRegresar{
+  grid-area: boton_regresar;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+ }
+
+ .contenedorBotonesTabla{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  gap: 5%;
+ }
+ .registro__boton--eliminar{
+  background-color: red;
+  margin: 0;
+ }
+
+ .registro__boton--editar{
+  margin: 0;
+ }
+
+ /*------------------------------- FACTURA ------------------*/
+ .factura{
+  width: 40%;
+  height: 80%;
+  border: solid 3px #4DD42E;
+  background-color: #212121;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #4DD42E;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.factura__info{
+  width: 80%;
+  height: 35%;
+  border: solid 3px #4DD42E;
+  border-radius: 25px;
+  align-items: center;
+  justify-content: center;
+  gap: 5%;
+  overflow-y: scroll;
+}
+
+.border--red{
+  border: solid 2px red;
+
+}
+
+.border--punteado--red{
+  border: dashed 2px red;
+}
+
+.span--verde{
+  color: #4DD42E;
+}
+
+.boton-deshabilitado{
+  cursor: not-allowed;
+  background-color: #388128;
+  color: rgb(82, 79, 79)
 }
