@@ -26,6 +26,13 @@ const cargarLayoutPrivado = async () => {
     const sidebarHTML=await response.text();
     sidebar.innerHTML = sidebarHTML;
   }
+
+  const botonUsusariosSidebar=document.querySelector('.sidebar__boton.botonSidebar.usarios');
+  const usuario=JSON.parse(localStorage.getItem('usuario'));
+
+  if(usuario['id_rol']!=1)botonUsusariosSidebar.classList.add('displayNone');
+  else botonUsusariosSidebar.classList.remove('displayNone');
+
 };
 
 const render=()=> {

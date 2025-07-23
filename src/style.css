@@ -785,6 +785,10 @@ span{
   display: flex;
 }
 
+.displayNone{
+  display: none;
+}
+
 /*---------------------- INFORMACION DE LA RESERVA---------------------------------*/
 .contenido__contenedor--grande{
   width: 100%;

@@ -1,10 +1,10 @@
-export const confirmar = (mensaje) => {
+export const confirmar = (mensaje,texto="") => {
   return Swal.fire({
-    title: "Precaución",
-    text: `¿Está seguro de ${mensaje}?`,
+    title: `¿Está seguro de ${mensaje}?`,
+    text: texto,
     icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: "#3085d6",
+    confirmButtonColor: "#4DD42E",
     cancelButtonColor: "#d33",
     confirmButtonText: "Sí"
   });

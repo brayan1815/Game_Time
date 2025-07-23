@@ -3,12 +3,21 @@ import { crearFilaTablaReservas, crearTabla, validarNumeros } from "../../Module
 
 export const reservasController=async()=>{
     
+    const usuario=JSON.parse(localStorage.getItem('usuario'));
 
     const main=document.querySelector('.contenido__contenedor');
+    const comtenedorBarraBusqueda=document.querySelector('.botonesSuperiores__buscar')
     const barraBusqueda=document.querySelector('.buscar__input');
+    if(usuario.id_rol!=1)comtenedorBarraBusqueda.classList.add('displayNone');
+    else comtenedorBarraBusqueda.classList.remove('displayNone');
 
-
-    const reservas=await get('reservas/detalle');
+    let reservas=null;
+    if(usuario.id_rol==1){
+        reservas=await get('reservas/detalle');
+    }
+    else{
+        reservas=await get(`reservas/usuario/${usuario.id}`)
+    }
 
 
     if(reservas.length>0){
@@ -29,69 +38,77 @@ export const reservasController=async()=>{
 
 
     const actualizarEstados=async()=>{
-    console.log("actualizando estados");
-    const reservasActualizadas = await get("reservas/estado-actualizado");
+        console.log("actualizando estados");
+        const reservasActualizadas = await get("reservas/estado-actualizado");
 
-    const horaActual=new Date();
+        const horaActual=new Date();
     
     
     
-    for (const reserva of reservasActualizadas) {
+        for (const reserva of reservasActualizadas) {
 
-        const fila = document.querySelector(`.tabla__fila[id="${reserva.id}"]`);//se obtiene la fila con cla clase tabla filla y con el id de la reserva
-        console.log(fila);
+            const fila = document.querySelector(`.tabla__fila[id="${reserva.id}"]`);//se obtiene la fila con cla clase tabla filla y con el id de la reserva
+            console.log(fila);
         
         
         
 
-        if (fila) {
+            if (fila) {
         
-        fila.classList.remove("tabla__fila--verde", "tabla__fila--rojo","tabla__fila--blanco");
+                fila.classList.remove("tabla__fila--verde", "tabla__fila--rojo","tabla__fila--blanco");
 
-        if (reserva.idEstadoReserva == 2) {
-            fila.classList.add("tabla__fila--verde");
-        } else if (reserva.idEstadoReserva == 3) {
-            fila.classList.add("tabla__fila--rojo");
+                if (reserva.idEstadoReserva == 2) {
+                    fila.classList.add("tabla__fila--verde");
+                } else if (reserva.idEstadoReserva == 3) {
+                    fila.classList.add("tabla__fila--rojo");
+                }
+            }
         }
-        }
-    }
 
-    const minutosActuales = new Date().getMinutes();
-    let volvEje=0;
-    if(minutosActuales<30)volvEje=30-minutosActuales;
-    else volvEje=60-minutosActuales;
+        const minutosActuales = new Date().getMinutes();
+        let volvEje=0;
+        if(minutosActuales<30)volvEje=30-minutosActuales;
+        else volvEje=60-minutosActuales;
 
-    console.log("Se volvera a ejecutar en: "+volvEje);
+        console.log("Se volvera a ejecutar en: "+volvEje);
 
-    setTimeout(actualizarEstados, volvEje * 60000)
+        setTimeout(actualizarEstados, volvEje * 60000)
     }
     actualizarEstados();
 
     let estaBuscando = false;
 
     const buscarReservas = async (event) => {
-    if (estaBuscando) return;
+        if (estaBuscando) return;
 
-    estaBuscando = true;
+        estaBuscando = true;
 
-    const texto = event.target.value.trim();
-    const regex = new RegExp("^" + texto);
+        const texto = event.target.value.trim();
+        const regex = new RegExp("^" + texto);
+        let reservas=null;
+        console.log("Entrando");
 
-    const reservas = await get('reservas/detalle');
-    cuerrpoTabla.innerHTML = "";
-
-    for (const reserva of reservas) {
-        const usu = await get(`usuarios/documento/${reserva.documentoUsuario}`);
-        const documento = String(usu.documento);
-
-        if (texto === "" || regex.test(documento)) {
-        if(reserva.idEstadoReserva!=4){
-            crearFilaTablaReservas(reserva, reserva.id, cuerrpoTabla);
+        if(usuario.id_rol==1){
+        
+            reservas = await get('reservas/detalle');
+        }else{
+        reservas=await get(`reservas/usuario/${usuario.id}`)
         }
-        }
-    }
 
-    estaBuscando = false;
+        cuerrpoTabla.innerHTML = "";
+
+        for (const reserva of reservas) {
+            const usu = await get(`usuarios/documento/${reserva.documentoUsuario}`);
+            const documento = String(usu.documento);
+
+            if (texto === "" || regex.test(documento)) {
+                if(reserva.idEstadoReserva!=4){
+                    crearFilaTablaReservas(reserva, reserva.id, cuerrpoTabla);
+                }
+            }
+        }
+
+        estaBuscando = false;
     };
 
 

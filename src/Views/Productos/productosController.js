@@ -4,6 +4,15 @@ import { crearCardsProductos } from "../../Modules/modules.js";
 export const productosController=async()=>{
 
 const contenedorCards=document.querySelector('.cards');
+const btnNuevoProd=document.querySelector('.contenido__Boton');
+
+const usuarios=JSON.parse(localStorage.getItem('usuario'));
+
+if(usuarios.id_rol!=1){
+    btnNuevoProd.classList.add('displayNone');
+}else{
+    btnNuevoProd.classList.remove('displayNone');
+}
 
 const productos=await get('productos')
 

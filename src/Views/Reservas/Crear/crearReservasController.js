@@ -1,8 +1,9 @@
-import { error } from "../../../helpers/alertas.js";
+import { confirmar, error, success } from "../../../helpers/alertas.js";
 import { get, post } from "../../../helpers/api.js";
 import { cargarCardsConsolasReservar, contarCamposFormulario, formatearFecha, limpiar, validar, validarLetras, validarMaximo, validarMinimo, validarNumeros } from "../../../Modules/modules.js";
 
 export const crearReservaController=async()=>{
+    const usuario=JSON.parse(localStorage.getItem('usuario'))
 
     const contenedor=document.querySelector('.cards--consolas');
     const calendariOculto=document.querySelector('.calendariOculto');
@@ -21,15 +22,20 @@ export const crearReservaController=async()=>{
     cargarCardsConsolasReservar(consolas,contenedor);
 
     const mostrarFomrularioNuevaReserva=(info)=>{
-    contenedorformularioNuevaReserva.classList.add('displayFlex');
-    formHoraInicio.value=formatearFecha(info.startStr);
-    formHoraFinalizacion.value=formatearFecha(info.endStr);
+        contenedorformularioNuevaReserva.classList.add('displayFlex');
+        formHoraInicio.value=formatearFecha(info.startStr);
+        formHoraFinalizacion.value=formatearFecha(info.endStr);
 
     
     }
 
     const cerrarFormularioNuevaReserva=()=>{
     contenedorformularioNuevaReserva.classList.remove('displayFlex')
+    }
+
+    const cerrarCalencuario=()=>{
+        calendariOculto.classList.remove('displayBlock');
+        fondoOscuro.classList.remove('displayBlock');
     }
 
     const abrirCalendario=async(id_consola)=>{
@@ -78,13 +84,54 @@ export const crearReservaController=async()=>{
     },
         events:eventos,
         selectOverlap: false,
-        select:(info)=>{
+        select:async (info)=>{
         const horaActual=new Date();
         const horaInicio=new Date(info.startStr)
         if(horaActual>horaInicio){
-            alert('No se puede reservar en una fecha anterior a la actual');
+            error('No se pude reservar en una fecha anterior a la actual');
         }else{
-            mostrarFomrularioNuevaReserva(info);
+            if(usuario['id_rol']==1){
+                mostrarFomrularioNuevaReserva(info);
+            }
+            else{
+                const horaI=formatearFecha(info.startStr);
+                const horaF=formatearFecha(info.endStr);
+
+                const confirmacion=await confirmar('reservas en este horario',`${horaI} - ${horaF}`);
+                
+
+                if(confirmacion.isConfirmed){
+                    
+                    let info={};
+                    info['id_consola']=Number(campoIdConsola.value);
+
+                    const horaActual=new Date();
+                    const horaInicio=new Date(horaI);
+                    const horaFin=new Date(horaF);
+
+                    if(horaActual<horaInicio)info['id_estado_reserva']=1
+                    else if(horaActual>=horaInicio && horaActual<horaFin)info['id_estado_reserva']=2
+                    else if(horaActual>=horaFin)info['id_estado_reserva']=3;
+
+                    info['id_usuario'] = usuario.id;
+
+                    info['hora_inicio']=aFormatoISO(horaI); 
+                    info['hora_finalizacion']=aFormatoISO(horaF);
+                    console.log(info);
+                    
+
+                    const respuesta = await post('reservas', info);
+                    const res=await respuesta.json();
+
+                    if(respuesta.ok){
+                        success(res.mensaje);
+                        cerrarCalencuario();
+                        abrirCalendario(info['id_consola'])
+                    }
+                    else error(res.error);
+                }
+                
+            }
 
         }
         }
@@ -92,10 +139,7 @@ export const crearReservaController=async()=>{
     calendar.render();
     }
 
-    const cerrarCalencuario=()=>{
-        calendariOculto.classList.remove('displayBlock');
-        fondoOscuro.classList.remove('displayBlock');
-    }
+    
 
     window.addEventListener('click',(event)=>{
     
@@ -115,47 +159,47 @@ export const crearReservaController=async()=>{
     }
 
     formulario.addEventListener('submit',async(event)=>{
-    const info=validar(event);
+        const info=validar(event);
 
-    if(Object.keys(info).length==cantCamporFormulario){
+        if(Object.keys(info).length==cantCamporFormulario){
+            
+            const usuario=await get(`usuarios/documento/${info.documento}`)
+            if(Object.keys(usuario).length>1){  
+                const horaActual=new Date();
+                const horaInicio=new Date(info.hora_inicio);
+                const horaFin=new Date(info.hora_finalizacion);
         
-        const usuario=await get(`usuarios/documento/${info.documento}`)
-        if(Object.keys(usuario).length>1){  
-            const horaActual=new Date();
-            const horaInicio=new Date(info.hora_inicio);
-            const horaFin=new Date(info.hora_finalizacion);
-    
-            if(horaActual<horaInicio)info['id_estado_reserva']=1
-            else if(horaActual>=horaInicio && horaActual<horaFin)info['id_estado_reserva']=2
-            else if(horaActual>=horaFin)info['id_estado_reserva']=3
-        
-            info['id_usuario'] = usuario.id;
-            delete info.documento;
+                if(horaActual<horaInicio)info['id_estado_reserva']=1
+                else if(horaActual>=horaInicio && horaActual<horaFin)info['id_estado_reserva']=2
+                else if(horaActual>=horaFin)info['id_estado_reserva']=3
+            
+                info['id_usuario'] = usuario.id;
+                delete info.documento;
 
-            info['id_consola'] = Number(info['id_consola'])
-            info['hora_inicio']=aFormatoISO(info['hora_inicio']); 
-            info['hora_finalizacion']=aFormatoISO(info['hora_finalizacion']); 
-        
-            const respuesta = await post('reservas', info);
-            if (respuesta.ok){
-                campoDocumento.value="";
-                cerrarFormularioNuevaReserva();
-                Swal.fire({
-                title: 'Exito',
-                text: 'La reserva se realizo correctamente',
-                icon: 'success',
-                confirmButtonText: 'Aceptar'
-                })
-                cerrarCalencuario();
-                abrirCalendario(info['id_consola'])
-            } 
-            else error("No se pudo realizar la reserva");
-        }else{
-            error('Usuario no encontrado')
+                info['id_consola'] = Number(info['id_consola'])
+                info['hora_inicio']=aFormatoISO(info['hora_inicio']); 
+                info['hora_finalizacion']=aFormatoISO(info['hora_finalizacion']); 
+            
+                const respuesta = await post('reservas', info);
+                if (respuesta.ok){
+                    campoDocumento.value="";
+                    cerrarFormularioNuevaReserva();
+                    Swal.fire({
+                    title: 'Exito',
+                    text: 'La reserva se realizo correctamente',
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar'
+                    })
+                    cerrarCalencuario();
+                    abrirCalendario(info['id_consola'])
+                } 
+                else error("No se pudo realizar la reserva");
+            }else{
+                error('Usuario no encontrado')
+            }
+            
+            
         }
-        
-        
-    }
     });
 
     campoDocumento.addEventListener('keydown',validarNumeros)

@@ -3,7 +3,18 @@ import { cargarCardsConsolas } from "../../Modules/modules.js";
 
 export const consolasController=async()=>{
 
-  const main=document.querySelector('.cards')
+  const main=document.querySelector('.cards');
+  const botonesSuperiores=document.querySelectorAll('.contenido__Boton');
+
+  const usuario=JSON.parse(localStorage.getItem('usuario'));
+
+  [...botonesSuperiores].forEach(boton => {
+    if(usuario.id_rol!=1){
+      boton.classList.add('displayNone');
+    }else{
+      boton.classList.remove('displayNone');
+    }
+  });
 
   const consolas=await get('consolas/con-precio');
 

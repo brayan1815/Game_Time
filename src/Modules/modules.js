@@ -1,4 +1,4 @@
-import { success } from "../helpers/alertas.js";
+import { error, success } from "../helpers/alertas.js";
 import { get, post } from "../helpers/api.js";
 
 export const crearTabla=(encabezados,contenedor)=>{
@@ -331,31 +331,35 @@ export const crearCardsProductos=async (productos,contenedor)=>{
     cantRest.textContent=`Cantidades restantes: ${producto.cantidades_disponibles}`;
     card.append(cantRest);
 
-    const contenedorBotones=document.createElement('div');
-    contenedorBotones.classList.add('card__botones');
+    const usuario=JSON.parse(localStorage.getItem('usuario'));
 
-    const botonEditar=document.createElement('a');
-    botonEditar.setAttribute('id',producto.id);
-    botonEditar.setAttribute('href',`#/Productos/Editar/id=${producto.id}`)
-    botonEditar.classList.add('card__boton','editar');
+    if(usuario.id_rol==1){
 
-    const iconoEditar=document.createElement('i');
-    iconoEditar.classList.add('bi','bi-pencil-square');
-    // iconoEditar.classList.add('bi','bi-pencil-square')
-    botonEditar.append(iconoEditar);
-    contenedorBotones.append(botonEditar);
-
-    const botonEliminar=document.createElement('button');
-    botonEliminar.setAttribute('id',producto.id)
-    botonEliminar.classList.add('card__boton','eliminar');
-
-    const iconoEliminar=document.createElement('i');
-    iconoEliminar.classList.add('bi','bi-trash-fill');
-    botonEliminar.append(iconoEliminar);
-    contenedorBotones.append(botonEliminar);
-
-    card.append(contenedorBotones);
-
+      const contenedorBotones=document.createElement('div');
+      contenedorBotones.classList.add('card__botones');
+  
+      const botonEditar=document.createElement('a');
+      botonEditar.setAttribute('id',producto.id);
+      botonEditar.setAttribute('href',`#/Productos/Editar/id=${producto.id}`)
+      botonEditar.classList.add('card__boton','editar');
+  
+      const iconoEditar=document.createElement('i');
+      iconoEditar.classList.add('bi','bi-pencil-square');
+      // iconoEditar.classList.add('bi','bi-pencil-square')
+      botonEditar.append(iconoEditar);
+      contenedorBotones.append(botonEditar);
+  
+      const botonEliminar=document.createElement('button');
+      botonEliminar.setAttribute('id',producto.id)
+      botonEliminar.classList.add('card__boton','eliminar');
+  
+      const iconoEliminar=document.createElement('i');
+      iconoEliminar.classList.add('bi','bi-trash-fill');
+      botonEliminar.append(iconoEliminar);
+      contenedorBotones.append(botonEliminar);
+  
+      card.append(contenedorBotones);
+    }
     contenedor.append(card);
   }
 }
@@ -391,30 +395,35 @@ export const cargarCardsConsolas = async (consolas, contenedor) => {
     cardPrecio.textContent = `$${consola.precioHora}`;
     cardInfo.append(cardPrecio);
 
-    const contenedorBotones=document.createElement('div');
-    contenedorBotones.classList.add('card__botones');
+    const usuario=JSON.parse(localStorage.getItem('usuario'));
 
-    const botonEditar=document.createElement('a');
-    botonEditar.setAttribute('id',consola.id);
-    botonEditar.setAttribute('href',`#/Consolas/Editar/id=${consola.id}`)
-    botonEditar.classList.add('card__boton','editar');
+    if(usuario.id_rol==1){
+      const contenedorBotones=document.createElement('div');
+      contenedorBotones.classList.add('card__botones');
+  
+      const botonEditar=document.createElement('a');
+      botonEditar.setAttribute('id',consola.id);
+      botonEditar.setAttribute('href',`#/Consolas/Editar/id=${consola.id}`)
+      botonEditar.classList.add('card__boton','editar');
+  
+      const iconoEditar=document.createElement('i');
+      iconoEditar.classList.add('bi','bi-pencil-square');
+      // iconoEditar.classList.add('bi','bi-pencil-square')
+      botonEditar.append(iconoEditar);
+      contenedorBotones.append(botonEditar);
+  
+      const botonEliminar=document.createElement('button');
+      botonEliminar.setAttribute('id',consola.id)
+      botonEliminar.classList.add('card__boton','eliminar');
+  
+      const iconoEliminar=document.createElement('i');
+      iconoEliminar.classList.add('bi','bi-trash-fill');
+      botonEliminar.append(iconoEliminar);
+      contenedorBotones.append(botonEliminar);
+  
+      cardInfo.append(contenedorBotones);
+    }
 
-    const iconoEditar=document.createElement('i');
-    iconoEditar.classList.add('bi','bi-pencil-square');
-    // iconoEditar.classList.add('bi','bi-pencil-square')
-    botonEditar.append(iconoEditar);
-    contenedorBotones.append(botonEditar);
-
-    const botonEliminar=document.createElement('button');
-    botonEliminar.setAttribute('id',consola.id)
-    botonEliminar.classList.add('card__boton','eliminar');
-
-    const iconoEliminar=document.createElement('i');
-    iconoEliminar.classList.add('bi','bi-trash-fill');
-    botonEliminar.append(iconoEliminar);
-    contenedorBotones.append(botonEliminar);
-
-    cardInfo.append(contenedorBotones);
     card.append(cardInfo)
     contenedor.append(card)
   }
@@ -577,8 +586,11 @@ export const validarIngreso = async (event) => {
       localStorage.setItem('usuario',JSON.stringify(usuario));
       await success(`Bienvenido ${usuario.nombre}`)
       
-      window.location.href=`#/Reservas`
-      
+      window.location.href=`#/Reservas`     
+    }
+    else{
+      const res=await respuesta.json();
+      error(res.error)
     }
   }
 }

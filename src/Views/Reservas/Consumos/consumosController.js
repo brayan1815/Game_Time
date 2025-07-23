@@ -4,6 +4,7 @@ import { cargarSelecrProductos, crearFila, crearFilaConsumos, crearTabla, quitar
 
 export const consumosController=async (parametros=null)=>{
 
+
     const nombreUsuario=document.querySelector('.nombreUsuario');
     const contenedorFomrulario=document.querySelector('.contenedorFormularioModal')
     const horaInicioFin=document.querySelector('.horaInicioFin');
@@ -41,8 +42,27 @@ export const consumosController=async (parametros=null)=>{
     const  btnCancelfac=document.querySelector('.formulario__boton--cancelar.fac');
     const btnConfirCobro=document.querySelector('.formulario__boton.cob');
     const selectMetodoPago=document.querySelector('#metodo_pago');
+    const lblselecmetodo=document.querySelector('.lbl');
+    
 
+    const usu=JSON.parse(localStorage.getItem('usuario'));
+    
+    if(usu.id_rol!=1){
+        botonCobrar.textContent="Factura";
+        botonAgregarProducto.classList.add('displayNone');
+        btnConfirCobro.classList.add('displayNone');
+        btnCancelfac.textContent="Cerrar";
+        selectMetodoPago.classList.add('displayNone');
+        lblselecmetodo.classList.add('displayNone');
+    }else{
+        botonCobrar.textContent="Cobrar";
+        botonAgregarProducto.classList.remove('displayNone');
+        btnConfirCobro.classList.remove('displayNone');
+        btnCancelfac.textContent="Cancelar"
+        selectMetodoPago.classList.remove('displayNone');
+        lblselecmetodo.classList.remove('displayNone');
 
+    }
 
 
 
@@ -299,6 +319,8 @@ export const consumosController=async (parametros=null)=>{
 
         const factura=await post(`facturas/reserva/${id_reser}`);
         const res=await factura.json();
+        console.log(res);
+        
 
         const consCons=res.totalTiempo+"";
         const con=consCons.split('.');
