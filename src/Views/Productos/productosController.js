@@ -1,3 +1,4 @@
+import { confirmar, error, success } from "../../helpers/alertas.js";
 import { del, get } from "../../helpers/api.js";
 import { crearCardsProductos } from "../../Modules/modules.js";
 
@@ -21,13 +22,16 @@ crearCardsProductos(productos,contenedorCards);
 window.addEventListener('click',async(event)=>{
     const clase=event.target.getAttribute('class');
     const id=event.target.getAttribute('id');
-
-    // if(clase=="card__boton editar"){
-    //     window.location.href=`actualizarProducto.html?id=${encodeURIComponent(id)}`
-    // }
     if(clase=="card__boton eliminar"){
-        const respuesta=await del(`productos/${id}`)
-        if(respuesta.ok)alert('El producto se ha eliminado correctamente');
+
+        const confirm=await confirmar('eliminar el producto');
+        if(confirm.isConfirmed){
+            const respuesta=await del(`productos/${id}`);
+            const res=await respuesta.json();
+
+            if(respuesta.ok)success(res.mensaje);
+            else error(res.error)
+        }
     }
 })
 }

@@ -1,4 +1,5 @@
-import { get, put } from "../../helpers/api.js";
+import { confirmar, error, success } from "../../helpers/alertas.js";
+import { del, get, put } from "../../helpers/api.js";
 import { crearFilaTablaReservas, crearTabla, validarNumeros } from "../../Modules/modules.js";
 
 export const reservasController=async()=>{
@@ -117,13 +118,25 @@ export const reservasController=async()=>{
     barraBusqueda.addEventListener('input', buscarReservas);
     barraBusqueda.addEventListener('keydown', validarNumeros);
 
-    window.addEventListener('click',(event)=>{
+    window.addEventListener('click',async(event)=>{
         const clase=event.target.getAttribute('class');
         const id=event.target.getAttribute('id');
 
-        // if(clase=='registro__boton Info'){
-        //     window.location.href=`info_reserva.html?id=${encodeURIComponent(id)}`
-        // }
+        if(clase=='registro__boton registro__boton--eliminar cancel'){
+            const confirm=await confirmar("cancelar la reserva");
+
+            if(confirm.isConfirmed){
+                const res=await del(`reservas/${id}`);
+                const respuesta=await res.json();
+
+                if(res.ok){
+                    success(respuesta.mensaje);
+                }
+                else{
+                    error(respuesta.error)
+                }
+            }
+        }
     
     })
     

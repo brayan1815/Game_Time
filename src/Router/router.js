@@ -1,3 +1,4 @@
+import { error } from "../helpers/alertas";
 import { routes } from "./routes";
 
 // Función principal del enrutador SPA
@@ -25,6 +26,7 @@ export const router = async (elemento) => {
   if (ruta.private) {
     const token=localStorage.getItem('token');
     if(!token){
+      await error('Su secion ha caducado');
       redirigirARuta("Login");
       return;
     }

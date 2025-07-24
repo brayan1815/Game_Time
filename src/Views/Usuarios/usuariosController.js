@@ -1,4 +1,5 @@
 import { crearFila, crearTabla } from "../../Modules/modules.js"
+import { confirmar, error, success } from "../../helpers/alertas.js";
 import { del, get } from "../../helpers/api.js";
 
 export const usuariosController=async()=>{
@@ -30,11 +31,18 @@ export const usuariosController=async()=>{
     
     if (event.target.getAttribute('class') == 'registro__boton registro__boton--eliminar') {
         const id = event.target.getAttribute('id');
-        const respuesta = await del(`usuarios/${id}`)
-        
-        if (respuesta.ok) {
-        alert('Se ha eliminado el usuario correctamente');
+
+        const confirm=await confirmar("eliminar el usuario");
+
+        if(confirm.isConfirmed){
+            const respuesta = await del(`usuarios/${id}`)
+            const res=await respuesta.json();
+
+            if(respuesta.ok) success(res.mensaje);
+            else error(res.error);
         }
+        
+        
         
     }
     })

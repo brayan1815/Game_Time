@@ -131,6 +131,7 @@ export const crearFilaTablaReservas=async(info,id,contenedor)=>{
   const HoraFin=document.createElement('td');
   const Consola=document.createElement('td');
   const Boton=document.createElement('td');
+  const BotonCan=document.createElement('td');
 
   campoDocumento.classList.add('tabla__campo');
   campoUsuario.classList.add('tabla__campo');
@@ -138,6 +139,8 @@ export const crearFilaTablaReservas=async(info,id,contenedor)=>{
   HoraFin.classList.add('tabla__campo');
   Consola.classList.add('tabla__campo');
   Boton.classList.add('tabla__campo');
+  BotonCan.classList.add('tabla__campo');
+
 
 
   campoDocumento.textContent=info.documentoUsuario;
@@ -152,11 +155,19 @@ export const crearFilaTablaReservas=async(info,id,contenedor)=>{
   bot.setAttribute('id',id)
   const iconBot=document.createElement('i');
   iconBot.classList.add('bi','bi-info-circle');
-
   bot.append(iconBot);
-  Boton.append(bot);
 
-  fila.append(campoDocumento,campoUsuario,HoraInicio,HoraFin,Consola,Boton);
+  const btnCan=document.createElement('button');
+  btnCan.classList.add('registro__boton','registro__boton--eliminar','cancel');
+  btnCan.setAttribute('id',id);
+  const ic=document.createElement('i');
+  ic.classList.add('bi','bi-ban');
+  btnCan.append(ic)
+
+  Boton.append(bot);
+  BotonCan.append(btnCan);
+
+  fila.append(campoDocumento,campoUsuario,HoraInicio,HoraFin,Consola,Boton,BotonCan);
   
   contenedor.append(fila)
   

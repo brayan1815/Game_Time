@@ -12,6 +12,7 @@
     "vite": "^7.0.4"
   },
   "dependencies": {
+    "jwt-decode": "^4.0.0",
     "sweetalert2": "^11.22.2"
   }
 }

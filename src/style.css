@@ -933,3 +933,14 @@ span{
   background-color: #388128;
   color: rgb(82, 79, 79)
 }
+
+.menuOculto{
+  padding: 10px;
+  width: 20%;
+  height: 20%;
+  position: fixed;
+  z-index: 9;
+  top: 10%;
+  background-color: red;
+  right: 0;
+}

@@ -59,84 +59,89 @@ export const crearReservaController=async()=>{
         const contenedor=document.querySelector('#calendarioReserva');
         contenedor.innerHTML="";
 
-
-        const calendar = new FullCalendar.Calendar(contenedor, {
-        initialView: 'timeGridWeek',
-        locale: 'es',
-        selectable: true,
-        headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: ''
-        },
-        allDaySlot: false, // ❌ quitar la opción "todo el día"
-        slotMinTime: '08:00:00', // 🕗 abre desde las 8 AM
-        slotMaxTime: '22:00:00', // 🕙 hasta las 10 PM
-        slotDuration: '00:30:00', // cada bloque es de 30 minutos
-        slotLabelFormat: {
-            hour: '2-digit',
-            minute: '2-digit',
-            meridiem: false, // pon 'short' si quieres AM/PM
-            hour12: false      // true para formato 12 horas, false para 24h
-        },
-        validRange: {
-        start: new Date() // ← aquí se evita mostrar fechas anteriores a hoy
-    },
-        events:eventos,
-        selectOverlap: false,
-        select:async (info)=>{
-        const horaActual=new Date();
-        const horaInicio=new Date(info.startStr)
-        if(horaActual>horaInicio){
-            error('No se pude reservar en una fecha anterior a la actual');
-        }else{
-            if(usuario['id_rol']==1){
-                mostrarFomrularioNuevaReserva(info);
-            }
-            else{
-                const horaI=formatearFecha(info.startStr);
-                const horaF=formatearFecha(info.endStr);
-
-                const confirmacion=await confirmar('reservas en este horario',`${horaI} - ${horaF}`);
-                
-
-                if(confirmacion.isConfirmed){
-                    
-                    let info={};
-                    info['id_consola']=Number(campoIdConsola.value);
-
-                    const horaActual=new Date();
-                    const horaInicio=new Date(horaI);
-                    const horaFin=new Date(horaF);
-
-                    if(horaActual<horaInicio)info['id_estado_reserva']=1
-                    else if(horaActual>=horaInicio && horaActual<horaFin)info['id_estado_reserva']=2
-                    else if(horaActual>=horaFin)info['id_estado_reserva']=3;
-
-                    info['id_usuario'] = usuario.id;
-
-                    info['hora_inicio']=aFormatoISO(horaI); 
-                    info['hora_finalizacion']=aFormatoISO(horaF);
-                    console.log(info);
-                    
-
-                    const respuesta = await post('reservas', info);
-                    const res=await respuesta.json();
-
-                    if(respuesta.ok){
-                        success(res.mensaje);
-                        cerrarCalencuario();
-                        abrirCalendario(info['id_consola'])
+        setTimeout(() => {
+        
+                const calendar = new FullCalendar.Calendar(contenedor, {
+                initialView: 'timeGridWeek',
+                locale: 'es',
+                selectable: true,
+                headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: ''
+                },
+                allDaySlot: false, // ❌ quitar la opción "todo el día"
+                slotMinTime: '08:00:00', // 🕗 abre desde las 8 AM
+                slotMaxTime: '22:00:00', // 🕙 hasta las 10 PM
+                slotDuration: '00:30:00', // cada bloque es de 30 minutos
+                slotLabelFormat: {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    meridiem: false, // pon 'short' si quieres AM/PM
+                    hour12: false      // true para formato 12 horas, false para 24h
+                },
+                validRange: {
+                start: new Date() // ← aquí se evita mostrar fechas anteriores a hoy
+            },
+                events:eventos,
+                selectOverlap: false,
+                select:async (info)=>{
+                const horaActual=new Date();
+                const horaInicio=new Date(info.startStr)
+                if(horaActual>horaInicio){
+                    error('No se pude reservar en una fecha anterior a la actual');
+                }else{
+                    if(usuario['id_rol']==1){
+                        mostrarFomrularioNuevaReserva(info);
                     }
-                    else error(res.error);
+                    else{
+                        const horaI=formatearFecha(info.startStr);
+                        const horaF=formatearFecha(info.endStr);
+        
+                        const confirmacion=await confirmar('reservas en este horario',`${horaI} - ${horaF}`);
+                        
+        
+                        if(confirmacion.isConfirmed){
+                            
+                            let info={};
+                            info['id_consola']=Number(campoIdConsola.value);
+        
+                            const horaActual=new Date();
+                            const horaInicio=new Date(horaI);
+                            const horaFin=new Date(horaF);
+        
+                            if(horaActual<horaInicio)info['id_estado_reserva']=1
+                            else if(horaActual>=horaInicio && horaActual<horaFin)info['id_estado_reserva']=2
+                            else if(horaActual>=horaFin)info['id_estado_reserva']=3;
+        
+                            info['id_usuario'] = usuario.id;
+        
+                            info['hora_inicio']=aFormatoISO(horaI); 
+                            info['hora_finalizacion']=aFormatoISO(horaF);
+                            console.log(info);
+                            
+        
+                            const respuesta = await post('reservas', info);
+                            const res=await respuesta.json();
+        
+                            if(respuesta.ok){
+                                success(res.mensaje);
+                                cerrarCalencuario();
+                                abrirCalendario(info['id_consola'])
+                            }
+                            else error(res.error);
+                        }
+                        
+                    }
+        
                 }
-                
-            }
+                }
+            });
+            calendar.render();
 
-        }
-        }
-    });
-    calendar.render();
+        }, 50);
+
+
     }
 
     

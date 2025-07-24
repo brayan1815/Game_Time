@@ -1,13 +1,35 @@
+import { jwtDecode } from "jwt-decode";
+//se importa la funcion para decodificar el contenido del token
+
+const isTokenExpired = () => {
+  //se crea la funcion para validar si el token esta expirado
+
+  const token = localStorage.getItem("token");//se obtiene el token del localstorage
+  if (!token) return true;//si el token no existe se retorna true
+
+  try {
+    const decoded = jwtDecode(token);//se decodifica el contenido del token
+    const currentTime = Date.now() / 1000;//se obtiene la hora actual en segundos
+    return decoded.exp < currentTime;//si el tiempo de expiracion del token ya paso respecto al tiempo actual se retorna true
+  } catch (e) {
+    return true;//si ocurre un error al decodificar el token se retorna true
+  }
+};
+
 const getAuthHeaders = () => {
   const token = localStorage.getItem("token");
-  return token
-    ? {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
-      }
-    : {
-        'Content-Type': 'application/json'
-      };
+
+  if (!token || isTokenExpired()) {
+    localStorage.removeItem("token");
+    return {
+      'Content-Type': 'application/json'
+    };
+  }
+
+  return {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + token
+  };
 };
 
 export const get = async (endpoint) => {

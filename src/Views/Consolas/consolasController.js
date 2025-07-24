@@ -1,3 +1,4 @@
+import { confirmar, error, success } from "../../helpers/alertas.js";
 import { del, get } from "../../helpers/api.js";
 import { cargarCardsConsolas } from "../../Modules/modules.js";
 
@@ -23,12 +24,17 @@ export const consolasController=async()=>{
   window.addEventListener('click',async (event) => {
     const clase = event.target.getAttribute('class');
     const id = event.target.getAttribute('id');
-    // if (clase == 'card__boton editar') {
-    //   window.location.href=`actualizarConsolas.html?id=${encodeURIComponent(id)}`
-    // }
     if (clase == 'card__boton eliminar') {
-      const respuesta = await del(`consolas/${id}`);
-      if (respuesta.ok) alert("La consola se ha eliminado correctamente");
+
+      const confirm=await confirmar("Eliminar la consola");
+
+      if(confirm.isConfirmed){
+        const respuesta = await del(`consolas/${id}`);
+        const res=await respuesta.json();
+
+        if(respuesta.ok)success(res.mensaje);
+        else error(res.error);
+      }   
     }
   })
 }

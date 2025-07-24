@@ -360,9 +360,9 @@ export const consumosController=async (parametros=null)=>{
             const pag=await pago.json();
 
             if(pago.ok){
-                await success(pag);
+                await success(pag.mensaje);
                 contenedorFactura.classList.remove('displayFlex');
-                window.location.href = "reservas.html";
+                window.location.href = "#/Reservas";
             }
         }else{
             Swal.fire({
