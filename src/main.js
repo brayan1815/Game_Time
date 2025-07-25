@@ -17,8 +17,10 @@ const cargarLayoutPrivado = async () => {
     const headerHTML=await response.text();
     header.innerHTML = headerHTML;
     const namePerfil=document.querySelector('.encabezadoPerfil__nombre');
+    const nameBtnMenu=document.querySelector('.nameMenuSalir')
     const usuarioGuardado = JSON.parse(localStorage.getItem('usuario'));
     namePerfil.textContent=usuarioGuardado.nombre;
+    nameBtnMenu.textContent=usuarioGuardado.nombre;
   }
 
   if (!sidebar.innerHTML.trim()) {
@@ -28,10 +30,18 @@ const cargarLayoutPrivado = async () => {
   }
 
   const botonUsusariosSidebar=document.querySelector('.sidebar__boton.botonSidebar.usarios');
+  const btnHistorialSidebar=document.querySelector('.sidebar__boton.botonSidebar.historial');
   const usuario=JSON.parse(localStorage.getItem('usuario'));
 
-  if(usuario['id_rol']!=1)botonUsusariosSidebar.classList.add('displayNone');
-  else botonUsusariosSidebar.classList.remove('displayNone');
+  if(usuario['id_rol']!=1){
+    botonUsusariosSidebar.classList.add('displayNone');
+    btnHistorialSidebar.classList.add('displayNone')
+  }
+  else{
+    botonUsusariosSidebar.classList.remove('displayNone');
+    btnHistorialSidebar.classList.remove('displayNone')
+  } 
+    
 
 };
 
@@ -73,4 +83,11 @@ const render=()=> {
 
 window.addEventListener('hashchange',render)
 window.addEventListener('DOMContentLoaded',render)
-
+window.addEventListener('click',(event)=>{
+  const clase=event.target.getAttribute('class');
+  if(clase=="btnSalir"){
+    localStorage.removeItem("token");
+    localStorage.removeItem("usuario");
+    window.location.href="#/Login"
+  }
+})

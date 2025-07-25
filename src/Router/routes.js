@@ -1,6 +1,7 @@
 import { consolasController } from "../Views/Consolas/consolasController";
 import { crearConsolasController } from "../Views/Consolas/Crear/crearConsolasController";
 import { consolasEditarController } from "../Views/Consolas/Editar/consolaEditarController";
+import { historialController } from "../Views/Historial/historialController";
 import { loginController } from "../Views/Login/loginController";
 import { crearProductosController } from "../Views/Productos/Crear/crearProductosController";
 import { productosEditarController } from "../Views/Productos/Editar/productosEditarController";
@@ -111,5 +112,10 @@ export const routes={
             controlador:tiposEditarController,
             private:true
         }
+    },
+    Historial:{
+        path:"Historial/index.html",
+        controlador:historialController,
+        private:true
     }
 }

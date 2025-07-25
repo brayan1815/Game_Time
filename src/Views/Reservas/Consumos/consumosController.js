@@ -46,8 +46,12 @@ export const consumosController=async (parametros=null)=>{
     
 
     const usu=JSON.parse(localStorage.getItem('usuario'));
+    const id_reserva = parametros.id;
+    const reserva=await get(`reservas/${id_reserva}`);
+
+
     
-    if(usu.id_rol!=1){
+    if(usu.id_rol!=1 || reserva.id_estado_reserva==4){
         botonCobrar.textContent="Factura";
         botonAgregarProducto.classList.add('displayNone');
         btnConfirCobro.classList.add('displayNone');
@@ -61,7 +65,6 @@ export const consumosController=async (parametros=null)=>{
         btnCancelfac.textContent="Cancelar"
         selectMetodoPago.classList.remove('displayNone');
         lblselecmetodo.classList.remove('displayNone');
-
     }
 
 
@@ -69,22 +72,22 @@ export const consumosController=async (parametros=null)=>{
     cargarSelecrProductos(select);
 
 
-    const id_reserva = parametros.id;
+
     btnCobrar.setAttribute('id',id_reserva)
     botonCobrar.setAttribute('id',id_reserva);
 
     const consumosReserva=await get(`consumos/reserva/${id_reserva}`);
-    const reserva=await get(`reservas/${id_reserva}`);
     const usuario=await get(`usuarios/${reserva.id_usuario}`);
     const consola=await get(`consolas/${reserva.id_consola }`);
     const tipoConsola=await get(`tipos/${consola.id_tipo}`);
+    
 
     if(consumosReserva.length>0){
         crearTabla(['producto','precio','cantidad','subtotal'],contenedorTabla);
 
         const cuerpoTabla=document.querySelector('.tabla__cuerpo');
         for (const consumo of consumosReserva) {
-            await crearFilaConsumos([consumo.nombreProducto,consumo.precioProducto,consumo.cantidad,consumo.subtotal],consumo.idConsumo,cuerpoTabla)
+            await crearFilaConsumos([consumo.nombreProducto,consumo.precioProducto,consumo.cantidad,consumo.subtotal],consumo.idConsumo,cuerpoTabla,reserva)
         }
     }else{
         const mensaje=document.createElement('span');

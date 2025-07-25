@@ -361,6 +361,7 @@ span{
   height: 7%;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 
 .botonesSuperiores__buscar{
@@ -935,12 +936,89 @@ span{
 }
 
 .menuOculto{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   padding: 10px;
-  width: 20%;
+  width: 23%;
   height: 20%;
   position: fixed;
   z-index: 9;
   top: 10%;
-  background-color: red;
+  background-color: rgba(0, 0, 0, 0.63);
   right: 0;
+  font-size: 1.5vw;
+  color: white;
+  border-radius: 0 15px;
+  right: -30vw;
+  transition: 0.3s;
+}
+
+.menuOculto div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #212121;
+  height: 40%;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.menuOculto div button{
+  background-color: #212121;
+  border: none;
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  color: red;
+  font-size: 1.5vw;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.menuOculto div button:hover{
+  font-size: 1.6vw;
+}
+
+#mnu_salir:checked +.menuOculto{
+  right: 0;
+}
+
+
+/*------------------- HISTORIAL --------------------*/
+
+.contenedorFiltros{
+  display: flex;
+  background-color: #4DD42E;
+  color: white;
+  font-weight: 700;
+  height: 100%;
+  width: 35%;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 1.5vw;
+  border-radius: 15px;
+}
+
+.select_filtro{
+  outline: none;
+  width: 75%;
+  height: 80%;
+  text-align: center;
+  background-color: #CACACA;
+  border-radius: 15px;
+}
+
+.totalHist{
+  display: flex;
+  width: 20%;
+  height: 100%;
+  background-color: #4DD42E;
+  color: white;
+  font-size: 1.5vw;
+  font-weight: 700;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
 }

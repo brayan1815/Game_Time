@@ -67,7 +67,7 @@ export const crearFila=(info,id,contenedor,hash)=>{
     contenedor.append(fila);
 }
 
-export const crearFilaConsumos=(info,id,contenedor)=>{
+export const crearFilaConsumos=(info,id,contenedor,reserva)=>{
   const fila=document.createElement('tr');
     fila.classList.add('tabla__fila');
 
@@ -78,34 +78,37 @@ export const crearFilaConsumos=(info,id,contenedor)=>{
         fila.append(campo);
     });
 
-    const campo=document.createElement('td');
-    campo.classList.add('tabla__campo','tabla__campo--bordeVerde');
+    if(reserva.id_estado_reserva!=4){
+      const campo=document.createElement('td');
+      campo.classList.add('tabla__campo','tabla__campo--bordeVerde');
+  
+      const contenedorBotones=document.createElement('div');
+      contenedorBotones.classList.add('contenedorBotonesTabla');
+  
+      const botonEliminar=document.createElement('button');
+      botonEliminar.classList.add('registro__boton','registro__boton--eliminar')
+  
+      const iconoEliminar=document.createElement('i');
+      iconoEliminar.classList.add('bi','bi-trash-fill');
+  
+      botonEliminar.append(iconoEliminar);
+      contenedorBotones.append(botonEliminar);
+  
+      const botonEditar=document.createElement('button');
+      botonEditar.classList.add('registro__boton','registro__boton--editar')
+      botonEditar.setAttribute('id',id);
+  
+      const iconoEditar=document.createElement('i');
+      iconoEditar.classList.add('bi', 'bi-pencil-square');
+      botonEliminar.setAttribute('id',id)
+  
+      botonEditar.append(iconoEditar);
+      contenedorBotones.append(botonEditar);
+  
+      campo.append(contenedorBotones);
+      fila.append(campo)
+    }
 
-    const contenedorBotones=document.createElement('div');
-    contenedorBotones.classList.add('contenedorBotonesTabla');
-
-    const botonEliminar=document.createElement('button');
-    botonEliminar.classList.add('registro__boton','registro__boton--eliminar')
-
-    const iconoEliminar=document.createElement('i');
-    iconoEliminar.classList.add('bi','bi-trash-fill');
-
-    botonEliminar.append(iconoEliminar);
-    contenedorBotones.append(botonEliminar);
-
-    const botonEditar=document.createElement('button');
-    botonEditar.classList.add('registro__boton','registro__boton--editar')
-    botonEditar.setAttribute('id',id);
-
-    const iconoEditar=document.createElement('i');
-    iconoEditar.classList.add('bi', 'bi-pencil-square');
-    botonEliminar.setAttribute('id',id)
-
-    botonEditar.append(iconoEditar);
-    contenedorBotones.append(botonEditar);
-
-    campo.append(contenedorBotones);
-    fila.append(campo)
 
     contenedor.append(fila);
 }
@@ -156,6 +159,7 @@ export const crearFilaTablaReservas=async(info,id,contenedor)=>{
   const iconBot=document.createElement('i');
   iconBot.classList.add('bi','bi-info-circle');
   bot.append(iconBot);
+  
 
   const btnCan=document.createElement('button');
   btnCan.classList.add('registro__boton','registro__boton--eliminar','cancel');
