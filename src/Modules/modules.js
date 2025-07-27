@@ -316,6 +316,7 @@ export const crearCardsProductos=async (productos,contenedor)=>{
     const card=document.createElement('div');
     card.setAttribute('id',producto.id)
     card.classList.add('card');
+    if(producto.id_estado_producto==2)card.classList.add('card--bordeRojo')
   
     const imagenCard=document.createElement('img');
     imagenCard.setAttribute('src', `http://localhost:8080/APIproyecto/${imagen.ruta}`);
@@ -324,6 +325,7 @@ export const crearCardsProductos=async (productos,contenedor)=>{
 
     const lineaSeparadora=document.createElement('hr');
     lineaSeparadora.classList.add('card__linea');
+    if(producto.id_estado_producto==2)lineaSeparadora.classList.add('card__linea--roja')
     card.append(lineaSeparadora);
 
     const cardNombre=document.createElement('h3');
@@ -522,10 +524,12 @@ export const cargarSelecrProductos=async(select)=>{
   const productos=await get('productos');
 
   productos.forEach(producto => {
-    const option=document.createElement('option');
-    option.setAttribute('value',producto.id);
-    option.textContent=producto.nombre;
-    select.append(option);
+    if(producto.id_estado_producto!=2){
+      const option=document.createElement('option');
+      option.setAttribute('value',producto.id);
+      option.textContent=producto.nombre;
+      select.append(option);
+    }
   });
 }
 

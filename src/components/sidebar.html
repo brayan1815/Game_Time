@@ -1,20 +1,25 @@
-<div class="sidebar__boton botonSidebar">
+<input type="radio" name="radio" class=" radiobuton displayNone" id="reser">
+<label class="sidebar__boton botonSidebar">
     <i class="bi bi-calendar-event-fill botonSidebar__icono"></i>
-    <a href="#/Reservas" class="botonSidebar__texto">Reservas</a>
-</div>
-<div class="sidebar__boton botonSidebar">
+    <a href="#/Reservas" class="botonSidebar__texto" onclick="document.getElementById('reser').checked=true">Reservas</a>
+</label>
+<input type="radio" name="radio" class=" radiobuton displayNone" id="prod">
+<label class="sidebar__boton botonSidebar">
     <i class="bi bi-cookie botonSidebar__icono"></i>
-    <a href="#/Productos" class="botonSidebar__texto">Productos</a>
-</div>
-<div class="sidebar__boton botonSidebar">
+    <a href="#/Productos" class="botonSidebar__texto" onclick="document.getElementById('prod').checked=true">Productos</a>
+</label>
+<input type="radio" name="radio" class=" radiobuton displayNone" id="cons">
+<label class="sidebar__boton botonSidebar">
     <i class="bi bi-controller botonSidebar__icono"></i>
-    <a href="#/Consolas" class="botonSidebar__texto">Consolas</a>
-</div>
-<div class="sidebar__boton botonSidebar usarios">
+    <a href="#/Consolas" class="botonSidebar__texto" onclick="document.getElementById('cons').checked=true">Consolas</a>
+</label>
+<input type="radio" name="radio" class=" radiobuton displayNone" id="usu">
+<label class="sidebar__boton botonSidebar usarios">
     <i class="bi bi-people-fill botonSidebar__icono"></i>
-    <a href="#/Usuarios" class="botonSidebar__texto">Usuarios</a>
-</div>
-<div class="sidebar__boton botonSidebar historial">
+    <a href="#/Usuarios" class="botonSidebar__texto" onclick="document.getElementById('usu').checked=true">Usuarios</a>
+</label>
+<input type="radio" name="radio" class=" radiobuton displayNone" id="his">
+<label class="sidebar__boton botonSidebar historial">
     <i class="bi bi-clock botonSidebar__icono"></i>
-    <a href="#/Historial" class="botonSidebar__texto">Historial</a>
-</div>
+    <a href="#/Historial" class="botonSidebar__texto" onclick="document.getElementById('his').checked=true">Historial</a>
+</label>

@@ -1,5 +1,5 @@
 import { del, get, post, put } from "../../../helpers/api.js";
-import { confirmar, success } from "../../../helpers/alertas.js";
+import { confirmar, error, success } from "../../../helpers/alertas.js";
 import { cargarSelecrProductos, crearFila, crearFilaConsumos, crearTabla, quitarFOmatoIso, validar } from "../../../Modules/modules.js";
 
 export const consumosController=async (parametros=null)=>{
@@ -210,12 +210,13 @@ export const consumosController=async (parametros=null)=>{
             const confirmacion=await confirmar("eliminar el producto");
             if(confirmacion.isConfirmed){
                 const respuesta=await del(`consumos/${id}`);
+                const res=await respuesta.json();
                 if(respuesta.ok){
-                    success(await respuesta.json());
+                    success(res.mensaje);
                 }
-            }
-            else{
-                alert("Se cancelo")
+                else{
+                    error(res.error)
+                }
             }
         }
         

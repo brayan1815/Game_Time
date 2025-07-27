@@ -347,6 +347,7 @@ span{
 }
 
 .botonSidebar__texto{
+  display: block;
   font-family: "Exo 2", sans-serif;
   text-decoration: none;
   color: white;
@@ -609,6 +610,10 @@ span{
   justify-content: center;
 }
 
+.card--bordeRojo{
+  border: solid 2px red;
+}
+
 .cardInfo{
   width: 70%;
   display: flex;
@@ -626,6 +631,10 @@ span{
 .card__linea{
   width: 100%;
   border: solid 1px #4DD42E;
+}
+
+.card__linea--roja{
+  border: solid 1px red;
 }
 
 .card__imagen{
@@ -983,6 +992,10 @@ span{
 
 #mnu_salir:checked +.menuOculto{
   right: 0;
+}
+
+.radiobuton:checked +label a.botonSidebar__texto{
+  color: #4DD42E;
 }
 
 
