@@ -72,11 +72,17 @@ export const consumosController=async (parametros=null)=>{
     cargarSelecrProductos(select);
 
 
-
     btnCobrar.setAttribute('id',id_reserva)
     botonCobrar.setAttribute('id',id_reserva);
 
-    const consumosReserva=await get(`consumos/reserva/${id_reserva}`);
+    let consumosReserva=null;
+
+    if(reserva.id_estado_reserva==4){
+        consumosReserva=await get(`detalle-factura-consumos/reservas/${reserva.id}`)
+    }else{
+        consumosReserva=await get(`consumos/reserva/${id_reserva}`);
+    }
+
     const usuario=await get(`usuarios/${reserva.id_usuario}`);
     const consola=await get(`consolas/${reserva.id_consola }`);
     const tipoConsola=await get(`tipos/${consola.id_tipo}`);
@@ -86,8 +92,14 @@ export const consumosController=async (parametros=null)=>{
         crearTabla(['producto','precio','cantidad','subtotal'],contenedorTabla);
 
         const cuerpoTabla=document.querySelector('.tabla__cuerpo');
-        for (const consumo of consumosReserva) {
-            await crearFilaConsumos([consumo.nombreProducto,consumo.precioProducto,consumo.cantidad,consumo.subtotal],consumo.idConsumo,cuerpoTabla,reserva)
+        if(reserva.id_estado_reserva!=4){
+            for (const consumo of consumosReserva) {
+                await crearFilaConsumos([consumo.nombreProducto,consumo.precioProducto,consumo.cantidad,consumo.subtotal],consumo.idConsumo,cuerpoTabla,reserva)
+            }
+        }else{
+            for (const consumo of consumosReserva) {
+                await crearFilaConsumos([consumo.nombre_producto,consumo.precio_unitario,consumo.cantidad,consumo.subtotal],null,cuerpoTabla,reserva)
+            }
         }
     }else{
         const mensaje=document.createElement('span');
