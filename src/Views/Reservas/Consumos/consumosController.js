@@ -68,6 +68,7 @@ export const consumosController=async (parametros=null)=>{
     }
 
 
+    
 
     cargarSelecrProductos(select);
 
@@ -108,6 +109,8 @@ export const consumosController=async (parametros=null)=>{
         contenedorTabla.append(mensaje)
     }
 
+    
+    
 
     const btnsTabla=document.querySelectorAll('.registro__boton');
     [...btnsTabla].forEach(btn => {
@@ -224,7 +227,8 @@ export const consumosController=async (parametros=null)=>{
                 const respuesta=await del(`consumos/${id}`);
                 const res=await respuesta.json();
                 if(respuesta.ok){
-                    success(res.mensaje);
+                    await success(res.mensaje);
+                    location.reload();
                 }
                 else{
                     error(res.error)
@@ -276,19 +280,16 @@ export const consumosController=async (parametros=null)=>{
             const res=await put(`productos/${producto.id}`,producto);
             if(res.ok){
                 const respuesta=await post('consumos',info);
+                const res=await respuesta.json();
                 if(respuesta.ok){
-                    Swal.fire({
-                        title: 'Exito',
-                        text: 'El producto se agrego correctamente',
-                        icon: 'success',
-                        confirmButtonText: 'Aceptar'
-                    })
+                    await success(res.mensaje)
                     select.value=0;
                     cantDisponibles.textContent=0;
                     precioProducto.textContent=0;
                     campoCantAComprar.value=0;
                     subtotal.textContent=0;
                     cerrarFomrulario(contenedorFomrulario);
+                    location.reload();                    
                 }
             }
         }else{
@@ -300,7 +301,6 @@ export const consumosController=async (parametros=null)=>{
     })
 
     // ------------------------------- FORMULARIO EDITAR------------------------------------//
-
     formEditarConsumo.addEventListener('submit',async(event)=>{
         const info=validar(event);
         const consumo=await get(`consumos/${info.id_consumo}`);
@@ -312,12 +312,7 @@ export const consumosController=async (parametros=null)=>{
         const res=await respuesta.json();
         
         if(respuesta.ok){
-            Swal.fire({
-                title: 'Exito',
-                text: res.mensaje,
-                icon: 'success',
-                confirmButtonText: 'Aceptar'
-            })
+            success(res.mensaje)
         }
         
         cerrarFomrulario(contenedorFormEditar)
@@ -381,12 +376,7 @@ export const consumosController=async (parametros=null)=>{
                 window.location.href = "#/Reservas";
             }
         }else{
-            Swal.fire({
-                title: 'Error',
-                text: 'Debe seleccionar primero el metodo de pago',
-                icon: 'error',
-                confirmButtonText: 'Cool'
-            })
+            error('Debe seleccionar primero el metodo de pago');
         }
     })
 

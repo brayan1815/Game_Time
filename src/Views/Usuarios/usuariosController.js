@@ -38,7 +38,11 @@ export const usuariosController=async()=>{
             const respuesta = await del(`usuarios/${id}`)
             const res=await respuesta.json();
 
-            if(respuesta.ok) success(res.mensaje);
+            if(respuesta.ok){
+                success(res.mensaje);
+                const fila=document.querySelector(`#fila_${id}`);
+                fila.remove();
+            }
             else error(res.error);
         }
         

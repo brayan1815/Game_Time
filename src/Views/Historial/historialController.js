@@ -17,10 +17,8 @@ export const historialController=async()=>{
         
         
         for (const reserva of reservas) {
-            console.log(reserva);
-            
             if(reserva.idEstadoReserva==4){
-                await crearFilaTablaReservas(reserva,reserva.id,cuerpoTabla);
+                await crearFilaTablaReservas(reserva,reserva.id,cuerpoTabla,true);
             }
         }
     }

@@ -1,6 +1,6 @@
 import { confirmar, error, success } from "../../helpers/alertas.js";
 import { del, get } from "../../helpers/api.js";
-import { crearCardsProductos } from "../../Modules/modules.js";
+import { cargarCardsConsolas, crearCardsProductos } from "../../Modules/modules.js";
 
 export const productosController=async()=>{
 
@@ -29,7 +29,12 @@ window.addEventListener('click',async(event)=>{
             const respuesta=await del(`productos/${id}`);
             const res=await respuesta.json();
 
-            if(respuesta.ok)success(res.mensaje);
+            if(respuesta.ok){
+                success(res.mensaje);
+                const card=document.querySelector(`.card#card_${id}`);
+                card.remove();
+                
+            }
             else error(res.error)
         }
     }

@@ -32,7 +32,11 @@ export const consolasController=async()=>{
         const respuesta = await del(`consolas/${id}`);
         const res=await respuesta.json();
 
-        if(respuesta.ok)success(res.mensaje);
+        if(respuesta.ok){
+          success(res.mensaje);
+          const card=document.querySelector(`.card#consola_${id}`);
+          card.remove();
+        }
         else error(res.error);
       }   
     }

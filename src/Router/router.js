@@ -26,7 +26,7 @@ export const router = async (elemento) => {
   if (ruta.private) {
     const token=localStorage.getItem('token');
     if(!token){
-      await error('Su secion ha caducado');
+      await error('Su sesion ha caducado');
       redirigirARuta("Login");
       return;
     }

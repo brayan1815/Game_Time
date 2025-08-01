@@ -131,6 +131,8 @@ export const reservasController=async()=>{
 
                 if(res.ok){
                     success(respuesta.mensaje);
+                    const reserva=document.querySelector(`#reserva_${id}`);
+                    reserva.remove();
                 }
                 else{
                     error(respuesta.error)

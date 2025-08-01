@@ -26,6 +26,7 @@ export const crearTabla=(encabezados,contenedor)=>{
 export const crearFila=(info,id,contenedor,hash)=>{
     const fila=document.createElement('tr');
     fila.classList.add('tabla__fila');
+    fila.setAttribute('id',`fila_${id}`);
 
     info.forEach(item => {
         const campo=document.createElement('td');
@@ -69,7 +70,8 @@ export const crearFila=(info,id,contenedor,hash)=>{
 
 export const crearFilaConsumos=(info,id,contenedor,reserva)=>{
   const fila=document.createElement('tr');
-    fila.classList.add('tabla__fila');
+  fila.classList.add('tabla__fila');
+  fila.setAttribute('id',`consumo_${id}`)
 
     info.forEach(item => {
         const campo=document.createElement('td');
@@ -117,11 +119,10 @@ export function quitarFOmatoIso(fecha) {
   return fecha.replace("T", " ");
 }
 
-export const crearFilaTablaReservas=async(info,id,contenedor)=>{
+export const crearFilaTablaReservas=async(info,id,contenedor,historial=false)=>{
   const fila=document.createElement('tr');
 
-  fila.setAttribute('id',id);
-
+  fila.setAttribute('id',`reserva_${id}`);
   fila.classList.add('tabla__fila')
 
   if(info.idEstadoReserva==1)fila.classList.add('tabla__fila--blanco');
@@ -134,16 +135,15 @@ export const crearFilaTablaReservas=async(info,id,contenedor)=>{
   const HoraFin=document.createElement('td');
   const Consola=document.createElement('td');
   const Boton=document.createElement('td');
-  const BotonCan=document.createElement('td');
-
+  
   campoDocumento.classList.add('tabla__campo');
   campoUsuario.classList.add('tabla__campo');
   HoraInicio.classList.add('tabla__campo');
   HoraFin.classList.add('tabla__campo');
   Consola.classList.add('tabla__campo');
   Boton.classList.add('tabla__campo');
-  BotonCan.classList.add('tabla__campo');
-
+  
+  
 
 
   campoDocumento.textContent=info.documentoUsuario;
@@ -161,20 +161,37 @@ export const crearFilaTablaReservas=async(info,id,contenedor)=>{
   bot.append(iconBot);
   
 
-  const btnCan=document.createElement('button');
-  btnCan.classList.add('registro__boton','registro__boton--eliminar','cancel');
-  btnCan.setAttribute('id',id);
-  const ic=document.createElement('i');
-  ic.classList.add('bi','bi-ban');
-  btnCan.append(ic)
 
   Boton.append(bot);
-  BotonCan.append(btnCan);
 
-  fila.append(campoDocumento,campoUsuario,HoraInicio,HoraFin,Consola,Boton,BotonCan);
+  fila.append(campoDocumento,campoUsuario,HoraInicio,HoraFin,Consola,Boton);
+
+  if(historial==false){
+    
+    const BotonCan=document.createElement('td');
+    BotonCan.classList.add('tabla__campo');
+
+    const btnCan=document.createElement('button');
+    btnCan.classList.add('registro__boton','registro__boton--eliminar','cancel');
+    btnCan.setAttribute('id',id);
+    const ic=document.createElement('i');
+    ic.classList.add('bi','bi-ban');
+    btnCan.append(ic)
+    
+    fila.classList.add('borde-verde')
+
+    BotonCan.append(btnCan);
+    fila.append(BotonCan)
+  }
   
   contenedor.append(fila)
-  
+  if(historial){
+    const campos=document.querySelectorAll('.tabla__campo');
+
+    [...campos].forEach(campo => {
+      campo.classList.add('.tabla__campo','tabla__campo--bordeVerde')
+    });
+  }
 }
 
 export const limpiar=(campo)=>{
@@ -220,16 +237,6 @@ export const validarContrasenia = (campo) => {
     return false;
   }
   return true;
-}
-
-const validarContraseniaUsuario =(userCorreo,userCont,usuarios) => {
-  userCorreo=userCorreo.toLowerCase();
-
-  for (let n = 0; n < usuarios.length; n++){ 
-    if (usuarios[n].correo == userCorreo && usuarios[n].contrasenia==userCont) return usuarios[n].id;
-  }
-
-  return false;
 }
 
 export const validarLetras=(event)=>{
@@ -314,7 +321,7 @@ export const crearCardsProductos=async (productos,contenedor)=>{
   for (const producto of productos) {
     const imagen= await get(`imagenes/${producto.id_imagen}`);
     const card=document.createElement('div');
-    card.setAttribute('id',producto.id)
+    card.setAttribute('id','card_'+producto.id)
     card.classList.add('card');
     if(producto.id_estado_producto==2)card.classList.add('card--bordeRojo')
   
@@ -386,6 +393,7 @@ export const cargarCardsConsolas = async (consolas, contenedor) => {
     
     const card = document.createElement('div');
     card.classList.add('card', 'card--horizontal');
+    card.setAttribute('id',`consola_${consola.id}`)
   
     const imagen = await get(`imagenes/${consola.idImagen}`);
   
