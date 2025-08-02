@@ -21,8 +21,8 @@
             <label for="subtotal" class="formulario__label">Subtotal:</label>
             <input type="text" id="subtotal" class="formulario__campo formulario__campo--verde" readonly required>
             <!-- <div id="subtotal" class="formulario__campo formulario__campo--verde"></div> -->
-            <button class="formulario__boton" type="submit">Agregar</button>      
-            <button class="formulario__boton formulario__boton--cancelar" type="button">Cancelar</button>      
+            <button class="boton" type="submit">Agregar</button>      
+            <button class="boton cancelAgProd" type="button">Cancelar</button>      
           </form>
         </div>
         <div class="contenedorFormularioModal editar">
@@ -44,8 +44,8 @@
             </div>
             <label for="subtotal_editar" class="formulario__label">Subtotal:</label>
             <input type="text" id="subtotal" class="formulario__campo formulario__campo--verde" readonly required>
-            <button class="formulario__boton" type="submit">Actualizar</button>      
-            <button class="formulario__boton formulario__boton--cancelar editar" type="button">Cancelar</button>      
+            <button class="boton" type="submit">Actualizar</button>      
+            <button class="boton cancelEdit" type="button">Cancelar</button>      
           </form>
         </div>
 
@@ -77,8 +77,8 @@
             <select name="" id="metodo_pago" class="formulario__campo">
               <option value="0">Seleccione</option>
             </select>
-            <button class="formulario__boton cob">Pagar</button>
-            <button class="formulario__boton formulario__boton--cancelar fac">Cancelar</button>
+            <button class="boton cob">Pagar</button>
+            <button class="boton canfac">Cancelar</button>
           </div>
         </div>
         <div class="contenido__contenedor contenido__contenedor--grande">
@@ -91,10 +91,10 @@
           <div class="productosReserva">
             <div class="contenedorTabla"></div>
             <!-- <button class="boton__tabla">Agregar Producto</button> -->
-            <button class="boton__tabla">Agregar Producto</button>
+            <button class="boton boton--crear agregar">Agregar Producto</button>
           </div>
           <div class="botonRegresar">
-            <button class="contenido__Boton contenido__Boton--cobrar">Cobrar</button>
+            <button class="boton boton--crear cobrar">Cobrar</button>
           </div>
 
         </div>

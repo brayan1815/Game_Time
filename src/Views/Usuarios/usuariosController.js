@@ -24,31 +24,27 @@ export const usuariosController=async()=>{
     const tabla=document.querySelector('.tabla');
 
     window.addEventListener('click',async(event)=>{
-    if(event.target.getAttribute('class')=='registro__boton registro__boton--editar'){
-            const id=event.target.getAttribute('id');       
-            window.location.href=`actualizarUsuario.html?id=${encodeURIComponent(id)}`
-    }
     
-    if (event.target.getAttribute('class') == 'registro__boton registro__boton--eliminar') {
-        const id = event.target.getAttribute('id');
+        if (event.target.getAttribute('class') == 'boton boton--tabla eliminar') {
+            const id = event.target.getAttribute('id');
 
-        const confirm=await confirmar("eliminar el usuario");
+            const confirm=await confirmar("eliminar el usuario");
 
-        if(confirm.isConfirmed){
-            const respuesta = await del(`usuarios/${id}`)
-            const res=await respuesta.json();
+            if(confirm.isConfirmed){
+                const respuesta = await del(`usuarios/${id}`)
+                const res=await respuesta.json();
 
-            if(respuesta.ok){
-                success(res.mensaje);
-                const fila=document.querySelector(`#fila_${id}`);
-                fila.remove();
+                if(respuesta.ok){
+                    success(res.mensaje);
+                    const fila=document.querySelector(`#fila_${id}`);
+                    fila.remove();
+                }
+                else error(res.error);
             }
-            else error(res.error);
+            
+            
+            
         }
-        
-        
-        
-    }
     })
 
 

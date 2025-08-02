@@ -24,7 +24,7 @@ export const consolasController=async()=>{
   window.addEventListener('click',async (event) => {
     const clase = event.target.getAttribute('class');
     const id = event.target.getAttribute('id');
-    if (clase == 'card__boton eliminar') {
+    if (clase == 'boton boton--cardIcono eliminar') {
 
       const confirm=await confirmar("Eliminar la consola");
 

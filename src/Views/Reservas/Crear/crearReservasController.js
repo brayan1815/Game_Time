@@ -13,7 +13,7 @@ export const crearReservaController=async()=>{
     const formHoraFinalizacion=document.querySelector('#hora_finalizacion');
     const formulario=document.querySelector('form');
     const campoIdConsola=document.querySelector('#id_consola');
-    const botonCancel = document.querySelector('.formulario__boton--cancelar');
+    const botonCancel = document.querySelector('.boton.cancelar');
     const campoDocumento = document.querySelector('#documento');
 
 
@@ -149,7 +149,7 @@ export const crearReservaController=async()=>{
     window.addEventListener('click',(event)=>{
     
         const clase=event.target.getAttribute('class');
-        if(clase=='botonReservar'){
+        if(clase=='boton boton--textoCard'){
         const id_consola=event.target.getAttribute('id');
         campoIdConsola.value=id_consola;
         abrirCalendario(id_consola);
@@ -213,6 +213,6 @@ export const crearReservaController=async()=>{
     campoDocumento.addEventListener('keydown',validarMaximo)
 
     botonCancel.addEventListener('click',()=>{
-    contenedorformularioNuevaReserva.classList.remove('displayFlex');
+        contenedorformularioNuevaReserva.classList.remove('displayFlex');
     })
 }

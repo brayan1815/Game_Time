@@ -1,0 +1,17 @@
+.logo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    color: white;
+}
+
+.logo__imagen{
+    width: 90px;
+    height: auto;
+}
+
+.logo__imagen--pequenia{
+  width: 40px;
+}
+

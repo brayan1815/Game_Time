@@ -5,7 +5,7 @@ import { cargarCardsConsolas, crearCardsProductos } from "../../Modules/modules.
 export const productosController=async()=>{
 
 const contenedorCards=document.querySelector('.cards');
-const btnNuevoProd=document.querySelector('.contenido__Boton');
+const btnNuevoProd=document.querySelector('.boton.boton--crear');
 
 const usuarios=JSON.parse(localStorage.getItem('usuario'));
 
@@ -22,7 +22,7 @@ crearCardsProductos(productos,contenedorCards);
 window.addEventListener('click',async(event)=>{
     const clase=event.target.getAttribute('class');
     const id=event.target.getAttribute('id');
-    if(clase=="card__boton eliminar"){
+    if(clase=="boton boton--cardIcono eliminar"){
 
         const confirm=await confirmar('eliminar el producto');
         if(confirm.isConfirmed){

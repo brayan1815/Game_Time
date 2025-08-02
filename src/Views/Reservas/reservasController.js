@@ -122,7 +122,7 @@ export const reservasController=async()=>{
         const clase=event.target.getAttribute('class');
         const id=event.target.getAttribute('id');
 
-        if(clase=='registro__boton registro__boton--eliminar cancel'){
+        if(clase=='boton boton--tabla cancel'){
             const confirm=await confirmar("cancelar la reserva");
 
             if(confirm.isConfirmed){

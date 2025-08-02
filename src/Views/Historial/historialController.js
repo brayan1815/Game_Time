@@ -49,7 +49,7 @@ export const historialController=async()=>{
             const reservas=await get(`pagos/metodo/${id}/reservas`);
             if(reservas.length>0){
                 reservas.forEach(reserva => {
-                    crearFilaTablaReservas(reserva, reserva.id, cuerpoTabla);
+                    crearFilaTablaReservas(reserva, reserva.id, cuerpoTabla,true);
                 });
             }
 
@@ -59,7 +59,7 @@ export const historialController=async()=>{
             const reservas=await get('reservas/detalle')
             reservas.forEach(reserva => {
                 if(reserva.idEstadoReserva==4){
-                    crearFilaTablaReservas(reserva, reserva.id, cuerpoTabla);
+                    crearFilaTablaReservas(reserva, reserva.id, cuerpoTabla,true);
                 }
             });
             const tot=await get('pagos/total');

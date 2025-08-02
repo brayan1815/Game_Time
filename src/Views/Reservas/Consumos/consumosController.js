@@ -10,8 +10,8 @@ export const consumosController=async (parametros=null)=>{
     const horaInicioFin=document.querySelector('.horaInicioFin');
     const cons=document.querySelector('.consola');
     const precHor=document.querySelector('.precioHora');
-    const botonAgregarProducto=document.querySelector('.boton__tabla');
-    const botonCobrar=document.querySelector('.contenido__Boton--cobrar')
+    const botonAgregarProducto=document.querySelector('.boton.boton--crear.agregar');
+    const botonCobrar=document.querySelector('.boton.boton--crear.cobrar')
     const select=document.querySelector('#id_producto');
     const formulario=document.querySelector('form');
     const campoCantAComprar=document.querySelector('#cantidad');
@@ -32,15 +32,15 @@ export const consumosController=async (parametros=null)=>{
     // const btRestar=document.querySelector('.formulario.Editar #restar');
     // const btSumar=document.querySelector('.formulario.Editar #sumar');
     const subt=document.querySelector('.formulario.Editar #subtotal');
-    const btnCancel=document.querySelector('.formulario.Editar .formulario__boton--cancelar');
-    const btnCobrar=document.querySelector('.contenido__Boton--cobrar');
+    const btnCancel=document.querySelector('.boton.cancelEdit');
+    const btnCobrar=botonCobrar;
     //-----FACTURA-------//
     const contenedorFactura=document.querySelector('.contenedorModal.fac');
     const consumoConsola=document.querySelector('#pago_consola');
     const consumoProductos=document.querySelector('#pago_consumo');
     const totPag=document.querySelector('#total');
-    const  btnCancelfac=document.querySelector('.formulario__boton--cancelar.fac');
-    const btnConfirCobro=document.querySelector('.formulario__boton.cob');
+    const  btnCancelfac=document.querySelector('.boton.canfac');
+    const btnConfirCobro=document.querySelector('.boton.cob');
     const selectMetodoPago=document.querySelector('#metodo_pago');
     const lblselecmetodo=document.querySelector('.lbl');
     
@@ -198,7 +198,7 @@ export const consumosController=async (parametros=null)=>{
             const cantInicial=Number(cant.value);
             restarCantidad(cantInicial,cant,Number(prec.textContent),subt);
         }
-        else if(clase=="formulario__boton formulario__boton--cancelar"){
+        else if(clase=="boton cancelAgProd"){
             select.value=0;
             cantDisponibles.textContent=0;
             precioProducto.textContent=0;
@@ -206,7 +206,7 @@ export const consumosController=async (parametros=null)=>{
             subtotal.value=0;
             cerrarFomrulario(contenedorFomrulario);
         }
-        else if(clase=="registro__boton registro__boton--editar"){       
+        else if(clase=="boton boton--tabla editar"){       
             const id=event.target.getAttribute('id');
             const consumo=await get(`consumos/dto/${id}`);
 
@@ -219,7 +219,7 @@ export const consumosController=async (parametros=null)=>{
             contenedorFormEditar.classList.add('displayFlex');
                 
         }
-        else if(clase=="registro__boton registro__boton--eliminar"){
+        else if(clase=="boton boton--tabla eliminar"){
             const id=event.target.getAttribute('id');
 
             const confirmacion=await confirmar("eliminar el producto");

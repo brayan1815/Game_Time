@@ -42,7 +42,7 @@ export const crearFila=(info,id,contenedor,hash)=>{
     contenedorBotones.classList.add('contenedorBotonesTabla');
 
     const botonEliminar=document.createElement('button');
-    botonEliminar.classList.add('registro__boton','registro__boton--eliminar')
+    botonEliminar.classList.add('boton','boton--tabla','eliminar')
 
     const iconoEliminar=document.createElement('i');
     iconoEliminar.classList.add('bi','bi-trash-fill');
@@ -51,7 +51,7 @@ export const crearFila=(info,id,contenedor,hash)=>{
     contenedorBotones.append(botonEliminar);
 
     const botonEditar=document.createElement('a');
-    botonEditar.classList.add('registro__boton','registro__boton--editar')
+    botonEditar.classList.add('boton','boton--tabla','editar')
     botonEditar.setAttribute('id',id);
     botonEditar.setAttribute('href',`#/${hash}/id=${id}`)
 
@@ -88,7 +88,7 @@ export const crearFilaConsumos=(info,id,contenedor,reserva)=>{
       contenedorBotones.classList.add('contenedorBotonesTabla');
   
       const botonEliminar=document.createElement('button');
-      botonEliminar.classList.add('registro__boton','registro__boton--eliminar')
+      botonEliminar.classList.add('boton','boton--tabla','eliminar')
   
       const iconoEliminar=document.createElement('i');
       iconoEliminar.classList.add('bi','bi-trash-fill');
@@ -97,7 +97,7 @@ export const crearFilaConsumos=(info,id,contenedor,reserva)=>{
       contenedorBotones.append(botonEliminar);
   
       const botonEditar=document.createElement('button');
-      botonEditar.classList.add('registro__boton','registro__boton--editar')
+      botonEditar.classList.add('boton','boton--tabla','editar')
       botonEditar.setAttribute('id',id);
   
       const iconoEditar=document.createElement('i');
@@ -154,7 +154,7 @@ export const crearFilaTablaReservas=async(info,id,contenedor,historial=false)=>{
 
   const bot=document.createElement('a');
   bot.setAttribute('href',`#/Reservas/Consumos/id=${id}`)
-  bot.classList.add('registro__boton','Info');
+  bot.classList.add('boton','boton--tabla','Info');
   bot.setAttribute('id',id)
   const iconBot=document.createElement('i');
   iconBot.classList.add('bi','bi-info-circle');
@@ -172,7 +172,7 @@ export const crearFilaTablaReservas=async(info,id,contenedor,historial=false)=>{
     BotonCan.classList.add('tabla__campo');
 
     const btnCan=document.createElement('button');
-    btnCan.classList.add('registro__boton','registro__boton--eliminar','cancel');
+    btnCan.classList.add('boton','boton--tabla','cancel');
     btnCan.setAttribute('id',id);
     const ic=document.createElement('i');
     ic.classList.add('bi','bi-ban');
@@ -365,7 +365,7 @@ export const crearCardsProductos=async (productos,contenedor)=>{
       const botonEditar=document.createElement('a');
       botonEditar.setAttribute('id',producto.id);
       botonEditar.setAttribute('href',`#/Productos/Editar/id=${producto.id}`)
-      botonEditar.classList.add('card__boton','editar');
+      botonEditar.classList.add('boton','boton--cardIcono','editar');
   
       const iconoEditar=document.createElement('i');
       iconoEditar.classList.add('bi','bi-pencil-square');
@@ -375,7 +375,7 @@ export const crearCardsProductos=async (productos,contenedor)=>{
   
       const botonEliminar=document.createElement('button');
       botonEliminar.setAttribute('id',producto.id)
-      botonEliminar.classList.add('card__boton','eliminar');
+      botonEliminar.classList.add('boton','boton--cardIcono','eliminar');
   
       const iconoEliminar=document.createElement('i');
       iconoEliminar.classList.add('bi','bi-trash-fill');
@@ -429,7 +429,7 @@ export const cargarCardsConsolas = async (consolas, contenedor) => {
       const botonEditar=document.createElement('a');
       botonEditar.setAttribute('id',consola.id);
       botonEditar.setAttribute('href',`#/Consolas/Editar/id=${consola.id}`)
-      botonEditar.classList.add('card__boton','editar');
+      botonEditar.classList.add('boton','boton--cardIcono','editar');
   
       const iconoEditar=document.createElement('i');
       iconoEditar.classList.add('bi','bi-pencil-square');
@@ -439,7 +439,7 @@ export const cargarCardsConsolas = async (consolas, contenedor) => {
   
       const botonEliminar=document.createElement('button');
       botonEliminar.setAttribute('id',consola.id)
-      botonEliminar.classList.add('card__boton','eliminar');
+      botonEliminar.classList.add('boton','boton--cardIcono','eliminar');
   
       const iconoEliminar=document.createElement('i');
       iconoEliminar.classList.add('bi','bi-trash-fill');
@@ -494,7 +494,7 @@ export const cargarCardsConsolasReservar=async(consolas,contenedor)=>{
     const botonReservar=document.createElement('button');
     botonReservar.textContent="Reservar";
     botonReservar.id=consola.id;
-    botonReservar.classList.add('botonReservar')
+    botonReservar.classList.add('boton','boton--textoCard')
     contenedorBotones.append(botonReservar)
 
     cardInfo.append(contenedorBotones);
