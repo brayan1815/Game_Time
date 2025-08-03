@@ -83,3 +83,13 @@
     font-size: 12px;
     margin-bottom: 20px;
 }
+
+@media(max-width:900px){
+  .formulario{
+    width: 90%;
+  }
+
+  .formulario__insertarImagen{
+    font-size: 11px;
+  }
+}

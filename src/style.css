@@ -678,3 +678,114 @@ span{
   border-radius: 15px;
 }
 
+.menuHamburguesa{
+  display: none;
+}
+
+
+
+@media(max-width:900px){
+  .layout {
+    grid-template-areas:
+      "encabezado"
+      "app";
+    grid-template-columns: 100%;
+    grid-template-rows: 10% 90%;
+  }
+
+  .tabla{
+    min-width: 1000px;
+  }
+
+  .logoEncabezado__texto{
+    display: none;
+  }
+
+  .encabezadoPerfil__nombre{
+    display: none;
+  }
+
+  .menuHamburguesa{
+    display: flex;
+    font-size: 35px;
+    cursor: pointer;
+  }
+
+  .sidebar{
+    position: fixed;
+    z-index: 900;
+    width: 60%;
+    height: 90%;
+    top: 10%;
+    left: -20000px;
+    transition: 0.3s;
+  }
+
+  .left-0{
+    left: 0;
+  }
+
+  .botonSidebar__texto,
+  .botonSidebar__icono{
+    font-size: 15px;
+  }
+
+  .infoEstadoReserva{
+    display: none;
+  }
+
+  .botonesSuperiores__buscar{
+    width: 150px;
+  }
+
+  .menuOculto{
+    width: 50%;
+    height: 15%;
+    right: -5000px;
+  }
+
+  .menuOculto div,
+  .menuOculto div button{
+    font-size: 11px;
+  }
+
+  .menuOculto div button:hover{
+    font-size: 12px;
+  }
+
+  /***** INFO DE LA RESERVA *****/
+
+  .contenido__contenedor--grande{
+    margin: 0;
+    grid-template-columns: 100%;
+    grid-template-rows: 20% 70% 10%;
+    grid-template-areas:"info_reservas"
+                        "productos_reserva"
+                        "boton_regresar";
+  }
+
+  .infoReserva{
+    border-radius: 15px;
+    height: 90%;
+  }
+
+  .infoReserva__texto{
+    font-size: 15px;
+  }
+
+  .factura{
+    width: 90%;
+  }
+
+  /*** HISTORIAL ***/
+
+  .contenedorFiltros{
+    width: 60%;
+    font-size: 11px;
+  }
+
+  .totalHist{
+    width: 30%;
+    font-size: 11px;
+  }
+}

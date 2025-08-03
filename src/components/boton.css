@@ -62,3 +62,22 @@
     font-size: 20px;
     border-radius: 9px;
 }
+
+@media(max-width:900px){
+    .boton--tabla{
+        width: 35px;
+        height: 35px;
+    }
+
+    .boton--crear{
+        height: 35px;
+        width: 120px;
+        border-radius: 7px;
+        font-size: 11px;
+    }
+
+    .boton--crear:hover{
+        font-size: 12px;
+    }
+
+}

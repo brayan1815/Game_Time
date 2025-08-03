@@ -9,6 +9,7 @@ const app=document.querySelector('.app');
 const grid_container=document.querySelector('.grid-container');
 const header = document.querySelector(".encabezado");
 const sidebar = document.querySelector(".sidebar");
+let cheqSidebar=document.querySelector(".checSidebar");
 
 const cargarLayoutPrivado = async () => {
 
@@ -81,8 +82,9 @@ const render=()=> {
   router(app); // carga la vista correspondiente
 }
 
+
 window.addEventListener('hashchange',render)
-window.addEventListener('DOMContentLoaded',render)
+await window.addEventListener('DOMContentLoaded',render)
 window.addEventListener('click',(event)=>{
   const clase=event.target.getAttribute('class');
   if(clase=="btnSalir"){
@@ -91,3 +93,12 @@ window.addEventListener('click',(event)=>{
     window.location.href="#/Login"
   }
 })
+
+
+cheqSidebar.addEventListener('change',(event)=>{
+  if(event.target.checked){
+    sidebar.classList.add('left-0')
+  }else{
+    sidebar.classList.remove('left-0')
+  }
+});
