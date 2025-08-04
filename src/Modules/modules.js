@@ -153,7 +153,11 @@ export const crearFilaTablaReservas=async(info,id,contenedor,historial=false)=>{
   Consola.textContent=info.nombreConsola;
 
   const bot=document.createElement('a');
-  bot.setAttribute('href',`#/Reservas/Consumos/id=${id}`)
+  if(historial){
+    bot.setAttribute('href',`#/Historial/Info/id=${id}`)
+  }else{
+    bot.setAttribute('href',`#/Reservas/Consumos/id=${id}`)
+  }
   bot.classList.add('boton','boton--tabla','Info');
   bot.setAttribute('id',id)
   const iconBot=document.createElement('i');

@@ -321,6 +321,12 @@ span{
   overflow-y: scroll;
 }
 
+.contenido__contenedor--flex{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 ::-webkit-scrollbar{
   display: none;
 }
@@ -555,6 +561,10 @@ span{
   gap: 10px;
 }
 
+.factura--grande{
+  height: 90%;
+}
+
 .factura__info{
   width: 80%;
   height: 35%;
@@ -565,6 +575,11 @@ span{
   gap: 5%;
   overflow-y: scroll;
 }
+
+.factura__info--grande{
+  height: 50%;
+}
+
 
 .border--red{
   border: solid 2px red;

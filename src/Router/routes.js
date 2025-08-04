@@ -2,6 +2,7 @@ import { consolasController } from "../Views/Consolas/consolasController";
 import { crearConsolasController } from "../Views/Consolas/Crear/crearConsolasController";
 import { consolasEditarController } from "../Views/Consolas/Editar/consolaEditarController";
 import { historialController } from "../Views/Historial/historialController";
+import { historialInfoController } from "../Views/Historial/Info/historialInfoController";
 import { loginController } from "../Views/Login/loginController";
 import { crearProductosController } from "../Views/Productos/Crear/crearProductosController";
 import { productosEditarController } from "../Views/Productos/Editar/productosEditarController";
@@ -114,8 +115,15 @@ export const routes={
         }
     },
     Historial:{
-        path:"Historial/index.html",
-        controlador:historialController,
-        private:true
+        "/":{
+            path:"Historial/index.html",
+            controlador:historialController,
+            private:true
+        },
+        Info:{
+            path:"Historial/Info/index.html",
+            controlador:historialInfoController,
+            private:true
+        }
     }
 }

@@ -22,6 +22,7 @@ export const historialController=async()=>{
             }
         }
     }
+    // const btnsInfo=document.querySelectorAll
 
     const cuerpoTabla=document.querySelector('.tabla__cuerpo');
 

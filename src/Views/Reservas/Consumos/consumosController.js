@@ -329,8 +329,8 @@ export const consumosController=async (parametros=null)=>{
         const id_reser=event.target.getAttribute('id');
 
         const factura=await post(`facturas/reserva/${id_reser}`);
-        const res=await factura.json();
-        console.log(res);
+        const res=await factura.json();   
+        if(!factura.ok) error(res.error)
         
 
         const consCons=res.totalTiempo+"";
