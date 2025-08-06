@@ -323,6 +323,7 @@ export const contarCamposFormulario=(formulario)=>{
 export const crearCardsProductos=async (productos,contenedor)=>{
 
   for (const producto of productos) {
+    if(producto.id_estado_producto==3)continue
     const imagen= await get(`imagenes/${producto.id_imagen}`);
     const card=document.createElement('div');
     card.setAttribute('id','card_'+producto.id)
@@ -395,6 +396,8 @@ export const crearCardsProductos=async (productos,contenedor)=>{
 export const cargarCardsConsolas = async (consolas, contenedor) => {
   for (const consola of consolas) {
     
+    if(consola.idEstado==2)continue
+    
     const card = document.createElement('div');
     card.classList.add('card', 'card--horizontal');
     card.setAttribute('id',`consola_${consola.id}`)
@@ -461,6 +464,9 @@ export const cargarCardsConsolas = async (consolas, contenedor) => {
 
 export const cargarCardsConsolasReservar=async(consolas,contenedor)=>{
   for (const consola of consolas) {
+
+    if(consola.id_estado==2)continue
+    
     
     const card = document.createElement('div');
     card.classList.add('card', 'card--horizontal');
@@ -524,10 +530,12 @@ export const cargarSelectTiposConsols=async(select)=>{
   const tipos=await get('tipos');
   
   tipos.forEach(tipo => {
-    const option=document.createElement('option');
-    option.setAttribute('value',tipo.id);
-    option.textContent=tipo.tipo;
-    select.append(option);
+    if(tipo.id_estado_tipo!=2){
+      const option=document.createElement('option');
+      option.setAttribute('value',tipo.id);
+      option.textContent=tipo.tipo;
+      select.append(option);
+    }
   });
 }
 
@@ -536,7 +544,7 @@ export const cargarSelecrProductos=async(select)=>{
   const productos=await get('productos');
 
   productos.forEach(producto => {
-    if(producto.id_estado_producto!=2){
+    if(producto.id_estado_producto!=2 && producto.id_estado_producto!=3){
       const option=document.createElement('option');
       option.setAttribute('value',producto.id);
       option.textContent=producto.nombre;

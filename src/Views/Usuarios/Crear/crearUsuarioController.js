@@ -1,5 +1,5 @@
 import { get, post } from "../../../helpers/api.js";
-import { success } from "../../../helpers/alertas.js";
+import { error, success } from "../../../helpers/alertas.js";
 import {contarCamposFormulario, limpiar, validar, validarContrasenia, validarCorreo, validarLetras, validarMaximo, validarMinimo, validarNumeros} from "../../../Modules/modules.js";
 
 export const crearUsuarioController=async()=>{
@@ -26,11 +26,14 @@ export const crearUsuarioController=async()=>{
 
     formulario.addEventListener('submit', async(event)=>{
         const info=validar(event);
-        if(Object.keys(info).length==camposForm){     
+        if(Object.keys(info).length==camposForm){
+            info['id_estado']=1;   
             const respuesta=await post('usuarios',info);
             const res=await respuesta.json();
             if(respuesta.ok) success(res.mensaje);
-            else alert('Ocurrio un error al intentar crear el usuario');
+            else{
+                error(res.error)
+            }
         }
     })
 

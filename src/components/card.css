@@ -13,11 +13,17 @@
   justify-content: center;
 }
 
+.card--bordeRojo{
+  border-color: red;
+}
+
 .card--horizontal{
   flex-direction: row;
   height: 190px;
   padding: 10px;
 }
+
+
 
 .card__linea{
   width: 90%;

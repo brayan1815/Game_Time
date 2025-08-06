@@ -13,15 +13,17 @@ export const usuariosController=async()=>{
         crearTabla(['Documento','Nombre','Correo','Rol'],main);
         const cuerpoTabla=document.querySelector('.tabla__cuerpo');
         
-        usuarios.forEach(usuario => {; 
-            crearFila([usuario.documento,usuario.nombre,usuario.correo,usuario.rol],usuario.id,cuerpoTabla,'Usuarios/Editar')
+        usuarios.forEach(usuario => {
+            const usu=JSON.parse(localStorage.getItem('usuario'));
+            
+            if(usuario.id_estado!=2 && usuario.id!=usu.id){
+                crearFila([usuario.documento,usuario.nombre,usuario.correo,usuario.rol],usuario.id,cuerpoTabla,'Usuarios/Editar')
+            }
         });
         
         
         
     }
-
-    const tabla=document.querySelector('.tabla');
 
     window.addEventListener('click',async(event)=>{
     

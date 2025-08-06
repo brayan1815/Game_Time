@@ -13,7 +13,11 @@ export const tiposController=async()=>{
 
 
         tipos.forEach(tipo => {
-            crearFila([tipo.tipo,"$"+tipo.precio_hora],tipo.id,cuerpoTabla,'Tipos/Editar');
+            console.log(tipo);
+            
+            if(tipo.id_estado_tipo!=2){
+                crearFila([tipo.tipo,"$"+tipo.precio_hora],tipo.id,cuerpoTabla,'Tipos/Editar');
+            }
         });
     }
 
@@ -24,7 +28,7 @@ export const tiposController=async()=>{
         // if(clase=="registro__boton registro__boton--editar"){
         //     window.location.href=`actualizarTipo.html?id=${encodeURIComponent(id)}`
         // }
-        if(clase=='registro__boton registro__boton--eliminar'){
+        if(clase=='boton boton--tabla eliminar'){
             const respuesta=await del(`tipos/${id}`)
             if(respuesta.ok)alert('El tipo de consola se ha eliminado correctamente')
         }

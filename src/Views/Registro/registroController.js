@@ -20,6 +20,7 @@ export const registroController=()=>{
             objeto['id_rol']=2; 
             objeto['telefono'] = Number(objeto['telefono']);
             objeto['documento'] = Number(objeto['documento']);
+            objeto['id_estado']=1;
             
             const respuesta=await post('usuarios',objeto);
             const res=await respuesta.json();
