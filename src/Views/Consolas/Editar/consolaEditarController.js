@@ -1,4 +1,4 @@
-import { success } from "../../../helpers/alertas.js";
+import { error, success } from "../../../helpers/alertas.js";
 import { get,put,post_imgs } from "../../../helpers/api.js";
 import { cargarSelectTiposConsols, contarCamposFormulario, limpiar, validar, validarMaximo, validarMinimo } from "../../../Modules/modules.js";
 
@@ -8,6 +8,7 @@ export const consolasEditarController=async(parametros=null)=>{
 
 
     const formulario = document.querySelector('form');
+    const numeroSerie=document.querySelector('#numero_serie');
     const nombre = document.querySelector('#nombre');
     const descripcion = document.querySelector('#descripcion');
     const tipo = document.querySelector('select');
@@ -24,6 +25,7 @@ export const consolasEditarController=async(parametros=null)=>{
     nombre.value = consola.nombre;
     descripcion.value = consola.descripcion;
     tipo.value = consola.id_tipo;
+    numeroSerie.value=consola.numero_serie;
 
     const cargarNombreArchivo = () => {
     if (inputImg.files.length > 0) {
@@ -32,8 +34,7 @@ export const consolasEditarController=async(parametros=null)=>{
         const mensaje = document.createElement('span');
         mensaje.textContent = archivo.name;
         mensaje.classList.add('span--verde');
-        lblSeleccionrImagen.insertAdjacentElement('afterend',mensaje)
-        
+        lblSeleccionrImagen.insertAdjacentElement('afterend',mensaje)   
     }
     }
 
@@ -55,10 +56,12 @@ export const consolasEditarController=async(parametros=null)=>{
             }
     
             info['id_estado'] = consola.id_estado;
+            info['numero_serie']=info['numero_serie'].toLowerCase();
             
             const respuesta=await put(`consolas/${id}`,info);
             const res=await respuesta.json();
             if(respuesta.ok)success(res.mensaje);
+            else error(res.error)
         }
     })
 

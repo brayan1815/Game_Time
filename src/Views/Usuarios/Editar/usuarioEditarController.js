@@ -1,6 +1,6 @@
 import { error, success } from "../../../helpers/alertas.js";
 import { get, put } from "../../../helpers/api.js";
-import { cargarSelectRoles, contarCamposFormulario, limpiar, validar, validarContrasenia, validarMaximo, validarMinimo } from "../../../Modules/modules.js";
+import { cargarEstadosUsuarios, cargarSelectRoles, contarCamposFormulario, limpiar, validar, validarContrasenia, validarMaximo, validarMinimo } from "../../../Modules/modules.js";
 
 export const usuariosEditarController=async(parametros=null)=>{
     
@@ -10,10 +10,14 @@ export const usuariosEditarController=async(parametros=null)=>{
     const nombre=document.querySelector('#nombre')
     const telefono=document.querySelector('#telefono')
     const correo=document.querySelector('#correo')
-    const contrasenia=document.querySelector('#contrasenia')
-    const rol=document.querySelector('select')
+    // const contrasenia=document.querySelector('#contrasenia')
+    const rol=document.querySelector('#id_rol')
+    const estadoUsuario=document.querySelector('#id_estado')
+    
 
     await cargarSelectRoles(rol);
+    await cargarEstadosUsuarios(estadoUsuario)
+
 
     const id = parametros.id;
     console.log(id);
@@ -25,8 +29,9 @@ export const usuariosEditarController=async(parametros=null)=>{
     nombre.value=usuario.nombre
     telefono.value=usuario.telefono
     correo.value=usuario.correo
-    contrasenia.value=usuario.contrasenia
+    // contrasenia.value=usuario.contrasenia
     rol.value = usuario.id_rol
+    estadoUsuario.value=usuario.id_estado;
 
     const cantCamposFormulario = contarCamposFormulario(formulario);
 
@@ -45,7 +50,7 @@ export const usuariosEditarController=async(parametros=null)=>{
         const res=await respuesta.json();
 
         if (respuesta.ok) success(res.mensaje)
-        else error('Ocurrio un error al intentar actualizar el usuario')
+        else error(res.error)
         
     }
     }
@@ -58,7 +63,7 @@ export const usuariosEditarController=async(parametros=null)=>{
     telefono.addEventListener('keydown', (event) => { if (validarMinimo(event.target)) limpiar(event.target) });
     telefono.addEventListener('blur', (event) => { if (validarMinimo(event.target)) limpiar(event.target) });
     telefono.addEventListener('keydown', validarMaximo);
-    contrasenia.addEventListener('blur',(event)=>{if(validarContrasenia(event.target))limpiar(event.target)})
-    contrasenia.addEventListener('keydown',(event)=>{if(validarContrasenia(event.target))limpiar(event.target)})
+    // contrasenia.addEventListener('blur',(event)=>{if(validarContrasenia(event.target))limpiar(event.target)})
+    // contrasenia.addEventListener('keydown',(event)=>{if(validarContrasenia(event.target))limpiar(event.target)})
     rol.addEventListener('change', (event) => { if (event.target.value != 0) limpiar(event.target) });
 }

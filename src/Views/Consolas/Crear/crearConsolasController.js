@@ -1,4 +1,4 @@
-import { success } from "../../../helpers/alertas.js";
+import { error, success } from "../../../helpers/alertas.js";
 import { post, post_imgs } from "../../../helpers/api.js";
 import { cargarSelectTiposConsols, contarCamposFormulario, limpiar, validar, validarImagen, validarLetras, validarMaximo, validarMinimo } from "../../../Modules/modules.js"
 export const crearConsolasController=async()=>{
@@ -8,6 +8,7 @@ export const crearConsolasController=async()=>{
     const labelImagen = document.querySelector('.formulario__insertarImagen');
     const inputNombre=document.querySelector('#nombre');
     const descripcionCosnola=document.querySelector('#descripcion')
+    const numeroSerie=document.querySelector('#numero_serie');
     const select=document.querySelector('select');
 
     const cantCampos=contarCamposFormulario(formulario);
@@ -30,13 +31,14 @@ export const crearConsolasController=async()=>{
             if(Object.keys(info).length==cantCampos){
                 info['id_tipo']=parseInt(info.id_tipo)
                 info['id_estado']=1;
-
+                info['numero_serie']=info['numero_serie'].toLowerCase();
                 console.log(info);
                 
                 
                 const respuesta=await post('consolas',info);
                 const res=await respuesta.json();
                 if (respuesta.ok) success(res.mensaje);
+                else error(res.error)
             }
 
         }
@@ -54,4 +56,9 @@ export const crearConsolasController=async()=>{
     inputNombre.addEventListener('focus',()=>{validarImagen(inputImg,labelImagen)});
     descripcionCosnola.addEventListener('focus',()=>{validarImagen(inputImg,labelImagen)});
     select.addEventListener('focus',()=>{validarImagen(inputImg,labelImagen)});
+
+    numeroSerie.addEventListener('keydown',validarMaximo);
+    numeroSerie.addEventListener('keydown',(event)=>{if(validarMinimo(event.target))limpiar(event.target)});
+    numeroSerie.addEventListener('blur',(event)=>{if(validarMinimo(event.target))limpiar(event.target)});
+
 }

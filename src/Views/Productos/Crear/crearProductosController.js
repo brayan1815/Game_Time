@@ -1,6 +1,6 @@
 import { success } from "../../../helpers/alertas.js";
 import { post, post_imgs } from "../../../helpers/api.js";
-import { contarCamposFormulario, limpiar, validar, validarImagen, validarMaximo, validarMinimo, validarNumeros } from "../../../Modules/modules.js";
+import { contarCamposFormulario, limpiar, validar, validarImagen, validarLetras, validarMaximo, validarMinimo, validarNumeros } from "../../../Modules/modules.js";
 
 export const crearProductosController=()=>{
 
@@ -70,6 +70,7 @@ export const crearProductosController=()=>{
 
     nombreprod.addEventListener('blur', (event) => { if (validarMinimo(event.target)) limpiar(event.target) });
     nombreprod.addEventListener('keydown', (event) => { if (validarMinimo(event.target)) limpiar(event.target) });
+    nombreprod.addEventListener('keydown',validarLetras)
 
     descripcionProd.addEventListener('blur',(event)=>{if(validarMinimo(event.target)) limpiar(event.target)})
     descripcionProd.addEventListener('keydown',(event)=>{if(validarMinimo(event.target)) limpiar(event.target)})

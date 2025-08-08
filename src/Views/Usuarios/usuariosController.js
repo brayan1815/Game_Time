@@ -16,8 +16,11 @@ export const usuariosController=async()=>{
         usuarios.forEach(usuario => {
             const usu=JSON.parse(localStorage.getItem('usuario'));
             
-            if(usuario.id_estado!=2 && usuario.id!=usu.id){
+            if(usuario.id_estado==2 && usuario.id!=usu.id){
+                crearFila([usuario.documento,usuario.nombre,usuario.correo,usuario.rol],usuario.id,cuerpoTabla,'Usuarios/Editar',true)
+            }else if(usuario.id!=usu.id){
                 crearFila([usuario.documento,usuario.nombre,usuario.correo,usuario.rol],usuario.id,cuerpoTabla,'Usuarios/Editar')
+
             }
         });
         
@@ -37,9 +40,8 @@ export const usuariosController=async()=>{
                 const res=await respuesta.json();
 
                 if(respuesta.ok){
-                    success(res.mensaje);
-                    const fila=document.querySelector(`#fila_${id}`);
-                    fila.remove();
+                    await success(res.mensaje);
+                    location.reload();
                 }
                 else error(res.error);
             }

@@ -39,6 +39,9 @@
 .tabla__campo--bordeVerde{
   border: solid 1px #4DD42E;
 }
+.tabla__campo--bordeRojo{
+  border: solid 1px red;
+}
 
 .tabla__campo:first-child{
   border-radius: 15px 0 0 15px;

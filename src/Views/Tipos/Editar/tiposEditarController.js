@@ -1,6 +1,6 @@
-import { success } from "../../../helpers/alertas.js";
+import { error, success } from "../../../helpers/alertas.js";
 import { get, put } from "../../../helpers/api.js";
-import { contarCamposFormulario, validar,validarMinimo,limpiar,validarMaximo } from "../../../Modules/modules.js";
+import { contarCamposFormulario, validar,validarMinimo,limpiar,validarMaximo, validarNumeros } from "../../../Modules/modules.js";
 
 export const tiposEditarController=async(parametros=null)=>{
 
@@ -22,7 +22,8 @@ export const tiposEditarController=async(parametros=null)=>{
         if(Object.keys(info).length==cantCampos){
             const respuesta=await put(`tipos/${id}`,info);
             const res=await respuesta.json();
-            if(respuesta.ok)success(res.mensaje)
+            if(respuesta.ok)success(res.mensaje);
+            else error(res.error)
         }
     })
 
@@ -33,4 +34,5 @@ export const tiposEditarController=async(parametros=null)=>{
     inputPrecio.addEventListener('keydown',(event)=>{if(validarMinimo(event.target))limpiar(event.target)})
     inputPrecio.addEventListener('blur',(event)=>{if(validarMinimo(event.target))limpiar(event.target)})
     inputPrecio.addEventListener('keydown',validarMaximo);
+    inputPrecio.addEventListener('keydown',validarNumeros)
 }

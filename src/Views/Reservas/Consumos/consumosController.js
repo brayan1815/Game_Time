@@ -172,69 +172,83 @@ export const consumosController=async (parametros=null)=>{
 
     window.addEventListener('click', async(event)=>{
         
-        const clase=event.target.getAttribute('class');
-        
-        
-        if(clase=="btnSumarRestar sumar"){
-            const producto=await get(`productos/${select.value}`);
-            const maximo=producto.cantidades_disponibles;
+        const target = event.target;
 
-            cantidades=sumarCantidad(cantidades,campoCantAComprar,producto.cantidades_disponibles,producto.precio,subtotal)
-            
-            if(cantidades>0){
-                if(contenedorCantComprar.nextElementSibling)contenedorCantComprar.nextElementSibling.remove();
+    if (target.classList.contains("sumar") && !target.classList.contains("editar")) {
+        const producto = await get(`productos/${select.value}`);
+        let actual = parseInt(campoCantAComprar.value);
+        if (actual < producto.cantidades_disponibles) {
+            actual++;
+            campoCantAComprar.value = actual;
+            subtotal.value = producto.precio * actual;
+        }
+        if (contenedorCantComprar.nextElementSibling) contenedorCantComprar.nextElementSibling.remove();
+    }
+
+    else if (target.classList.contains("restar") && !target.classList.contains("editar")) {
+        const producto = await get(`productos/${select.value}`);
+        let actual = parseInt(campoCantAComprar.value);
+        if (actual > 1) {
+            actual--;
+            campoCantAComprar.value = actual;
+            subtotal.value = producto.precio * actual;
+        }
+    }
+
+    else if (target.classList.contains("sumar") && target.classList.contains("editar")) {
+        let actual = parseInt(cant.value);
+        if (actual < parseInt(cantDispo.textContent)) {
+            actual++;
+            cant.value = actual;
+            subt.value = parseFloat(prec.textContent) * actual;
+        }
+    }
+
+    else if (target.classList.contains("restar") && target.classList.contains("editar")) {
+        let actual = parseInt(cant.value);
+        if (actual > 1) {
+            actual--;
+            cant.value = actual;
+            subt.value = parseFloat(prec.textContent) * actual;
+        }
+    }
+
+    else if (target.classList.contains("cancelAgProd")) {
+        select.value = 0;
+        cantDisponibles.textContent = 0;
+        precioProducto.textContent = 0;
+        campoCantAComprar.value = 0;
+        subtotal.value = 0;
+        cerrarFomrulario(contenedorFomrulario);
+    }
+
+    else if (target.classList.contains("editar") && target.classList.contains("boton--tabla")) {
+        const id = target.getAttribute("id");
+        const consumo = await get(`consumos/dto/${id}`);
+
+        nombreProd.textContent = consumo.nombreProducto;
+        cantDispo.textContent = consumo.cantidadRestanteProducto;
+        prec.textContent = consumo.precioProducto;
+        cant.value = consumo.cantidad;
+        subt.value = consumo.subtotal;
+        document.querySelector("#id_consumo").value = id;
+        contenedorFormEditar.classList.add("displayFlex");
+    }
+
+    else if (target.classList.contains("eliminar") && target.classList.contains("boton--tabla")) {
+        const id = target.getAttribute("id");
+        const confirmacion = await confirmar("eliminar el producto");
+        if (confirmacion.isConfirmed) {
+            const respuesta = await del(`consumos/${id}`);
+            const res = await respuesta.json();
+            if (respuesta.ok) {
+                await success(res.mensaje);
+                location.reload();
+            } else {
+                error(res.error);
             }
         }
-        else if(clase=="btnSumarRestar sumar editar"){
-            const cantInicial=Number(cant.value);
-            sumarCantidad(cantInicial,cant,Number(cantDispo.textContent),Number(prec.textContent),subt)
-        }
-        else if(clase=="btnSumarRestar restar"){
-            const producto=await get(`productos/${select.value}`);
-
-            cantidades=restarCantidad(cantidades,campoCantAComprar,producto.precio,subtotal)
-        }
-        else if(clase=="btnSumarRestar restar editar"){
-            const cantInicial=Number(cant.value);
-            restarCantidad(cantInicial,cant,Number(prec.textContent),subt);
-        }
-        else if(clase=="boton cancelAgProd"){
-            select.value=0;
-            cantDisponibles.textContent=0;
-            precioProducto.textContent=0;
-            campoCantAComprar.value=0;
-            subtotal.value=0;
-            cerrarFomrulario(contenedorFomrulario);
-        }
-        else if(clase=="boton boton--tabla editar"){       
-            const id=event.target.getAttribute('id');
-            const consumo=await get(`consumos/dto/${id}`);
-
-            nombreProd.textContent=consumo.nombreProducto;
-            cantDispo.textContent=consumo.cantidadRestanteProducto;
-            prec.textContent=consumo.precioProducto;
-            cant.value=consumo.cantidad;
-            subt.value=consumo.subtotal;
-            document.querySelector('#id_consumo').value=id;
-            contenedorFormEditar.classList.add('displayFlex');
-                
-        }
-        else if(clase=="boton boton--tabla eliminar"){
-            const id=event.target.getAttribute('id');
-
-            const confirmacion=await confirmar("eliminar el producto");
-            if(confirmacion.isConfirmed){
-                const respuesta=await del(`consumos/${id}`);
-                const res=await respuesta.json();
-                if(respuesta.ok){
-                    await success(res.mensaje);
-                    location.reload();
-                }
-                else{
-                    error(res.error)
-                }
-            }
-        }
+    }
         
     })
 
@@ -244,23 +258,23 @@ export const consumosController=async (parametros=null)=>{
     }
 
     select.addEventListener('change',async(event)=>{
-        cantidades=0;
-        const id=event.target.value;
-        campoCantAComprar.value=0;
-        cantDisponibles.textContent=0;
-        precioProducto.textContent=0;
+        const id = event.target.value;
+        campoCantAComprar.value = 0;
+        cantDisponibles.textContent = 0;
+        precioProducto.textContent = 0;
+        subtotal.value = 0;
 
-        if(id!=0){
-            btnRestar.disabled=false;
-            btnSumar.disabled=false;
-            const producto=await get(`productos/${id}`);
-            cantDisponibles.textContent=producto.cantidades_disponibles;
-            precioProducto.textContent=`$${producto.precio}` 
-            subtotal.value=producto.precio;
-            campoCantAComprar.value=1;  
-        }else{
-            btnRestar.disabled=true;
-            btnSumar.disabled=true;
+        if (id != 0) {
+            btnRestar.disabled = false;
+            btnSumar.disabled = false;
+            const producto = await get(`productos/${id}`);
+            cantDisponibles.textContent = producto.cantidades_disponibles;
+            precioProducto.textContent = producto.precio;
+            campoCantAComprar.value = 1;
+            subtotal.value = producto.precio;
+        } else {
+            btnRestar.disabled = true;
+            btnSumar.disabled = true;
         }
     })
 

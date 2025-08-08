@@ -14,12 +14,15 @@ export const reservasController=async()=>{
 
     let reservas=null;
     if(usuario.id_rol==1){
+
         reservas=await get('reservas/detalle');
     }
     else{
         reservas=await get(`reservas/usuario/${usuario.id}`)
     }
 
+    console.log(reservas);
+    
 
     if(reservas.length>0){
         crearTabla(['Documento','Usuario','Hora Inicio','Hora Fin','Consola'],main);

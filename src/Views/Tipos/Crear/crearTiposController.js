@@ -1,6 +1,6 @@
-import { success } from "../../../helpers/alertas.js";
+import { error, success } from "../../../helpers/alertas.js";
 import { post } from "../../../helpers/api.js";
-import { contarCamposFormulario, limpiar, validar, validarMaximo, validarMinimo } from "../../../Modules/modules.js";
+import { contarCamposFormulario, limpiar, validar, validarMaximo, validarMinimo, validarNumeros } from "../../../Modules/modules.js";
 
 export const crearTiposController=()=>{
 
@@ -18,7 +18,8 @@ export const crearTiposController=()=>{
             info['id_estado_tipo']=1;
             const respuesta=await post('tipos',info);
             const res=await respuesta.json();
-            if(respuesta.ok) success(res.mensaje)
+            if(respuesta.ok) success(res.mensaje);
+            else error(res.error)
         }
     })
 
@@ -29,4 +30,5 @@ export const crearTiposController=()=>{
     inputPrecio.addEventListener('keydown',(event)=>{if(validarMinimo(event.target))limpiar(event.target)})
     inputPrecio.addEventListener('blur',(event)=>{if(validarMinimo(event.target))limpiar(event.target)})
     inputPrecio.addEventListener('keydown',validarMaximo);
+    inputPrecio.addEventListener('keydown',validarNumeros)
 }

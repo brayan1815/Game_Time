@@ -42,11 +42,11 @@ export const historialController=async()=>{
         const id=event.target.value;
 
         let total=0;
+        cuerpoTabla.innerHTML="";
         if(id!=0){
             const tot=await get(`pagos/metodo/${id}/total`);
             total=tot.total_pagado;
 
-            cuerpoTabla.innerHTML="";
             const reservas=await get(`pagos/metodo/${id}/reservas`);
             if(reservas.length>0){
                 reservas.forEach(reserva => {
@@ -56,7 +56,6 @@ export const historialController=async()=>{
 
         }
         else{
-
             const reservas=await get('reservas/detalle')
             reservas.forEach(reserva => {
                 if(reserva.idEstadoReserva==4){

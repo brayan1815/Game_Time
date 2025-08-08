@@ -23,32 +23,45 @@ export const crearTabla=(encabezados,contenedor)=>{
     contenedor.append(tabla)
 }
 
-export const crearFila=(info,id,contenedor,hash)=>{
+export const crearFila=(info,id,contenedor,hash,rojo=false)=>{
     const fila=document.createElement('tr');
     fila.classList.add('tabla__fila');
     fila.setAttribute('id',`fila_${id}`);
 
     info.forEach(item => {
         const campo=document.createElement('td');
-        campo.classList.add('tabla__campo','tabla__campo--bordeVerde');
+        if(rojo){
+          campo.classList.add('tabla__campo','tabla__campo--bordeRojo');
+        }
+        else{
+          campo.classList.add('tabla__campo','tabla__campo--bordeVerde');
+        }
         campo.textContent=item;
         fila.append(campo);
     });
 
     const campo=document.createElement('td');
-    campo.classList.add('tabla__campo','tabla__campo--bordeVerde');
-
+    if(rojo)campo.classList.add('tabla__campo','tabla__campo--bordeRojo');
+    else{
+      campo.classList.add('tabla__campo','tabla__campo--bordeVerde');
+    } 
+    
     const contenedorBotones=document.createElement('div');
     contenedorBotones.classList.add('contenedorBotonesTabla');
 
-    const botonEliminar=document.createElement('button');
-    botonEliminar.classList.add('boton','boton--tabla','eliminar')
+    if(!rojo){
+      const botonEliminar=document.createElement('button');
+      botonEliminar.classList.add('boton','boton--tabla','eliminar')
+  
+      const iconoEliminar=document.createElement('i');
+      iconoEliminar.classList.add('bi','bi-trash-fill');
+  
+      botonEliminar.append(iconoEliminar);
+      botonEliminar.setAttribute('id',id)
 
-    const iconoEliminar=document.createElement('i');
-    iconoEliminar.classList.add('bi','bi-trash-fill');
+      contenedorBotones.append(botonEliminar);
+    }
 
-    botonEliminar.append(iconoEliminar);
-    contenedorBotones.append(botonEliminar);
 
     const botonEditar=document.createElement('a');
     botonEditar.classList.add('boton','boton--tabla','editar')
@@ -57,7 +70,6 @@ export const crearFila=(info,id,contenedor,hash)=>{
 
     const iconoEditar=document.createElement('i');
     iconoEditar.classList.add('bi', 'bi-pencil-square');
-    botonEliminar.setAttribute('id',id)
 
     botonEditar.append(iconoEditar);
     contenedorBotones.append(botonEditar);
@@ -643,6 +655,15 @@ export const cargarSelectRoles = async(select) => {
     valor.textContent = rol.rol;
     select.append(valor);
   });
-  
+}
 
+export const cargarEstadosUsuarios=async(select)=>{
+  const estados=await get('estadosUsuarios');
+
+  estados.forEach(estado => {
+    const value=document.createElement('option');
+    value.setAttribute('value',estado.id);
+    value.textContent=estado.estado;
+    select.append(value)
+  });
 }
