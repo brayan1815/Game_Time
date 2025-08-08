@@ -16,6 +16,7 @@ export const crearTiposController=()=>{
         if(Object.keys(info).length==camposForm){
             info['precio_hora']=Number(info['precio_hora'])
             info['id_estado_tipo']=1;
+            info['tipo']=info['tipo'].toLowerCase();
             const respuesta=await post('tipos',info);
             const res=await respuesta.json();
             if(respuesta.ok) success(res.mensaje);

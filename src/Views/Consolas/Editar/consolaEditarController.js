@@ -1,6 +1,6 @@
 import { error, success } from "../../../helpers/alertas.js";
 import { get,put,post_imgs } from "../../../helpers/api.js";
-import { cargarSelectTiposConsols, contarCamposFormulario, limpiar, validar, validarMaximo, validarMinimo } from "../../../Modules/modules.js";
+import { cargarSelectEstadoConsola, cargarSelectTiposConsols, contarCamposFormulario, limpiar, validar, validarMaximo, validarMinimo } from "../../../Modules/modules.js";
 
 export const consolasEditarController=async(parametros=null)=>{
 
@@ -12,13 +12,17 @@ export const consolasEditarController=async(parametros=null)=>{
     const nombre = document.querySelector('#nombre');
     const descripcion = document.querySelector('#descripcion');
     const tipo = document.querySelector('select');
+    const estados=document.querySelector('#id_estado');
     const inputImg = document.querySelector('#seleccionarImagen')
     const lblSeleccionrImagen = document.querySelector('.formulario__insertarImagen');
 
 
     await cargarSelectTiposConsols(tipo);
+    await cargarSelectEstadoConsola(estados)
 
     const consola = await get(`consolas/${id}`);
+    
+    
 
     const id_img=consola.id_imagen;
 
@@ -26,6 +30,7 @@ export const consolasEditarController=async(parametros=null)=>{
     descripcion.value = consola.descripcion;
     tipo.value = consola.id_tipo;
     numeroSerie.value=consola.numero_serie;
+    estados.value=consola.id_estado;
 
     const cargarNombreArchivo = () => {
     if (inputImg.files.length > 0) {
@@ -55,7 +60,7 @@ export const consolasEditarController=async(parametros=null)=>{
                 info['id_imagen']=id_img;
             }
     
-            info['id_estado'] = consola.id_estado;
+            // info['id_estado'] = consola.id_estado;
             info['numero_serie']=info['numero_serie'].toLowerCase();
             
             const respuesta=await put(`consolas/${id}`,info);

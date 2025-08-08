@@ -20,6 +20,7 @@ export const tiposEditarController=async(parametros=null)=>{
         const info=validar(event);
 
         if(Object.keys(info).length==cantCampos){
+            info['tipo']=info['tipo'].toLowerCase();
             const respuesta=await put(`tipos/${id}`,info);
             const res=await respuesta.json();
             if(respuesta.ok)success(res.mensaje);

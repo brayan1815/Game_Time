@@ -408,10 +408,14 @@ export const crearCardsProductos=async (productos,contenedor)=>{
 export const cargarCardsConsolas = async (consolas, contenedor) => {
   for (const consola of consolas) {
     
-    if(consola.idEstado==2)continue
+    
     
     const card = document.createElement('div');
-    card.classList.add('card', 'card--horizontal');
+    if(consola.idEstado==2){
+      card.classList.add('card','card--bordeRojo','card--horizontal');
+    }else{
+      card.classList.add('card', 'card--horizontal');
+    }
     card.setAttribute('id',`consola_${consola.id}`)
   
     const imagen = await get(`imagenes/${consola.idImagen}`);
@@ -455,16 +459,17 @@ export const cargarCardsConsolas = async (consolas, contenedor) => {
       // iconoEditar.classList.add('bi','bi-pencil-square')
       botonEditar.append(iconoEditar);
       contenedorBotones.append(botonEditar);
-  
-      const botonEliminar=document.createElement('button');
-      botonEliminar.setAttribute('id',consola.id)
-      botonEliminar.classList.add('boton','boton--cardIcono','eliminar');
-  
-      const iconoEliminar=document.createElement('i');
-      iconoEliminar.classList.add('bi','bi-trash-fill');
-      botonEliminar.append(iconoEliminar);
-      contenedorBotones.append(botonEliminar);
-  
+      
+      if(consola.idEstado!=2){
+        const botonEliminar=document.createElement('button');
+        botonEliminar.setAttribute('id',consola.id)
+        botonEliminar.classList.add('boton','boton--cardIcono','eliminar');
+    
+        const iconoEliminar=document.createElement('i');
+        iconoEliminar.classList.add('bi','bi-trash-fill');
+        botonEliminar.append(iconoEliminar);
+        contenedorBotones.append(botonEliminar);
+      }
       cardInfo.append(contenedorBotones);
     }
 
@@ -548,6 +553,18 @@ export const cargarSelectTiposConsols=async(select)=>{
       option.textContent=tipo.tipo;
       select.append(option);
     }
+  });
+}
+
+export const cargarSelectEstadoConsola=async(select)=>{
+  const estados=await get('estadosConsolas');
+  
+  
+  estados.forEach(estado => {
+    const option=document.createElement('option');
+    option.setAttribute('value',estado.id)
+    option.textContent=estado.estado;
+    select.append(option)
   });
 }
 

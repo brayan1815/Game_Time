@@ -34,8 +34,9 @@ export const consolasController=async()=>{
 
         if(respuesta.ok){
           success(res.mensaje);
-          const card=document.querySelector(`.card#consola_${id}`);
-          card.remove();
+          location.reload();
+          // const card=document.querySelector(`.card#consola_${id}`);
+          // card.remove();
         }
         else error(res.error);
       }   

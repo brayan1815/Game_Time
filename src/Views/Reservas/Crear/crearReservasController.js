@@ -186,19 +186,19 @@ export const crearReservaController=async()=>{
                 info['hora_finalizacion']=aFormatoISO(info['hora_finalizacion']); 
             
                 const respuesta = await post('reservas', info);
+                const res=await respuesta.json();
                 if (respuesta.ok){
                     campoDocumento.value="";
                     cerrarFormularioNuevaReserva();
-                    Swal.fire({
-                    title: 'Exito',
-                    text: 'La reserva se realizo correctamente',
-                    icon: 'success',
-                    confirmButtonText: 'Aceptar'
-                    })
+                    success(res.mensaje)
                     cerrarCalencuario();
                     abrirCalendario(info['id_consola'])
                 } 
-                else error("No se pudo realizar la reserva");
+                else{
+                  await error(res.error);  
+                  campoDocumento.value="";
+                  cerrarFormularioNuevaReserva()
+                } 
             }else{
                 error('Usuario no encontrado')
             }
