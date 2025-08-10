@@ -326,7 +326,8 @@ export const consumosController=async (parametros=null)=>{
         const res=await respuesta.json();
         
         if(respuesta.ok){
-            success(res.mensaje)
+            await success(res.mensaje)
+            location.reload()
         }
         
         cerrarFomrulario(contenedorFormEditar)
@@ -343,17 +344,22 @@ export const consumosController=async (parametros=null)=>{
         const id_reser=event.target.getAttribute('id');
 
         const factura=await post(`facturas/reserva/${id_reser}`);
+    
+        
         const res=await factura.json();   
         if(!factura.ok) error(res.error)
         
+        console.log(res);
 
-        const consCons=res.totalTiempo+"";
+        
+
+        const consCons=res.subtotalConsola+"";
         const con=consCons.split('.');
         consumoConsola.textContent=con[0];
 
-        const t=res.totalGeneral+"";
+        const t=res.total+"";
         const to=t.split('.');
-        consumoProductos.textContent=res.totalProductos;
+        consumoProductos.textContent=res.subtotalConsumos;
         totPag.textContent=`Total: ${to[0]}`;
         
         contenedorFactura.classList.add('displayFlex');

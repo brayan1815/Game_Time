@@ -12,17 +12,17 @@ export const historialInfoController=async(parametros)=>{
     const factura=await fac.json();
     console.log(factura);
 
-    const t=factura.totalGeneral+"";
+    const t=factura.total+"";
     const to=t.split('.');
     
 
     total.textContent="$"+to[0];
     
-    const consCons=factura.totalTiempo+"";
+    const consCons=factura.subtotalConsola+"";
     const con=consCons.split('.');
     subtConsola.textContent=con[0];
 
-    subtProductos.textContent=factura.totalProductos;
+    subtProductos.textContent=factura.subtotalConsumos;
 
     
     

@@ -1,3 +1,4 @@
+import { confirmar, error, success } from "../../helpers/alertas.js";
 import { del, get } from "../../helpers/api.js";
 import { crearFila, crearTabla } from "../../Modules/modules.js";
 
@@ -17,6 +18,8 @@ export const tiposController=async()=>{
             
             if(tipo.id_estado_tipo!=2){
                 crearFila([tipo.tipo,"$"+tipo.precio_hora],tipo.id,cuerpoTabla,'Tipos/Editar');
+            }else{
+                crearFila([tipo.tipo,"$"+tipo.precio_hora],tipo.id,cuerpoTabla,'Tipos/Editar',true);
             }
         });
     }
@@ -25,12 +28,21 @@ export const tiposController=async()=>{
         const clase=event.target.getAttribute('class');
         const id=event.target.getAttribute('id');
 
-        // if(clase=="registro__boton registro__boton--editar"){
-        //     window.location.href=`actualizarTipo.html?id=${encodeURIComponent(id)}`
-        // }
         if(clase=='boton boton--tabla eliminar'){
-            const respuesta=await del(`tipos/${id}`)
-            if(respuesta.ok)alert('El tipo de consola se ha eliminado correctamente')
+
+            const confirm=await confirmar("eliminar el tipo de consola")
+
+            if(confirm.isConfirmed){
+                const respuesta=await del(`tipos/${id}`)
+                const res=await respuesta.json();
+
+                if(respuesta.ok){
+                  await success(res.mensaje);  
+                  location.reload();
+                } 
+                else error(res.error)
+            }
+
         }
     })
 }

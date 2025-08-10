@@ -7,10 +7,27 @@ export const tiposEditarController=async(parametros=null)=>{
     const formulario=document.querySelector('form');
     const inputTipo=document.querySelector('#tipo');
     const inputPrecio=document.querySelector('#precio_hora');
+    const estadoSelect=document.querySelector('select');
+
+    const estados=await get('estadosTipo');
+
+    estados.forEach(estado => {
+        const option=document.createElement('option');
+        option.setAttribute('value',estado.id);
+        option.textContent=estado.estado;
+        estadoSelect.append(option)
+    });
+
+    
+
 
     const {id} = parametros;
     const tipo= await get(`tipos/${id}`)
 
+    console.log(tipo);
+    
+
+    estadoSelect.value=tipo.id_estado_tipo;
     inputTipo.value=tipo.tipo;
     inputPrecio.value=tipo.precio_hora;
 
