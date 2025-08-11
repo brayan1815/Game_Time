@@ -1,6 +1,6 @@
 import { success } from "../../../helpers/alertas.js";
 import { get, post_imgs, put} from "../../../helpers/api.js";
-import { contarCamposFormulario, limpiar, validar, validarMaximo, validarMinimo, validarNumeros } from "../../../Modules/modules.js";
+import { contarCamposFormulario, limpiar, validar, validarLetras, validarMaximo, validarMinimo, validarNumeros } from "../../../Modules/modules.js";
 
 export const productosEditarController=async(parametros=null)=>{
 
@@ -52,6 +52,7 @@ export const productosEditarController=async(parametros=null)=>{
 
     nombre.addEventListener('keydown',(event)=>{if(validarMinimo(event.target))limpiar(event.target)})
     nombre.addEventListener('blur',(event)=>{if(validarMinimo(event.target))limpiar(event.target)});
+    nombre.addEventListener('keydown',validarLetras)
 
     descripcion.addEventListener('keydown',(event)=>{if(validarMinimo(event.target))limpiar(event.target)})
     descripcion.addEventListener('blur',(event)=>{if(validarMinimo(event.target))limpiar(event.target)})

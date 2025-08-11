@@ -1,6 +1,6 @@
 import { error, success } from "../../../helpers/alertas.js";
 import { get,put,post_imgs } from "../../../helpers/api.js";
-import { cargarSelectEstadoConsola, cargarSelectTiposConsols, contarCamposFormulario, limpiar, validar, validarMaximo, validarMinimo } from "../../../Modules/modules.js";
+import { cargarSelectEstadoConsola, cargarSelectTiposConsols, contarCamposFormulario, limpiar, validar, validarLetras, validarMaximo, validarMinimo } from "../../../Modules/modules.js";
 
 export const consolasEditarController=async(parametros=null)=>{
 
@@ -76,6 +76,7 @@ export const consolasEditarController=async(parametros=null)=>{
 
     nombre.addEventListener('blur', (event) => { if (validarMinimo(event.target)) limpiar(event.target) });
     nombre.addEventListener('keydown', (event) => { if (validarMinimo(event.target)) limpiar(event.target) });
+    nombre.addEventListener('keydown',validarLetras);
     nombre.addEventListener('keydown', validarMaximo)
 
     descripcion.addEventListener('blur', (event) => { if (validarMinimo(event.target)) limpiar(event.target) });
