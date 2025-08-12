@@ -150,29 +150,32 @@ export const consumosController=async (parametros=null)=>{
     cons.textContent=consola.nombre;
     precHor.textContent=`$${tipoConsola.precio_hora} c/h`;
 
-    let cantidades=1;
+    // let cantidades=1;
 
-    const sumarCantidad=(cantInicial,indicadorCant,maximo,precioUnitProd,indicadorSubt)=>{
-        if(cantInicial<maximo){
-            cantInicial++;
-            indicadorCant.value=cantInicial;
-            indicadorSubt.value=precioUnitProd*cantInicial;
-            return cantInicial;
-        }
-    }
+    // const sumarCantidad=(cantInicial,indicadorCant,maximo,precioUnitProd,indicadorSubt)=>{
+    //     if(cantInicial<maximo){
+    //         cantInicial++;
+    //         indicadorCant.value=cantInicial;
+    //         indicadorSubt.value=precioUnitProd*cantInicial;
+    //         return cantInicial;
+    //     }
+    // }
 
-    const restarCantidad=(cantInicial,indicadorCant,precioProd,Subt)=>{
-        if(cantInicial>1){
-            cantInicial--;
-            indicadorCant.value=cantInicial;
-            Subt.value=precioProd*cantInicial;
-            return cantInicial;
-        }
-    }
+    // const restarCantidad=(cantInicial,indicadorCant,precioProd,Subt)=>{
+    //     if(cantInicial>1){
+    //         cantInicial--;
+    //         indicadorCant.value=cantInicial;
+    //         Subt.value=precioProd*cantInicial;
+    //         return cantInicial;
+    //     }
+    // }
+
+    let cont=0;
 
     window.addEventListener('click', async(event)=>{
         
         const target = event.target;
+        
 
     if (target.classList.contains("sumar") && !target.classList.contains("editar")) {
         const producto = await get(`productos/${select.value}`);
@@ -197,8 +200,9 @@ export const consumosController=async (parametros=null)=>{
 
     else if (target.classList.contains("sumar") && target.classList.contains("editar")) {
         let actual = parseInt(cant.value);
-        if (actual < parseInt(cantDispo.textContent)) {
+        if (cont < parseInt(cantDispo.textContent)) {     
             actual++;
+            cont++;
             cant.value = actual;
             subt.value = parseFloat(prec.textContent) * actual;
         }
@@ -208,10 +212,12 @@ export const consumosController=async (parametros=null)=>{
         let actual = parseInt(cant.value);
         if (actual > 1) {
             actual--;
+            cont--;
             cant.value = actual;
             subt.value = parseFloat(prec.textContent) * actual;
         }
     }
+    
 
     else if (target.classList.contains("cancelAgProd")) {
         select.value = 0;

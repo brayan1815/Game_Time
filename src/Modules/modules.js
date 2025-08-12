@@ -84,6 +84,7 @@ export const crearFilaConsumos=(info,id,contenedor,reserva)=>{
   const fila=document.createElement('tr');
   fila.classList.add('tabla__fila');
   fila.setAttribute('id',`consumo_${id}`)
+  const usu=JSON.parse(localStorage.getItem('usuario'));
 
     info.forEach(item => {
         const campo=document.createElement('td');
@@ -92,7 +93,10 @@ export const crearFilaConsumos=(info,id,contenedor,reserva)=>{
         fila.append(campo);
     });
 
-    if(reserva.id_estado_reserva!=4){
+    console.log(reserva.id_estado_reserva, usu.id_rol);
+    
+
+    if(reserva.id_estado_reserva!=4 && usu.id_rol!=2){
       const campo=document.createElement('td');
       campo.classList.add('tabla__campo','tabla__campo--bordeVerde');
   

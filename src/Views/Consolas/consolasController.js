@@ -5,11 +5,12 @@ import { cargarCardsConsolas } from "../../Modules/modules.js";
 export const consolasController=async()=>{
 
   const main=document.querySelector('.cards');
-  const botonesSuperiores=document.querySelectorAll('.contenido__Boton');
+  const botonesSuperiores=document.querySelectorAll('.boton');
 
   const usuario=JSON.parse(localStorage.getItem('usuario'));
 
   [...botonesSuperiores].forEach(boton => {
+    
     if(usuario.id_rol!=1){
       boton.classList.add('displayNone');
     }else{
