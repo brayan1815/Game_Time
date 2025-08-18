@@ -89,6 +89,7 @@ window.addEventListener('click',(event)=>{
   const clase=event.target.getAttribute('class');
   if(clase=="btnSalir"){
     localStorage.removeItem("token");
+    localStorage.removeItem("refreshToken");
     localStorage.removeItem("usuario");
     window.location.href="#/Login"
   }

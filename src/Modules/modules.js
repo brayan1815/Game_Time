@@ -1,5 +1,5 @@
 import { error, success } from "../helpers/alertas.js";
-import { get, post } from "../helpers/api.js";
+import { get, post, postSinToken } from "../helpers/api.js";
 
 export const crearTabla=(encabezados,contenedor)=>{
     const tabla=document.createElement('table');
@@ -649,10 +649,13 @@ export const validarIngreso = async (event) => {
   const datos = await validar(event);
   if (Object.keys(datos).length == 2) {
 
-    const respuesta=await post('usuarios/login',datos)
+    const respuesta=await postSinToken('usuarios/login',datos)
     if(respuesta.ok){
       const resultado=await respuesta.json();
       localStorage.setItem('token', resultado.token);
+      localStorage.setItem('refreshToken',resultado.refreshToken)
+      // console.log(datos);
+      
       
       const usuario=await get(`usuarios/correo/${datos.correo}`);
       localStorage.setItem('usuario',JSON.stringify(usuario));

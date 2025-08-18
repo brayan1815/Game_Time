@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-//se importa la funcion para decodificar el contenido del token
+// //se importa la funcion para decodificar el contenido del token
 
 const isTokenExpired = () => {
   //se crea la funcion para validar si el token esta expirado
@@ -16,25 +16,47 @@ const isTokenExpired = () => {
   }
 };
 
-const getAuthHeaders = () => {
-  const token = localStorage.getItem("token");
+const refreshAccessToken = async () => {
+  alert('refrescando el token')
+  const refreshToken = localStorage.getItem("refreshToken");
+  if (!refreshToken) return null;
 
-  if (!token || isTokenExpired()) {
+  const res = await fetch(`http://localhost:8080/APIproyecto/api/refreshToken`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ refreshToken })
+  });
+
+  if (res.ok) {
+    const data = await res.json();
+    localStorage.removeItem('token');
+    localStorage.setItem("token", data.token);
+    return data.token;
+  } else {
+    // Refresh inválido → limpiar storage y redirigir login
     localStorage.removeItem("token");
-    return {
-      'Content-Type': 'application/json'
-    };
+    localStorage.removeItem("refreshToken");
+    window.location.href = "/login";
+    return null;
+  }
+};
+
+const getAuthHeaders = async() => {
+    let token = localStorage.getItem("token");
+
+  // Verificar expiración
+  if (!token || isTokenExpired()) {
+    token = await refreshAccessToken(); // pedir uno nuevo
   }
 
-  return {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer ' + token
-  };
+  return token
+    ? { "Content-Type": "application/json", Authorization: "Bearer " + token }
+    : { "Content-Type": "application/json" };
 };
 
 export const get = async (endpoint) => {
   const data = await fetch(`http://localhost:8080/APIproyecto/api/${endpoint}`, {
-    headers: getAuthHeaders()
+    headers: await getAuthHeaders()
   });
   return await data.json();
 }
@@ -42,7 +64,7 @@ export const get = async (endpoint) => {
 export const post = async (endpoint, info) => {
   return await fetch(`http://localhost:8080/APIproyecto/api/${endpoint}`, {
     method: 'POST',
-    headers: getAuthHeaders(),
+    headers: await getAuthHeaders(),
     body: JSON.stringify(info)
   });
 }
@@ -72,7 +94,7 @@ export const put = async (endpoint, info) => {
   try {
     return await fetch(`http://localhost:8080/APIproyecto/api/${endpoint}`, {
       method: 'PUT',
-      headers: getAuthHeaders(),
+      headers: await getAuthHeaders(),
       body: JSON.stringify(info)
     });
   } catch (error) {
@@ -83,6 +105,6 @@ export const put = async (endpoint, info) => {
 export const del = async (endpoint) => {
   return await fetch(`http://localhost:8080/APIproyecto/api/${endpoint}`, {
     method: 'DELETE',
-    headers: getAuthHeaders()
+    headers: await getAuthHeaders()
   });
 }

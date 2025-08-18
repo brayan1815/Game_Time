@@ -8,7 +8,7 @@ export const usuariosController=async()=>{
 
 
     const usuarios=await get('usuarios/con-rol');
-
+    
     if(usuarios.length>0){
         crearTabla(['Documento','Nombre','Correo','Rol'],main);
         const cuerpoTabla=document.querySelector('.tabla__cuerpo');
