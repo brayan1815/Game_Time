@@ -1,5 +1,5 @@
 import { error, success } from "../../helpers/alertas.js";
-import { post } from "../../helpers/api.js";
+import { post, postSinToken } from "../../helpers/api.js";
 import { contarCamposFormulario, limpiar, validar, validarContrasenia, validarCorreo, validarLetras, validarMaximo, validarMinimo, validarNumeros } from "../../Modules/modules.js";
 
 export const registroController=()=>{
@@ -22,7 +22,7 @@ export const registroController=()=>{
             objeto['documento'] = Number(objeto['documento']);
             objeto['id_estado']=1;
             
-            const respuesta=await post('usuarios',objeto);
+            const respuesta=await postSinToken('usuarios',objeto);
             const res=await respuesta.json();
             if(respuesta.ok){
                 success(res.mensaje);

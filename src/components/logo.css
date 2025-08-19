@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     gap: 15px;
-    color: white;
+    color: var(--texto_blanco);
 }
 
 .logo__imagen{

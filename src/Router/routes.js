@@ -33,97 +33,114 @@ export const routes={
         "/":{
             path:'Reservas/index.html',
             controlador:reservasController,
-            private:true
+            private:true,
+            can:"reservas.index"
         },
         Crear:{
             path:'Reservas/Crear/index.html',
             controlador:crearReservaController,
-            private:true
+            private:true,
+            can:"reservas.crear"
         },
         Consumos:{
             path:'Reservas/Consumos/index.html',
             controlador:consumosController,
-            private:true
+            private:true,
+            can:'consumos.index'
         }
     },
     Consolas:{
         "/":{
             path:'Consolas/index.html',
             controlador:consolasController,
-            private:true
+            private:true,
+            can:'consolas.index'
         },
         Crear:{
             path:'Consolas/Crear/index.html',
             controlador:crearConsolasController,
-            private:true
+            private:true,
+            can:'consolas.crear'
         },
         Editar:{
             path:'Consolas/Editar/index.html',
             controlador:consolasEditarController,
-            private:true
+            private:true,
+            can:'consolas.editar'
         }
     },
     Productos:{
         "/":{
             path:'Productos/index.html',
             controlador:productosController,
-            private:true
+            private:true,
+            can:'productos.index'
         },
         Crear:{
             path:'Productos/Crear/index.html',
             controlador:crearProductosController,
-            private:true
+            private:true,
+            can:'productos.crear'
         },
         Editar:{
             path:'Productos/Editar/index.html',
             controlador:productosEditarController,
-            private:true
+            private:true,
+            can:'productos.editar'
         }
     },
     Usuarios:{
         "/":{
             path:'Usuarios/index.html',
             controlador:usuariosController,
-            private:true
+            private:true,
+            can:'usuarios.index'
         },
         Crear:{
             path:'Usuarios/Crear/index.html',
             controlador:crearUsuarioController,
-            private:true
+            private:true,
+            can:'usuarios.crear'
         },
         Editar:{
             path:'Usuarios/Editar/index.html',
             controlador:usuariosEditarController,
-            private:true
+            private:true,
+            can:'usuarios.editar'
         }
     },
     Tipos:{
         "/":{
             path:'Tipos/index.html',
             controlador:tiposController,
-            private:true
+            private:true,
+            can:'tipos.index'
         },
         Crear:{
             path:'Tipos/Crear/index.html',
             controlador:crearTiposController,
-            private:true
+            private:true,
+            can:'tipos.crear'
         },
         Editar:{
             path:'Tipos/Editar/index.html',
             controlador:tiposEditarController,
-            private:true
+            private:true,
+            can:'tipos.editar'
         }
     },
     Historial:{
         "/":{
             path:"Historial/index.html",
             controlador:historialController,
-            private:true
+            private:true,
+            can:'historial.index'
         },
         Info:{
             path:"Historial/Info/index.html",
             controlador:historialInfoController,
-            private:true
+            private:true,
+            can:'historial.index'
         }
     }
 }

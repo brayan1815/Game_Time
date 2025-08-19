@@ -1,11 +1,13 @@
 import { confirmar, error, success } from "../../helpers/alertas.js";
 import { del, get, put } from "../../helpers/api.js";
-import { crearFilaTablaReservas, crearTabla, validarNumeros } from "../../Modules/modules.js";
+import { convertirPermisosArray, crearFilaTablaReservas, crearTabla, validarNumeros } from "../../Modules/modules.js";
 
 export const reservasController=async()=>{
     
     const usuario=JSON.parse(localStorage.getItem('usuario'));
-
+    const permisos=convertirPermisosArray(localStorage.getItem('permisos'));
+    console.log(permisos);
+      
     const main=document.querySelector('.contenido__contenedor');
     const comtenedorBarraBusqueda=document.querySelector('.botonesSuperiores__buscar')
     const barraBusqueda=document.querySelector('.buscar__input');
@@ -18,7 +20,7 @@ export const reservasController=async()=>{
         reservas=await get('reservas/detalle');
     }
     else{
-        reservas=await get(`reservas/usuario/${usuario.id}`)
+        reservas=await get(`reservas/detalle/${usuario.id}`)
     }
 
     console.log(reservas);

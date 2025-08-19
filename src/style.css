@@ -12,6 +12,30 @@
     font-family: "Exo 2", sans-serif;
 }
 
+
+:root{
+  --verde:#4DD42E;
+  --blanco:white;
+  --gris_oscuro:#212121;
+  --rojo:red;
+  
+  --fondo_verde:var(--verde);
+  --texto_verde:var(--verde);
+  --borde_verde:var(--verde);
+  --degradado_verde:var(--verde);
+
+  --fondo_blanco:var(--blanco);
+  --texto_blanco:var(--blanco);
+  --borde_blanco:var(--blanco);
+
+  --fondo_gris_oscuro:var(--gris_oscuro);
+  --texto_gris_oscuro:var(--gris_oscuro);
+
+  --texto_rojo:var(--rojo);
+  --fondo_rojo:var(--rojo);
+  --borde_rojo:var(--rojo);
+}
+
 /*-------------------------------INICIO DE SESION----------------------------------*/
 
 .grid-container{
@@ -37,21 +61,21 @@
 .encabezado{
   width: 100%;
   height: 100%;
-  background-color: #212121;
+  background-color: var(--fondo_gris_oscuro);
   grid-area: encabezado;
   display: flex;
   justify-content: space-between;
   padding: 0 3%;
   align-items: center;
-  color: white;
+  color: var(--texto_blanco);
 }
 
 .sidebar{
-  background-color: #212121;
+  background-color: var(--fondo_gris_oscuro);
   width: 100%;
   height: 100%;
   grid-area: sidebar;
-  border-top: solid 1px white;
+  border-top: solid 1px var(--borde_blanco);
   padding-top: 5%;
 }
 
@@ -86,8 +110,8 @@ button i {
     z-index: 1000;
     width: 100vw;
     height: 1px;
-    background-color: #4DD42E;
-    box-shadow: 0px 0px 50px 40px #4DD42E;
+    background-color: var(--fondo_verde);
+    box-shadow: 0px 0px 50px 40px var(--degradado_verde);
     top: 0;
 }
 .contenedorCampo{
@@ -114,8 +138,8 @@ button i {
   cursor: pointer;
   font-size: 16px;
   font-weight: 700;
-  background-color: #4DD42E;
-  color: white;
+  background-color: var(--fondo_verde);
+  color: var(--texto_blanco);
   border-radius: 8px;
   text-align: center;
 }
@@ -133,14 +157,14 @@ button i {
 }
 
 span{
-  color: red;
+  color: var(--texto_rojo);
   font-size: 12px;
   text-align: center;
 }
 
 .MensajeTabla{
   font-size: 20px;
-  color: #4DD42E;
+  color:var(--texto_verde);
   font-weight: 700;
   display: block;
   align-self: center;
@@ -178,8 +202,8 @@ span{
 }
 
 .encabezadoPerfil__icono{
-  background-color: white;
-  color: #4DD42E;
+  background-color: var(--fondo_blanco);
+  color: var(--verde);
   align-content: center;
   width: 45px;
   height: 45px;
@@ -204,14 +228,14 @@ span{
 .botonSidebar__icono{
   font-size: 1.2vw;
   margin-right: 8%;
-  color: #4DD42E;
+  color: var(--verde);
 }
 
 .botonSidebar__texto{
   display: block;
   font-family: "Exo 2", sans-serif;
   text-decoration: none;
-  color: white;
+  color: var(--texto_blanco);
   font-size: 1.2vw;
   font-weight: 700;
 }
@@ -239,12 +263,12 @@ span{
   height: 35px;
   border: none;
   background-color: rgba(33, 33, 33, 0.9);
-  border-bottom: solid 1px #4DD42E;
-  border-top: solid 1px #4DD42E;
-  border-right: solid 1px #4DD42E;
+  border-bottom: solid 1px var(--borde_verde);
+  border-top: solid 1px var(--borde_verde);
+  border-right: solid 1px var(--borde_verde);
   border-radius: 0 15px 15px 0;
   outline: none;
-  color: white;
+  color: var(--texto_blanco);
 }
 
 .w-full{
@@ -271,15 +295,15 @@ span{
 .buscar__icono{
   display: flex;
   background-color: rgba(33, 33, 33, 0.9);
-  color: white;
+  color: var(--blanco);
   font-family: 15px;
   height: 35px;
   width: 40px;
   justify-content: center;
   align-items: center;
-  border-bottom: solid 1px #4DD42E;
-  border-top: solid 1px #4DD42E;
-  border-left: solid 1px #4DD42E;
+  border-bottom: solid 1px var(--borde_verde);
+  border-top: solid 1px var(--borde_verde);
+  border-left: solid 1px var(--borde_verde);
   border-radius: 15px 0 0 15px;
 }
 
@@ -292,7 +316,7 @@ span{
 
 .infoEstado{
   display: flex;
-  background-color: white;
+  background-color: var(--fondo_blanco);
   height: 3vw;
   color: black;
   justify-content: center;
@@ -303,11 +327,11 @@ span{
 }
 
 .infoEstado--enProceso{
-  background-color: #4DD42E;
+  background-color: var(--fondo_verde);
 }
 
 .infoEstado--terminado{
-  background-color: red;
+  background-color: var(--fondo_rojo);
 }
 
 
@@ -355,8 +379,8 @@ span{
   width: 90%;
   height: 90%;
   background-color: black;
-  color: white;
-  border: 2px solid #4DD42E;
+  color:var(--texto_blanco);
+  border: 2px solid var(--borde_verde);
   border-radius: 15px;
   padding: 20px;
   overflow: auto;
@@ -375,9 +399,9 @@ span{
 }
 
 .fc-direction-ltr .fc-button-group > .fc-button:not(:last-child) {
-    background-color: #4DD42E;
+    background-color: var(--fondo_verde);
     border: none;
-    color: white;
+    color: var(--texto_blanco);
 }
 
 .fc .fc-timegrid-slot-minor{
@@ -391,20 +415,20 @@ span{
 }
 
 .fc-icon-chevron-right::before{
-  color: white;
+  color: var(--blanco);
 }
 
 .fc-icon-chevron-left::before{
-  color: white;
+  color: var(--blanco);
 }
 
 .botonCerrarCalendario{
-  background-color: red;
+  background-color: var(--fondo_rojo);
   margin-bottom: 3px;
   width: 88px;
   height: 38px;
   border-radius: 5px;
-  color: white;
+  color: var(--texto_blanco);
   font-weight: 800;
   font-size: 15px;
   transition: 0.3s;
@@ -460,7 +484,7 @@ span{
  .infoReserva{
   width: 100%;
   height: 40%;
-  border: solid 1px #4DD42E;
+  border: solid 1px var(--borde_verde);
   border-radius: 25px;
   display: flex;
   grid-area: info_reservas;
@@ -469,7 +493,7 @@ span{
   align-items: center;
   justify-content: center;
   gap: 2%;
-  color: white;
+  color: var(--texto_blanco);
   font-size: 1.7vw;
   font-weight: 700;
   align-self: center;
@@ -477,12 +501,12 @@ span{
 
  
  .infoReserva__texto{
-   color: #4DD42E;
+   color: var(--texto_verde);
   }
   
   .horaInicioFin{
   font-size: 1vw;
-   color: white;
+   color: var(--texto_blanco);
   }
 
  .productosReserva{
@@ -500,25 +524,25 @@ span{
   width: 100%;
   height: 100%;
   overflow-x: scroll;
-  border: solid 1px #4DD42E;
+  border: solid 1px var(--borde_verde);
   border-radius: 15px;
  }
 
- .boton__tabla{
-  background-color: #4DD42E;
+ /* .boton__tabla{
+  background-color: var(--fondo_verde);
   width: 12vw;
   border: none;
   min-height: 4.5vh;
   margin: 7px;
   border-radius: 15px;
-  color: white;
+  color: red;
   font-size: 0.9vw;
   font-weight: 600;
   text-align: center;
   align-content: center;
   text-decoration: none;
   cursor: pointer;
- }
+ } */
 
  .botonRegresar{
   grid-area: boton_regresar;
@@ -537,10 +561,10 @@ span{
   justify-content: center;
   gap: 5%;
  }
- .registro__boton--eliminar{
+ /* .registro__boton--eliminar{
   background-color: red;
   margin: 0;
- }
+ } */
 
  .registro__boton--editar{
   margin: 0;
@@ -550,13 +574,13 @@ span{
  .factura{
   width: 40%;
   height: 80%;
-  border: solid 3px #4DD42E;
-  background-color: #212121;
+  border: solid 3px var(--borde_verde);
+  background-color: var(--fondo_gris_oscuro);
   border-radius: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #4DD42E;
+  color: var(--texto_verde);
   flex-direction: column;
   gap: 10px;
 }
@@ -568,7 +592,7 @@ span{
 .factura__info{
   width: 80%;
   height: 35%;
-  border: solid 3px #4DD42E;
+  border: solid 3px var(--borde_verde);
   border-radius: 25px;
   align-items: center;
   justify-content: center;
@@ -582,16 +606,16 @@ span{
 
 
 .border--red{
-  border: solid 2px red;
+  border: solid 2px var(--borde_rojo);
 
 }
 
 .border--punteado--red{
-  border: dashed 2px red;
+  border: dashed 2px var(--borde_rojo);
 }
 
 .span--verde{
-  color: #4DD42E;
+  color: var(--texto_verde);
 }
 
 .boton-deshabilitado{
@@ -613,7 +637,7 @@ span{
   background-color: rgba(0, 0, 0, 0.63);
   right: 0;
   font-size: 1.5vw;
-  color: white;
+  color: var(--texto_blanco);
   border-radius: 0 15px;
   right: -30vw;
   transition: 0.3s;
@@ -623,20 +647,20 @@ span{
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #212121;
+  background-color: var(--gris_oscuro);
   height: 40%;
   width: 100%;
   border-radius: 10px;
 }
 
 .menuOculto div button{
-  background-color: #212121;
+  background-color: var(--fondo_gris_oscuro);
   border: none;
   border-radius: 20px;
   width: 100%;
   height: 100%;
   cursor: pointer;
-  color: red;
+  color: var(--texto_rojo);
   font-size: 1.5vw;
   font-weight: 600;
   transition: 0.3s;
@@ -651,7 +675,7 @@ span{
 }
 
 .radiobuton:checked +label a.botonSidebar__texto{
-  color: #4DD42E;
+  color: var(--texto_verde);
 }
 
 
@@ -660,8 +684,8 @@ span{
 
 .contenedorFiltros{
   display: flex;
-  background-color: #4DD42E;
-  color: white;
+  background-color: var(--fondo_verde);
+  color: var(--texto_blanco);
   font-weight: 700;
   height: 100%;
   width: 35%;
@@ -684,8 +708,8 @@ span{
   display: flex;
   width: 20%;
   height: 100%;
-  background-color: #4DD42E;
-  color: white;
+  background-color: var(--fondo_verde);
+  color: var(--texto_blanco);
   font-size: 1.5vw;
   font-weight: 700;
   align-items: center;

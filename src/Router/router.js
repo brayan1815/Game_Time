@@ -1,4 +1,5 @@
 import { error } from "../helpers/alertas";
+import { tienePermiso } from "../Modules/modules";
 import { routes } from "./routes";
 
 // Función principal del enrutador SPA
@@ -28,6 +29,11 @@ export const router = async (elemento) => {
     if(!token){
       await error('Su sesion ha caducado');
       redirigirARuta("Login");
+      return;
+    }
+    if(!tienePermiso(ruta.can)){
+      window.history.back();
+      await error('Usted no tiene acceso a este lugar');
       return;
     }
   }

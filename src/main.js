@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import { setupCounter } from './counter.js'
 import { encontrarRuta, router } from './Router/router.js';
 import { routes } from './Router/routes.js';
+import { tienePermiso } from './Modules/modules.js';
 
 const app=document.querySelector('.app');
 const grid_container=document.querySelector('.grid-container');
@@ -34,14 +35,11 @@ const cargarLayoutPrivado = async () => {
   const btnHistorialSidebar=document.querySelector('.sidebar__boton.botonSidebar.historial');
   const usuario=JSON.parse(localStorage.getItem('usuario'));
 
-  if(usuario['id_rol']!=1){
-    botonUsusariosSidebar.classList.add('displayNone');
-    btnHistorialSidebar.classList.add('displayNone')
-  }
-  else{
-    botonUsusariosSidebar.classList.remove('displayNone');
-    btnHistorialSidebar.classList.remove('displayNone')
-  } 
+  if(!tienePermiso('historial.index'))btnHistorialSidebar.classList.add('displayNone');
+  else btnHistorialSidebar.classList.remove('displayNone');
+    
+  if(!tienePermiso('usuarios.index'))botonUsusariosSidebar.classList.add('displayNone');
+  else botonUsusariosSidebar.classList.remove('displayNone');
     
 
 };
@@ -91,6 +89,7 @@ window.addEventListener('click',(event)=>{
     localStorage.removeItem("token");
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("usuario");
+    localStorage.removeItem("permisos");
     window.location.href="#/Login"
   }
 })

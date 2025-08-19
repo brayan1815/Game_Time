@@ -1,22 +1,20 @@
 import { confirmar, error, success } from "../../helpers/alertas.js";
 import { del, get } from "../../helpers/api.js";
-import { cargarCardsConsolas } from "../../Modules/modules.js";
+import { cargarCardsConsolas, tienePermiso } from "../../Modules/modules.js";
 
 export const consolasController=async()=>{
 
   const main=document.querySelector('.cards');
-  const botonesSuperiores=document.querySelectorAll('.boton');
+  const botonNuevaConsola=document.querySelector('.crearConsola');
+  const botonVerTipos=document.querySelector('.verTipos');
 
-  const usuario=JSON.parse(localStorage.getItem('usuario'));
+  if(!tienePermiso('consolas.crear')) botonNuevaConsola.classList.add('displayNone');
+  else botonNuevaConsola.classList.remove('displayNone');
 
-  [...botonesSuperiores].forEach(boton => {
-    
-    if(usuario.id_rol!=1){
-      boton.classList.add('displayNone');
-    }else{
-      boton.classList.remove('displayNone');
-    }
-  });
+  if(!tienePermiso('tipos.index'))botonVerTipos.classList.add('displayNone');
+  else botonVerTipos.classList.remove('displayNone');
+
+
 
   const consolas=await get('consolas/con-precio');
 

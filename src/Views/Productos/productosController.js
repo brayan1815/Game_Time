@@ -1,15 +1,15 @@
 import { confirmar, error, success } from "../../helpers/alertas.js";
 import { del, get } from "../../helpers/api.js";
-import { cargarCardsConsolas, crearCardsProductos } from "../../Modules/modules.js";
+import { cargarCardsConsolas, convertirPermisosArray, crearCardsProductos, tienePermiso } from "../../Modules/modules.js";
 
 export const productosController=async()=>{
 
 const contenedorCards=document.querySelector('.cards');
 const btnNuevoProd=document.querySelector('.boton.boton--crear');
+// const usuarios=JSON.parse(localStorage.getItem('usuario'));
+// const permisos=convertirPermisosArray(localStorage.getItem('permisos'));
 
-const usuarios=JSON.parse(localStorage.getItem('usuario'));
-
-if(usuarios.id_rol!=1){
+if(!tienePermiso("productos.crear")){
     btnNuevoProd.classList.add('displayNone');
 }else{
     btnNuevoProd.classList.remove('displayNone');

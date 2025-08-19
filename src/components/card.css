@@ -1,20 +1,20 @@
 .card{
-  border: solid 2px #4DD42E;
-  background-color: #212121;
+  border: solid 2px var(--borde_verde);
+  background-color: var(--fondo_gris_oscuro);
   height: 370px;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  color: white;
+  color: var(--texto_blanco);
   gap: 10px;
   border-radius: 15px;
   justify-content: center;
 }
 
 .card--bordeRojo{
-  border-color: red;
+  border-color:var(--borde_rojo);
 }
 
 .card--horizontal{
@@ -27,11 +27,11 @@
 
 .card__linea{
   width: 90%;
-  border: solid 1px #4DD42E;
+  border: solid 1px var(--borde_verde);
 }
 
 .card__linea--roja{
-  border: solid 1px red;
+  border: solid 1px var(--borde_rojo);
 }
 
 .card__imagen{
@@ -55,7 +55,7 @@
 
 .card__precio,
 .card__cantidades{
-  color: #4DD42E;
+  color: var(--texto_verde);
 }
 
 .card__botones{

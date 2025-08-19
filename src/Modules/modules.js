@@ -377,12 +377,12 @@ export const crearCardsProductos=async (productos,contenedor)=>{
     card.append(cantRest);
 
     const usuario=JSON.parse(localStorage.getItem('usuario'));
+    
+    const contenedorBotones=document.createElement('div');
+    contenedorBotones.classList.add('card__botones');
 
-    if(usuario.id_rol==1){
+    if(tienePermiso('productos.editar')){
 
-      const contenedorBotones=document.createElement('div');
-      contenedorBotones.classList.add('card__botones');
-  
       const botonEditar=document.createElement('a');
       botonEditar.setAttribute('id',producto.id);
       botonEditar.setAttribute('href',`#/Productos/Editar/id=${producto.id}`)
@@ -393,7 +393,9 @@ export const crearCardsProductos=async (productos,contenedor)=>{
       // iconoEditar.classList.add('bi','bi-pencil-square')
       botonEditar.append(iconoEditar);
       contenedorBotones.append(botonEditar);
-  
+    }
+
+    if(tienePermiso('productos.eliminar')){
       const botonEliminar=document.createElement('button');
       botonEliminar.setAttribute('id',producto.id)
       botonEliminar.classList.add('boton','boton--cardIcono','eliminar');
@@ -402,9 +404,9 @@ export const crearCardsProductos=async (productos,contenedor)=>{
       iconoEliminar.classList.add('bi','bi-trash-fill');
       botonEliminar.append(iconoEliminar);
       contenedorBotones.append(botonEliminar);
-  
-      card.append(contenedorBotones);
     }
+
+    card.append(contenedorBotones);
     contenedor.append(card);
   }
 }
@@ -449,9 +451,11 @@ export const cargarCardsConsolas = async (consolas, contenedor) => {
 
     const usuario=JSON.parse(localStorage.getItem('usuario'));
 
-    if(usuario.id_rol==1){
-      const contenedorBotones=document.createElement('div');
-      contenedorBotones.classList.add('card__botones');
+
+    const contenedorBotones=document.createElement('div');
+    contenedorBotones.classList.add('card__botones');
+
+    if(tienePermiso('consolas.editar')){
   
       const botonEditar=document.createElement('a');
       botonEditar.setAttribute('id',consola.id);
@@ -464,19 +468,21 @@ export const cargarCardsConsolas = async (consolas, contenedor) => {
       botonEditar.append(iconoEditar);
       contenedorBotones.append(botonEditar);
       
-      if(consola.idEstado!=2){
-        const botonEliminar=document.createElement('button');
-        botonEliminar.setAttribute('id',consola.id)
-        botonEliminar.classList.add('boton','boton--cardIcono','eliminar');
-    
-        const iconoEliminar=document.createElement('i');
-        iconoEliminar.classList.add('bi','bi-trash-fill');
-        botonEliminar.append(iconoEliminar);
-        contenedorBotones.append(botonEliminar);
-      }
-      cardInfo.append(contenedorBotones);
+      // if(consola.idEstado!=2){
+      // }
     }
-
+    if(tienePermiso('consolas.eliminar') && consola.idEstado!=2){
+      const botonEliminar=document.createElement('button');
+      botonEliminar.setAttribute('id',consola.id)
+      botonEliminar.classList.add('boton','boton--cardIcono','eliminar');
+  
+      const iconoEliminar=document.createElement('i');
+      iconoEliminar.classList.add('bi','bi-trash-fill');
+      botonEliminar.append(iconoEliminar);
+      contenedorBotones.append(botonEliminar);
+    }
+    
+    cardInfo.append(contenedorBotones);
     card.append(cardInfo)
     contenedor.append(card)
   }
@@ -654,7 +660,7 @@ export const validarIngreso = async (event) => {
       const resultado=await respuesta.json();
       localStorage.setItem('token', resultado.token);
       localStorage.setItem('refreshToken',resultado.refreshToken)
-      // console.log(datos);
+      localStorage.setItem('permisos',resultado.permisos)
       
       
       const usuario=await get(`usuarios/correo/${datos.correo}`);
@@ -670,6 +676,18 @@ export const validarIngreso = async (event) => {
   }
 }
 
+export const convertirPermisosArray=(permisos)=>{
+  permisos=permisos.split("");
+  let aux=""; 
+  for (let n = 0; n < permisos.length; n++) {
+    if(n==0 || n==permisos.length-1 || permisos[n]==" ")continue
+    aux+=permisos[n];    
+  }
+  
+  permisos=aux.split(",");
+  return permisos;
+}
+
 export const cargarSelectRoles = async(select) => {
   const roles = await get('roles');
 
@@ -679,6 +697,12 @@ export const cargarSelectRoles = async(select) => {
     valor.textContent = rol.rol;
     select.append(valor);
   });
+}
+
+export const tienePermiso = (permiso) => {
+  const permisos = convertirPermisosArray(localStorage.getItem('permisos'));
+  const existe = permisos.some( perm => perm == permiso);
+  return existe
 }
 
 export const cargarEstadosUsuarios=async(select)=>{

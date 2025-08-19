@@ -1,6 +1,6 @@
 .boton{
-    background-color: #4DD42E;
-    color: white;
+    background-color:var(--fondo_verde);
+    color: var(--texto_blanco);
     width: 40%;
     border-style: none;
     font-size: 18px;
@@ -15,7 +15,7 @@
 }
 
 .boton:hover{
-    box-shadow: 0px 0px 50px 2px #4DD42E;
+    box-shadow: 0px 0px 50px 2px var(--degradado_verde);
     transition: 1s;
 }
 

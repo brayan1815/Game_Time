@@ -1,5 +1,5 @@
 .tabla{
-    color: white;
+    color: var(--texto_blanco);
     width: 100%;
     border-spacing: 0 10px;
     padding: 2%;
@@ -7,7 +7,7 @@
 }
 
 .tabla__encabezado{
-  color: #4DD42E;
+  color: var(--texto_verde);
 }
 
 .tabla__fila{
@@ -37,10 +37,10 @@
 }
 
 .tabla__campo--bordeVerde{
-  border: solid 1px #4DD42E;
+  border: solid 1px var(--borde_verde);
 }
 .tabla__campo--bordeRojo{
-  border: solid 1px red;
+  border: solid 1px var(--borde_rojo);
 }
 
 .tabla__campo:first-child{
