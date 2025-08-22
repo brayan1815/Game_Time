@@ -1,6 +1,7 @@
 import { success } from "../../../helpers/alertas.js";
 import { post, post_imgs } from "../../../helpers/api.js";
-import { contarCamposFormulario, limpiar, validar, validarImagen, validarLetras, validarMaximo, validarMinimo, validarNumeros } from "../../../Modules/modules.js";
+import { contarCamposFormulario } from "../../../Modules/modules.js";
+import { limpiar, validar, validarImagen, validarLetras, validarMaximo, validarMinimo, validarNumeros, validarContrasenia, validarCorreo } from "../../../Modules/validaciones.js";
 
 export const crearProductosController=()=>{
 

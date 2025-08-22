@@ -1,6 +1,7 @@
 import { error, success } from "../../../helpers/alertas.js";
 import { post } from "../../../helpers/api.js";
-import { contarCamposFormulario, limpiar, validar, validarMaximo, validarMinimo, validarNumeros } from "../../../Modules/modules.js";
+import { contarCamposFormulario } from "../../../Modules/modules.js";
+import { limpiar, validar, validarMaximo, validarMinimo, validarNumeros, validarLetras, validarContrasenia, validarCorreo, validarImagen } from "../../../Modules/validaciones.js";
 
 export const crearTiposController=()=>{
 

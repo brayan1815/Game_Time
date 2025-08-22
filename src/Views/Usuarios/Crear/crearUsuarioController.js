@@ -1,6 +1,7 @@
 import { get, post } from "../../../helpers/api.js";
 import { error, success } from "../../../helpers/alertas.js";
-import {contarCamposFormulario, limpiar, validar, validarContrasenia, validarCorreo, validarLetras, validarMaximo, validarMinimo, validarNumeros} from "../../../Modules/modules.js";
+import {contarCamposFormulario} from "../../../Modules/modules.js";
+import { limpiar, validar, validarContrasenia, validarCorreo, validarLetras, validarMaximo, validarMinimo, validarNumeros, validarImagen } from "../../../Modules/validaciones.js";
 
 export const crearUsuarioController=async()=>{
 

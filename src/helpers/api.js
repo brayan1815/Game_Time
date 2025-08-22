@@ -1,4 +1,5 @@
 import { jwtDecode } from "jwt-decode";
+import { error } from "./alertas";
 // //se importa la funcion para decodificar el contenido del token
 
 const isTokenExpired = () => {
@@ -58,7 +59,15 @@ export const get = async (endpoint) => {
   const data = await fetch(`http://localhost:8080/APIproyecto/api/${endpoint}`, {
     headers: await getAuthHeaders()
   });
-  return await data.json();
+  if(data.ok){
+    return await data.json();
+  }
+
+  const men=await data.json();
+  console.log(men);
+  
+  error(men.error)
+  
 }
 
 export const post = async (endpoint, info) => {

@@ -1,6 +1,7 @@
 import { error, success } from "../../../helpers/alertas.js";
 import { get, put } from "../../../helpers/api.js";
-import { contarCamposFormulario, validar,validarMinimo,limpiar,validarMaximo, validarNumeros } from "../../../Modules/modules.js";
+import { contarCamposFormulario } from "../../../Modules/modules.js";
+import { validar, validarMinimo, limpiar, validarMaximo, validarNumeros, validarLetras, validarContrasenia, validarCorreo, validarImagen } from "../../../Modules/validaciones.js";
 
 export const tiposEditarController=async(parametros=null)=>{
 

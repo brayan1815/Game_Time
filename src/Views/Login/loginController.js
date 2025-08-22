@@ -1,4 +1,5 @@
-import { limpiar, validarIngreso, validarMinimo,validarCorreo } from "../../Modules/modules.js";
+import { limpiar, validarMinimo, validarCorreo } from "../../Modules/validaciones.js";
+import { validarIngreso } from "../../Modules/modules.js";
 
 export const loginController=()=>{
 

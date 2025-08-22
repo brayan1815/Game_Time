@@ -21,6 +21,7 @@
 
 .formulario__label{
   font-weight: 700;
+  color: var(--texto_blanco);
 }
 
 .formulario__campo{

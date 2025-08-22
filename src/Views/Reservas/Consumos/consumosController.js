@@ -1,6 +1,7 @@
 import { del, get, post, put } from "../../../helpers/api.js";
 import { confirmar, error, success } from "../../../helpers/alertas.js";
-import { cargarSelecrProductos, crearFila, crearFilaConsumos, crearTabla, quitarFOmatoIso, validar } from "../../../Modules/modules.js";
+import { cargarSelecrProductos, crearFila, crearFilaConsumos, crearTabla, quitarFOmatoIso, tienePermiso } from "../../../Modules/modules.js";
+import { validar, limpiar, validarMinimo, validarMaximo, validarNumeros, validarLetras, validarContrasenia, validarCorreo, validarImagen } from "../../../Modules/validaciones.js";
 
 export const consumosController=async (parametros=null)=>{
 
@@ -76,20 +77,24 @@ export const consumosController=async (parametros=null)=>{
     btnCobrar.setAttribute('id',id_reserva)
     botonCobrar.setAttribute('id',id_reserva);
 
-    let consumosReserva=null;
+    
 
-    if(reserva.id_estado_reserva==4){
-        consumosReserva=await get(`detalle-factura-consumos/reservas/${reserva.id}`)
-    }else{
-        consumosReserva=await get(`consumos/reserva/${id_reserva}`);
-    }
+    
 
-    const usuario=await get(`usuarios/${reserva.id_usuario}`);
+    let usuario;
+    if(tienePermiso("usuarios.index")){
+         usuario=await get(`usuarios/${reserva.id_usuario}`);
+    }else usuario=usu;
     const consola=await get(`consolas/${reserva.id_consola }`);
     const tipoConsola=await get(`tipos/${consola.id_tipo}`);
     
 
-    if(consumosReserva.length>0){
+    const cargarConsumosReserva=async (consumosReserva,contenedorTabla)=>{
+
+        contenedorTabla.innerHTML ='';
+        
+
+        if(consumosReserva.length>0){
         crearTabla(['producto','precio','cantidad','subtotal'],contenedorTabla);
 
         const cuerpoTabla=document.querySelector('.tabla__cuerpo');
@@ -102,12 +107,22 @@ export const consumosController=async (parametros=null)=>{
                 await crearFilaConsumos([consumo.nombre_producto,consumo.precio_unitario,consumo.cantidad,consumo.subtotal],null,cuerpoTabla,reserva)
             }
         }
-    }else{
-        const mensaje=document.createElement('span');
-        mensaje.classList.add('MensajeTabla');
-        mensaje.textContent="Aun no hay consumos registrados"
-        contenedorTabla.append(mensaje)
+        }else{
+            const mensaje=document.createElement('span');
+            mensaje.classList.add('MensajeTabla');
+            mensaje.textContent="Aun no hay consumos registrados"
+            contenedorTabla.append(mensaje)
+        }
     }
+
+    let consumosReserva=null;
+    if(reserva.id_estado_reserva==4){
+        consumosReserva=await get(`detalle-factura-consumos/reservas/${reserva.id}`)
+    }else{
+        consumosReserva=await get(`consumos/reserva/${id_reserva}`);
+    }
+
+    cargarConsumosReserva(consumosReserva,contenedorTabla)
 
     
     
@@ -178,6 +193,7 @@ export const consumosController=async (parametros=null)=>{
         
 
     if (target.classList.contains("sumar") && !target.classList.contains("editar")) {
+        
         const producto = await get(`productos/${select.value}`);
         let actual = parseInt(campoCantAComprar.value);
         if (actual < producto.cantidades_disponibles) {
@@ -333,7 +349,14 @@ export const consumosController=async (parametros=null)=>{
         
         if(respuesta.ok){
             await success(res.mensaje)
-            location.reload()
+            let consu=null;
+            if(reserva.id_estado_reserva==4){
+                consu=await get(`detalle-factura-consumos/reservas/${reserva.id}`)
+            }else{
+                consu=await get(`consumos/reserva/${id_reserva}`);
+            }
+
+            cargarConsumosReserva(consu,contenedorTabla)
         }
         
         cerrarFomrulario(contenedorFormEditar)
@@ -377,14 +400,17 @@ export const consumosController=async (parametros=null)=>{
 
     })
 
-    const metodosPago=await get('metodospago');
-
-    metodosPago.forEach(metodo => {
-        const option=document.createElement('option');
-        option.setAttribute('value',metodo.id);
-        option.textContent=metodo.metodoPago;
-        selectMetodoPago.append(option);
-    });
+    if(tienePermiso("metodos.index")){
+        
+        const metodosPago=await get('metodospago');
+    
+        metodosPago.forEach(metodo => {
+            const option=document.createElement('option');
+            option.setAttribute('value',metodo.id);
+            option.textContent=metodo.metodoPago;
+            selectMetodoPago.append(option);
+        });
+    }
 
     btnConfirCobro.addEventListener('click',async()=>{
         // const reserva=await get(`reservas/${id_reserva}`);

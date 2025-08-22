@@ -1,6 +1,7 @@
 import { confirmar, error, success } from "../../../helpers/alertas.js";
 import { get, post } from "../../../helpers/api.js";
-import { cargarCardsConsolasReservar, contarCamposFormulario, formatearFecha, limpiar, validar, validarLetras, validarMaximo, validarMinimo, validarNumeros } from "../../../Modules/modules.js";
+import { cargarCardsConsolasReservar, contarCamposFormulario, formatearFecha } from "../../../Modules/modules.js";
+import { limpiar, validar, validarLetras, validarMaximo, validarMinimo, validarNumeros } from "../../../Modules/validaciones.js";
 
 export const crearReservaController=async()=>{
     const usuario=JSON.parse(localStorage.getItem('usuario'))
@@ -39,6 +40,8 @@ export const crearReservaController=async()=>{
     }
 
     const abrirCalendario=async(id_consola)=>{
+        console.log(id_consola);
+        
 
         const reservas=await get(`reservas/consola/${id_consola}`);
         

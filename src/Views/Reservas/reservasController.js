@@ -1,6 +1,7 @@
 import { confirmar, error, success } from "../../helpers/alertas.js";
 import { del, get, put } from "../../helpers/api.js";
-import { convertirPermisosArray, crearFilaTablaReservas, crearTabla, validarNumeros } from "../../Modules/modules.js";
+import { convertirPermisosArray, crearFilaTablaReservas, crearTabla } from "../../Modules/modules.js";
+import { validarNumeros } from "../../Modules/validaciones.js";
 
 export const reservasController=async()=>{
     

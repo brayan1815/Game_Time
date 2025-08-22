@@ -1,6 +1,7 @@
 import { error, success } from "../../../helpers/alertas.js";
 import { get, put } from "../../../helpers/api.js";
-import { cargarEstadosUsuarios, cargarSelectRoles, contarCamposFormulario, limpiar, validar, validarContrasenia, validarLetras, validarMaximo, validarMinimo, validarNumeros } from "../../../Modules/modules.js";
+import { cargarEstadosUsuarios, cargarSelectRoles, contarCamposFormulario } from "../../../Modules/modules.js";
+import { limpiar, validar, validarContrasenia, validarLetras, validarMaximo, validarMinimo, validarNumeros, validarCorreo, validarImagen } from "../../../Modules/validaciones.js";
 
 export const usuariosEditarController=async(parametros=null)=>{
     

@@ -1,6 +1,8 @@
 import { error, success } from "../../../helpers/alertas.js";
 import { post, post_imgs } from "../../../helpers/api.js";
-import { cargarSelectTiposConsols, contarCamposFormulario, limpiar, validar, validarImagen, validarLetras, validarMaximo, validarMinimo } from "../../../Modules/modules.js"
+import { cargarSelectTiposConsols, contarCamposFormulario } from "../../../Modules/modules.js";
+import { limpiar,validar, validarImagen, validarLetras, validarMaximo, validarMinimo } from "../../../Modules/validaciones.js";
+// import { limpiar,v } from "../../../Modules/validaciones.js";
 export const crearConsolasController=async()=>{
 
     const formulario=document.querySelector('form');
