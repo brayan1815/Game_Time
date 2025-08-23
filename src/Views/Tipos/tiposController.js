@@ -5,7 +5,11 @@ import { usuariosController } from "../Usuarios/usuariosController.js";
 
 export const tiposController=async()=>{
 
-    
+    const btnNuevoTipo=document.querySelector('.boton--crear.tipo');
+
+    if(!tienePermiso('tipos.crear')){
+        btnNuevoTipo.classList.add('displayNone')
+    }
 
     const cargarTablaTipos=(contenedor,tipos)=>{
         const usu=JSON.parse(localStorage.getItem('usuario'));

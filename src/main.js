@@ -90,7 +90,16 @@ window.addEventListener('click',(event)=>{
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("usuario");
     localStorage.removeItem("permisos");
+    sidebar.classList.remove('left-0')
     window.location.href="#/Login"
+  }
+
+  if(window.innerWidth<=900){
+    const elemento=event.target;
+    if(elemento.getAttribute("class")=="botonSidebar__texto"){
+      cheqSidebar.checked=false;
+      sidebar.classList.remove('left-0')
+    }
   }
 })
 
@@ -102,3 +111,8 @@ cheqSidebar.addEventListener('change',(event)=>{
     sidebar.classList.remove('left-0')
   }
 });
+
+// window.addEventListener('click',(event)=>{
+  
+// })
+
