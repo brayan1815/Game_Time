@@ -54,7 +54,7 @@ export const crearProductosController=()=>{
         const res=await respuesta.json();
 
         if(respuesta.ok){
-            success(res.mensaje);
+            await success(res.mensaje);
 
             inputImg.value='';
             labelImagen.nextElementSibling.remove();
@@ -62,6 +62,8 @@ export const crearProductosController=()=>{
             descripcionProd.value='';
             precio_prod.value="";
             canti_disponi.value="";
+
+            window.location.href="#/Productos"
         }
         
         

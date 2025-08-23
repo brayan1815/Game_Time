@@ -50,7 +50,10 @@ export const usuariosEditarController=async(parametros=null)=>{
         const respuesta = await put(`usuarios/${id}`,objeto);
         const res=await respuesta.json();
 
-        if (respuesta.ok) success(res.mensaje)
+        if (respuesta.ok){
+            success(res.mensaje);
+            window.location.href="#/Usuarios"
+        } 
         else error(res.error)
         
     }

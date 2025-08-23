@@ -26,7 +26,7 @@ export const crearTabla=(encabezados,contenedor)=>{
     contenedor.append(tabla)
 }
 
-export const crearFila=(info,id,contenedor,hash,rojo=false)=>{
+export const crearFila=(info,id,contenedor,hash,rojo=false,botones=true)=>{
     const fila=document.createElement('tr');
     fila.classList.add('tabla__fila');
     fila.setAttribute('id',`fila_${id}`);
@@ -78,7 +78,9 @@ export const crearFila=(info,id,contenedor,hash,rojo=false)=>{
     contenedorBotones.append(botonEditar);
 
     campo.append(contenedorBotones);
-    fila.append(campo)
+    if(botones){
+      fila.append(campo)
+    }
 
     contenedor.append(fila);
 }
@@ -318,6 +320,7 @@ export const crearCardsProductos=async (productos,contenedor)=>{
 }
 
 export const cargarCardsConsolas = async (consolas, contenedor) => {
+  contenedor.innerHTML="";
   for (const consola of consolas) {
     
     

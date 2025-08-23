@@ -31,7 +31,10 @@ export const crearUsuarioController=async()=>{
             info['id_estado']=1;   
             const respuesta=await post('usuarios',info);
             const res=await respuesta.json();
-            if(respuesta.ok) success(res.mensaje);
+            if(respuesta.ok){
+                await success(res.mensaje);
+                window.location.href="#/Usuarios"
+            } 
             else{
                 error(res.error)
             }

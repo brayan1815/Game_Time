@@ -41,7 +41,10 @@ export const tiposEditarController=async(parametros=null)=>{
             info['tipo']=info['tipo'].toLowerCase();
             const respuesta=await put(`tipos/${id}`,info);
             const res=await respuesta.json();
-            if(respuesta.ok)success(res.mensaje);
+            if(respuesta.ok){
+                await success(res.mensaje);
+                window.location.href = "#/Tipos";
+            }
             else error(res.error)
         }
     })

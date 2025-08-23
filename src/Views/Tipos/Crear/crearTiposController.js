@@ -20,7 +20,10 @@ export const crearTiposController=()=>{
             info['tipo']=info['tipo'].toLowerCase();
             const respuesta=await post('tipos',info);
             const res=await respuesta.json();
-            if(respuesta.ok) success(res.mensaje);
+            if(respuesta.ok){
+                await success(res.mensaje);
+                window.location.href = "#/Tipos";
+            } 
             else error(res.error)
         }
     })

@@ -39,7 +39,10 @@ export const crearConsolasController=async()=>{
                 
                 const respuesta=await post('consolas',info);
                 const res=await respuesta.json();
-                if (respuesta.ok) success(res.mensaje);
+                if (respuesta.ok){
+                    await success(res.mensaje);
+                    window.location.href = "#/Consolas";
+                } 
                 else error(res.error)
             }
 

@@ -5,28 +5,31 @@ import { del, get } from "../../helpers/api.js";
 export const usuariosController=async()=>{
 
     const main=document.querySelector('.contenido__contenedor');
-
-
-    const usuarios=await get('usuarios/con-rol');
     
-    if(usuarios.length>0){
-        crearTabla(['Documento','Nombre','Correo','Rol'],main);
-        const cuerpoTabla=document.querySelector('.tabla__cuerpo');
-        
-        usuarios.forEach(usuario => {
-            const usu=JSON.parse(localStorage.getItem('usuario'));
-            
-            if(usuario.id_estado==2 && usuario.id!=usu.id){
-                crearFila([usuario.documento,usuario.nombre,usuario.correo,usuario.rol],usuario.id,cuerpoTabla,'Usuarios/Editar',true)
-            }else if(usuario.id!=usu.id){
-                crearFila([usuario.documento,usuario.nombre,usuario.correo,usuario.rol],usuario.id,cuerpoTabla,'Usuarios/Editar')
 
-            }
-        });
-        
-        
-        
+    const cargarTablaUsuarios=(usuarios,main)=>{
+        main.innerHTML="";
+        if(usuarios.length>0){
+            crearTabla(['Documento','Nombre','Correo','Rol'],main);
+            const cuerpoTabla=document.querySelector('.tabla__cuerpo');
+            
+            usuarios.forEach(usuario => {
+                const usu=JSON.parse(localStorage.getItem('usuario'));
+                
+                if(usuario.id_estado==2 && usuario.id!=usu.id){
+                    crearFila([usuario.documento,usuario.nombre,usuario.correo,usuario.rol],usuario.id,cuerpoTabla,'Usuarios/Editar',true)
+                }else if(usuario.id!=usu.id){
+                    crearFila([usuario.documento,usuario.nombre,usuario.correo,usuario.rol],usuario.id,cuerpoTabla,'Usuarios/Editar')
+    
+                }
+            });   
+        }
     }
+
+    
+    const usuarios=await get('usuarios/con-rol');
+
+    cargarTablaUsuarios(usuarios,main)
 
     window.addEventListener('click',async(event)=>{
     
@@ -41,7 +44,9 @@ export const usuariosController=async()=>{
 
                 if(respuesta.ok){
                     await success(res.mensaje);
-                    location.reload();
+                    const usuarios=await get('usuarios/con-rol');
+
+                    cargarTablaUsuarios(usuarios,main)
                 }
                 else error(res.error);
             }

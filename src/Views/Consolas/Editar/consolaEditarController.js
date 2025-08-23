@@ -66,7 +66,10 @@ export const consolasEditarController=async(parametros=null)=>{
             
             const respuesta=await put(`consolas/${id}`,info);
             const res=await respuesta.json();
-            if(respuesta.ok)success(res.mensaje);
+            if(respuesta.ok){
+                await success(res.mensaje);
+                window.location.href = "#/Consolas";
+            }
             else error(res.error)
         }
     })
