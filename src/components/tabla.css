@@ -1,9 +1,9 @@
 .tabla{
-    color: var(--texto_blanco);
-    width: 100%;
-    border-spacing: 0 10px;
-    padding: 2%;
-    border-radius: 20px; 
+  color: var(--texto_blanco);
+  width: 100%;
+  border-spacing: 0 10px;
+  padding: 2%;
+  border-radius: var(--border_radius_pequeno);
 }
 
 .tabla__encabezado{
@@ -44,9 +44,9 @@
 }
 
 .tabla__campo:first-child{
-  border-radius: 15px 0 0 15px;
+  border-radius: var(--border_radius_pequeno) 0 0 var(--border_radius_pequeno);
 }
 
 .tabla__campo:last-child{
-  border-radius: 0 15px 15px 0;
+  border-radius: 0 var(--border_radius_pequeno) var(--border_radius_pequeno) 0;
 }

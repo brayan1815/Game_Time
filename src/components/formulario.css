@@ -3,17 +3,17 @@
     flex-direction: column;
     background-color: rgba(33, 33, 33, 0.9) ;
     /* margin: 80px auto; */
-    width: 400px;
+    width: var(--ancho_formulario);
     height: 80%;
     align-items: center;
     justify-content:center;
-    border-radius: 30px;
+    border-radius: var(--border_radius);
     /* color: white; */
     border: solid 2px var(--borde_verde);
 }
 
 .formulario--main{
-  width: 450px;
+  width: var(--ancho_formulario_main);
   margin: 0;
   height: 100%;
   background-color: rgb(33, 33, 33) ;
@@ -29,7 +29,7 @@
     text-align: center;
     height: 6vh;
     margin: 10px;
-    background-color: #CACACA;
+    background-color: var(--fondo_gris_claro);
     border-style: none;
     border-radius: 10px;
     color: var(--texto_gris_oscuro);
@@ -56,7 +56,7 @@
   font-size: 1vw;
   height: 100%;
   border: dashed 2px var(--borde_verde);
-  border-radius: 15px;
+  border-radius: var(--border_radius_pequeno);
   display: flex;
   flex-direction: column;
   align-items: center;

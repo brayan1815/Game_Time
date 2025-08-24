@@ -14,26 +14,41 @@
 
 
 :root{
-  --verde:#4DD42E;
-  --blanco:white;
-  --gris_oscuro:#212121;
-  --rojo:red;
-  
-  --fondo_verde:var(--verde);
-  --texto_verde:var(--verde);
-  --borde_verde:var(--verde);
-  --degradado_verde:var(--verde);
+  /* Colores base */
+  --verde: #4DD42E;
+  --blanco: white;
+  --gris_oscuro: #212121;
+  --gris_claro: #CACACA;
+  --negro: #000;
+  --rojo: red;
 
-  --fondo_blanco:var(--blanco);
-  --texto_blanco:var(--blanco);
-  --borde_blanco:var(--blanco);
+  --fondo_verde: var(--verde);
+  --texto_verde: var(--verde);
+  --borde_verde: var(--verde);
+  --degradado_verde: var(--verde);
 
-  --fondo_gris_oscuro:var(--gris_oscuro);
-  --texto_gris_oscuro:var(--gris_oscuro);
+  --fondo_blanco: var(--blanco);
+  --texto_blanco: var(--blanco);
+  --borde_blanco: var(--blanco);
 
-  --texto_rojo:var(--rojo);
-  --fondo_rojo:var(--rojo);
-  --borde_rojo:var(--rojo);
+  --fondo_gris_oscuro: var(--gris_oscuro);
+  --texto_gris_oscuro: var(--gris_oscuro);
+  --fondo_gris_claro: var(--gris_claro);
+
+  --texto_rojo: var(--rojo);
+  --fondo_rojo: var(--rojo);
+  --borde_rojo: var(--rojo);
+
+
+  --fuente_principal: "Exo 2", sans-serif;
+
+
+  --ancho_formulario: 400px;
+  --ancho_formulario_main: 450px;
+  --border_radius: 30px;
+  --border_radius_pequeno: 15px;
+
+  --sombra_suave: 0px 0px 50px 2px var(--degradado_verde);
 }
 
 /*-------------------------------INICIO DE SESION----------------------------------*/
@@ -233,7 +248,7 @@ span{
 
 .botonSidebar__texto{
   display: block;
-  font-family: "Exo 2", sans-serif;
+  font-family: var(--fuente_principal);
   text-decoration: none;
   color: var(--texto_blanco);
   font-size: 1.2vw;
@@ -266,7 +281,7 @@ span{
   border-bottom: solid 1px var(--borde_verde);
   border-top: solid 1px var(--borde_verde);
   border-right: solid 1px var(--borde_verde);
-  border-radius: 0 15px 15px 0;
+  border-radius: 0 var(--border_radius_pequeno) var(--border_radius_pequeno) 0;
   outline: none;
   color: var(--texto_blanco);
 }
@@ -296,7 +311,7 @@ span{
   display: flex;
   background-color: rgba(33, 33, 33, 0.9);
   color: var(--blanco);
-  font-family: 15px;
+  /* font-family: 15px; */
   height: 35px;
   width: 40px;
   justify-content: center;
@@ -304,7 +319,7 @@ span{
   border-bottom: solid 1px var(--borde_verde);
   border-top: solid 1px var(--borde_verde);
   border-left: solid 1px var(--borde_verde);
-  border-radius: 15px 0 0 15px;
+  border-radius: var(--border_radius_pequeno) 0 0 var(--border_radius_pequeno);
 }
 
 .infoEstadoReserva{
@@ -322,7 +337,7 @@ span{
   justify-content: center;
   align-items: center;
   width: 7.5vw;
-  border-radius: 15px;
+  border-radius: var(--border_radius_pequeno);
   font-size: 1.042vw;
 }
 
@@ -381,7 +396,7 @@ span{
   background-color: black;
   color:var(--texto_blanco);
   border: 2px solid var(--borde_verde);
-  border-radius: 15px;
+  border-radius: var(--border_radius_pequeno);
   padding: 20px;
   overflow: auto;
   z-index: 1000;
@@ -422,7 +437,7 @@ span{
   color: var(--blanco);
 }
 
-.botonCerrarCalendario{
+/* .botonCerrarCalendario{
   background-color: var(--fondo_rojo);
   margin-bottom: 3px;
   width: 88px;
@@ -432,7 +447,7 @@ span{
   font-weight: 800;
   font-size: 15px;
   transition: 0.3s;
-}
+} */
 
 .botonCerrarCalendario:hover{
   cursor: pointer;
@@ -525,33 +540,18 @@ span{
   height: 100%;
   overflow-x: scroll;
   border: solid 1px var(--borde_verde);
-  border-radius: 15px;
+  border-radius: var(--border_radius_pequeno);
  }
 
- /* .boton__tabla{
-  background-color: var(--fondo_verde);
-  width: 12vw;
-  border: none;
-  min-height: 4.5vh;
-  margin: 7px;
-  border-radius: 15px;
-  color: red;
-  font-size: 0.9vw;
-  font-weight: 600;
-  text-align: center;
-  align-content: center;
-  text-decoration: none;
-  cursor: pointer;
- } */
 
- .botonRegresar{
+ /* .botonRegresar{
   grid-area: boton_regresar;
   display: flex;
   width: 100%;
   height: 100%;
   align-items: center;
   justify-content: center;
- }
+ } */
 
  .contenedorBotonesTabla{
   width: 100%;
@@ -566,9 +566,9 @@ span{
   margin: 0;
  } */
 
- .registro__boton--editar{
+ /* .registro__boton--editar{
   margin: 0;
- }
+ } */
 
  /*------------------------------- FACTURA ------------------*/
  .factura{
@@ -638,7 +638,7 @@ span{
   right: 0;
   font-size: 1.5vw;
   color: var(--texto_blanco);
-  border-radius: 0 15px;
+  border-radius: 0 var(--border_radius_pequeno);
   right: -30vw;
   transition: 0.3s;
 }
@@ -692,7 +692,7 @@ span{
   align-items: center;
   justify-content: space-around;
   font-size: 1.5vw;
-  border-radius: 15px;
+  border-radius: var(--border_radius_pequeno);
 }
 
 .select_filtro{
@@ -700,8 +700,8 @@ span{
   width: 75%;
   height: 80%;
   text-align: center;
-  background-color: #CACACA;
-  border-radius: 15px;
+  background-color: var(--fondo_gris_claro);
+  border-radius: var(--border_radius_pequeno);
 }
 
 .totalHist{
@@ -714,7 +714,7 @@ span{
   font-weight: 700;
   align-items: center;
   justify-content: center;
-  border-radius: 15px;
+  border-radius: var(--border_radius_pequeno);
 }
 
 .menuHamburguesa{
@@ -805,7 +805,7 @@ span{
   }
 
   .infoReserva{
-    border-radius: 15px;
+    border-radius: var(--border_radius_pequeno);
     height: 90%;
   }
 

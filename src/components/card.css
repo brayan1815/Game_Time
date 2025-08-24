@@ -9,7 +9,7 @@
   text-align: center;
   color: var(--texto_blanco);
   gap: 10px;
-  border-radius: 15px;
+  border-radius: var(--border_radius_pequeno);
   justify-content: center;
 }
 
@@ -37,6 +37,7 @@
 .card__imagen{
   height: 102px;
   width: auto;
+  border-radius: var(--border_radius_pequeno);
 }
 
 .card__descripcion{

@@ -232,7 +232,7 @@ export const crearReservaController=async()=>{
             abrirCalendario(id_consola);
         }
         // Si se hace clic en el botón para cerrar el calendario
-        else if(clase=='botonCerrarCalendario')cerrarCalencuario();
+        else if(clase=='boton boton--CerrarCalendario')cerrarCalencuario();
     })
 
     // Cuenta la cantidad de campos que tiene el formulario para validación
